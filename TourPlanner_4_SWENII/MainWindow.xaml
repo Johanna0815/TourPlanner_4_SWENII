@@ -6,8 +6,38 @@
         xmlns:local="clr-namespace:TourPlanner_4_SWENII"
         mc:Ignorable="d"
         Title="TourPlanner_4_Window" Height="200" Width="200" FontFamily="Arial">
-    <Grid VerticalAlignment="Bottom">
-        <Label FontSize="16" FontFamily="Arial Black" VerticalAlignment="Top" Margin="0,-153,0,0">Huhu :D</Label>
-        <Button HorizontalAlignment="Center" Margin="0,-89,0,89" >To Test</Button>
+    <Grid >
+        <StackPanel Orientation =" Vertical" Grid.Row="1">
+            <TextBlock Text="Media Item List:" Margin="5"></TextBlock>
+
+
+                <Grid >
+        <Grid.ColumnDefinitions>
+        <ColumnDefinition Width ="Auto"/>
+        <ColumnDefinition Width ="*"/>
+        <ColumnDefinition Width ="Auto"/>
+        <ColumnDefinition Width ="Auto"/>
+                    </Grid.ColumnDefinitions>
+            
+                <TextBlock Grid.Column="0" Text= "Name" Margin="0,0,5,0" VerticalAlignment="Center"></TextBlock>
+            <TextBox Grid.Column="1" Name="txtSearchName" VerticalAlignment="Center"
+                     Text="{Binding SearchName, Mode=TwoWay}"/>
+            <Button Grid.Column="2" Width="50" Margin="5,0,0,0" Command="{Binding SearchCommand}">
+                Search
+            </Button>
+            <Button Grid.Column="3" Width="50" Margin="5,0,0,0" Command="{Binding ClearCommand}">
+                Clear
+            </Button>
+
+        </Grid>
+            
+        </StackPanel>
+        <ListBox x:Name="listMediaItems">
+
+
+
+
+        </ListBox>
     </Grid>
+
 </Window>
