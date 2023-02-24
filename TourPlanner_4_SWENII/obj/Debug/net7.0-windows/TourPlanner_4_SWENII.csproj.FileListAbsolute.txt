@@ -19,3 +19,6 @@ C:\Users\User\source\repos\TourPlanner_4\TourPlanner_4_SWENII\obj\Debug\net7.0-w
 C:\Users\User\source\repos\TourPlanner_4\TourPlanner_4_SWENII\obj\Debug\net7.0-windows\TourPlanner_4_SWENII.pdb
 C:\Users\User\source\repos\TourPlanner_4\TourPlanner_4_SWENII\obj\Debug\net7.0-windows\TourPlanner_4_SWENII.genruntimeconfig.cache
 C:\Users\User\source\repos\TourPlanner_4\TourPlanner_4_SWENII\obj\Debug\net7.0-windows\ref\TourPlanner_4_SWENII.dll
+C:\Users\User\source\repos\TourPlanner_4\TourPlanner_4_SWENII\bin\Debug\net7.0-windows\TourPlanner_4_SWENII.Models.dll
+C:\Users\User\source\repos\TourPlanner_4\TourPlanner_4_SWENII\bin\Debug\net7.0-windows\TourPlanner_4_SWENII.Models.pdb
+C:\Users\User\source\repos\TourPlanner_4\TourPlanner_4_SWENII\obj\Debug\net7.0-windows\TourPlanner_4_SWENII.csproj.CopyComplete

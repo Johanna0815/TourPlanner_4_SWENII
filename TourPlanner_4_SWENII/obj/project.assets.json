@@ -1,11 +1,33 @@
 {
   "version": 3,
   "targets": {
-    "net7.0-windows7.0": {}
+    "net7.0-windows7.0": {
+      "TourPlanner_4_SWENII.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/TourPlanner_4_SWENII.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TourPlanner_4_SWENII.Models.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "TourPlanner_4_SWENII.Models/1.0.0": {
+      "type": "project",
+      "path": "../Models/TourPlanner_4_SWENII.Models.csproj",
+      "msbuildProject": "../Models/TourPlanner_4_SWENII.Models.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0-windows7.0": []
+    "net7.0-windows7.0": [
+      "TourPlanner_4_SWENII.Models >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\User\\.nuget\\packages\\": {},
@@ -38,7 +60,11 @@
       "frameworks": {
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\User\\source\\repos\\TourPlanner_4\\Models\\TourPlanner_4_SWENII.Models.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\Models\\TourPlanner_4_SWENII.Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
