@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.Models;
 using TourPlanner_4_SWENII.ViewModels;
 
@@ -12,6 +13,8 @@ namespace TourPlanner_4_SWENII.ViewModels
 {
     public class MediaFolderVM : ViewModelBase
     {
+
+        private IMediaItemFactory mediaItemFactory;
 
         private MediaItem currentItem;
 
@@ -42,7 +45,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         public MediaFolderVM()
         {
-                
+            this.mediaItemFactory = MediaItemFactory.GetInstance();
         }
 
         private void Search(object commandParameter)

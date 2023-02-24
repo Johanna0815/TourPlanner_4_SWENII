@@ -2,22 +2,6 @@
   "version": 3,
   "targets": {
     "net7.0-windows7.0": {
-      "TourPlanner_4_SWENII.BL/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "TourPlanner_4_SWENII.Models": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/TourPlanner_4_SWENII.BL.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/TourPlanner_4_SWENII.BL.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App.WPF"
-        ]
-      },
       "TourPlanner_4_SWENII.Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -34,11 +18,6 @@
     }
   },
   "libraries": {
-    "TourPlanner_4_SWENII.BL/1.0.0": {
-      "type": "project",
-      "path": "../TourPlanner_4_SWENII.BL/TourPlanner_4_SWENII.BL.csproj",
-      "msbuildProject": "../TourPlanner_4_SWENII.BL/TourPlanner_4_SWENII.BL.csproj"
-    },
     "TourPlanner_4_SWENII.Models/1.0.0": {
       "type": "project",
       "path": "../Models/TourPlanner_4_SWENII.Models.csproj",
@@ -47,7 +26,6 @@
   },
   "projectFileDependencyGroups": {
     "net7.0-windows7.0": [
-      "TourPlanner_4_SWENII.BL >= 1.0.0",
       "TourPlanner_4_SWENII.Models >= 1.0.0"
     ]
   },
@@ -58,11 +36,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\TourPlanner_4_SWENII\\TourPlanner_4_SWENII.csproj",
-      "projectName": "TourPlanner_4_SWENII",
-      "projectPath": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\TourPlanner_4_SWENII\\TourPlanner_4_SWENII.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\TourPlanner_4_SWENII.BL\\TourPlanner_4_SWENII.BL.csproj",
+      "projectName": "TourPlanner_4_SWENII.BL",
+      "projectPath": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\TourPlanner_4_SWENII.BL\\TourPlanner_4_SWENII.BL.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\TourPlanner_4_SWENII\\obj\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\TourPlanner_4_SWENII.BL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -85,9 +63,6 @@
           "projectReferences": {
             "C:\\Users\\User\\source\\repos\\TourPlanner_4\\Models\\TourPlanner_4_SWENII.Models.csproj": {
               "projectPath": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\Models\\TourPlanner_4_SWENII.Models.csproj"
-            },
-            "C:\\Users\\User\\source\\repos\\TourPlanner_4\\TourPlanner_4_SWENII.BL\\TourPlanner_4_SWENII.BL.csproj": {
-              "projectPath": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\TourPlanner_4_SWENII.BL\\TourPlanner_4_SWENII.BL.csproj"
             }
           }
         }
