@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TourPlanner_4_SWENII.ViewModels;
 
 namespace TourPlanner_4_SWENII
 {
@@ -23,6 +24,7 @@ namespace TourPlanner_4_SWENII
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MediaFolderVM();
         }
     }
 }

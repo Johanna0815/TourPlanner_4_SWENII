@@ -6,6 +6,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "TourPlanner_4_SWENII.DAL": "1.0.0",
           "TourPlanner_4_SWENII.Models": "1.0.0"
         },
         "compile": {
@@ -13,6 +14,22 @@
         },
         "runtime": {
           "bin/placeholder/TourPlanner_4_SWENII.BL.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "TourPlanner_4_SWENII.DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "TourPlanner_4_SWENII.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TourPlanner_4_SWENII.DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TourPlanner_4_SWENII.DAL.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
@@ -38,6 +55,11 @@
       "type": "project",
       "path": "../TourPlanner_4_SWENII.BL/TourPlanner_4_SWENII.BL.csproj",
       "msbuildProject": "../TourPlanner_4_SWENII.BL/TourPlanner_4_SWENII.BL.csproj"
+    },
+    "TourPlanner_4_SWENII.DAL/1.0.0": {
+      "type": "project",
+      "path": "../TourPlanner_4_SWENII.DAL/TourPlanner_4_SWENII.DAL.csproj",
+      "msbuildProject": "../TourPlanner_4_SWENII.DAL/TourPlanner_4_SWENII.DAL.csproj"
     },
     "TourPlanner_4_SWENII.Models/1.0.0": {
       "type": "project",
