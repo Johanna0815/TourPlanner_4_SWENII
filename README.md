@@ -6,3 +6,8 @@ The user creates (bike-, hike-, running- or vacation-) tours in advance and mana
 statistical data of accomplished tours..
 
 We startet creating a WPF Application [using IDE Visual Studio 2022; .NET 7.0 Version]. 
+
+### Layered Architecture (in form of Subprojects [WPF Class Library] added)
+- BL
+- DAL
+- Models
