@@ -26,7 +26,7 @@ namespace TourPlanner_4_SWENII.BL
             if (caseSensitive)
             {
 
-                items.Where(x => x.Name.Contains(itemName));
+                return items.Where(x => x.Name.Contains(itemName));
 
             }
 
