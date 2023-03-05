@@ -29,10 +29,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         public MediaItem CurrentItem
         {
-            get
-            {
-                return currentItem;
-            }
+            get => currentItem;
             set
             {
                 if ((currentItem != value) && (value != null))
@@ -46,7 +43,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         public string SearchName
         {
-            get { return searchName; }
+            get => searchName;
             set
             {
                 if (searchName != value)
