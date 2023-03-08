@@ -11,3 +11,13 @@ We startet creating a WPF Application [using IDE Visual Studio 2022; .NET 7.0 Ve
 - BL
 - DAL
 - Models
+
+We added an NUnit Testproject (called TourPlanner_4_SWENII.Test); changed - as by the lecturer mentioned -
+the     <TargetFramework>net7.0-windows</TargetFramework> .
+- installed Microsoft.NET.Test.Sdk 
+- installed NUnit package
+- 
+
+
+
+
