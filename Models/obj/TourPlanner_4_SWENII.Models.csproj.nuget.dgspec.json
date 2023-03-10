@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\source\\repos\\TourPlanner_4\\Models\\TourPlanner_4_SWENII.Models.csproj": {}
+    "C:\\Users\\User\\SWEN_II\\TourPlanner_4_SWENII\\Models\\TourPlanner_4_SWENII.Models.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\source\\repos\\TourPlanner_4\\Models\\TourPlanner_4_SWENII.Models.csproj": {
+    "C:\\Users\\User\\SWEN_II\\TourPlanner_4_SWENII\\Models\\TourPlanner_4_SWENII.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\Models\\TourPlanner_4_SWENII.Models.csproj",
+        "projectUniqueName": "C:\\Users\\User\\SWEN_II\\TourPlanner_4_SWENII\\Models\\TourPlanner_4_SWENII.Models.csproj",
         "projectName": "TourPlanner_4_SWENII.Models",
-        "projectPath": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\Models\\TourPlanner_4_SWENII.Models.csproj",
+        "projectPath": "C:\\Users\\User\\SWEN_II\\TourPlanner_4_SWENII\\Models\\TourPlanner_4_SWENII.Models.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\source\\repos\\TourPlanner_4\\Models\\obj\\",
+        "outputPath": "C:\\Users\\User\\SWEN_II\\TourPlanner_4_SWENII\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -26,7 +26,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {}
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0-windows7.0": {
