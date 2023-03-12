@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TourPlanner_4_SWENII.ViewModels;
 
-namespace TourPlanner_4_SWENII
+namespace TourPlanner_4_SWENII.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
