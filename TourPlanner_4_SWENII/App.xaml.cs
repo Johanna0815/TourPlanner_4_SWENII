@@ -13,5 +13,10 @@ namespace TourPlanner_4_SWENII
     /// </summary>
     public partial class App : Application
     {
+
+
+
+
+
     }
 }
