@@ -1,51 +1,28 @@
-﻿<Window x:Class="TourPlanner_4_SWENII.MainWindow"
+﻿<Window x:Class="TourPlanner_4_SWENII.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewmodels="clr-namespace:TourPlanner_4_SWENII.ViewModels" d:DataContext="{d:DesignInstance Type= viewmodels:MediaFolderVM}"
-       
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:TourPlanner_4_SWENII.Views"
         mc:Ignorable="d"
-        Title="TourPlanner_4_Window" Height="210" Width="200" FontFamily="Arial">
+        Title="TourPlanner_4_Window" Height="210" Width="400" FontFamily="Arial">
     <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width ="100*"/>
+            <ColumnDefinition Width ="100*"/>
+            <ColumnDefinition Width ="150*"/>
+            <ColumnDefinition Width ="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="20"/>
+            <RowDefinition Height ="50*"/>
+            <RowDefinition Height ="25*"/>
+        </Grid.RowDefinitions>
 
-        
+        <local:NavBarView  Grid.Row="0" Grid.ColumnSpan="4" x:Name="NavBarView" />
+        <local:SearchBar  Grid.Row="1" Grid.ColumnSpan="4" x:Name="SearchBar" />
 
-            <StackPanel Orientation ="Vertical">
-            <TextBlock Text="Media Item List:" Margin="5"/>
-
-
-            <Grid >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width ="Auto"/>
-                    <ColumnDefinition Width ="*"/>
-                    <ColumnDefinition Width ="Auto"/>
-                    <ColumnDefinition Width ="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" Text= "Name" Margin="0,0,5,0" VerticalAlignment="Center"></TextBlock>
-                <TextBox Grid.Column="1" Name="txtSearchName" VerticalAlignment="Center"
-                     Text="{Binding SearchName, Mode=TwoWay}"/>
-                <Button Grid.Column="2" Width="50" Margin="5,0,0,0" Command="{Binding SearchCommand}">
-                    Search
-                </Button>
-                <Button Grid.Column="3" Width="50" Margin="5,0,0,0" Command="{Binding ClearCommand}">
-                    Clear
-                </Button>
-
-            </Grid>
-
-         
-
-
-
-
-
-
-
-
-        </StackPanel>
-
+        <Button Grid.Row="2" Content="test" ></Button>
 
     </Grid>
 
