@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="TourPlanner_4_SWENII.Views.ToursListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourPlanner_4_SWENII.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <!--<Button Grid.Row="2" Grid.RowSpan="2" Content="test" ></Button>-->
+    <TabControl>
+        <TabItem Header="Tours">
+            <Grid Background="#FFE5E5E5">
+                <ListView x:Name="listTours"  VerticalAlignment="Stretch">
+
+                    <!--ItemsSource="{Binding Path=Items}"-->
+                    <ListViewItem >Tour1</ListViewItem>
+                    <!--DisplayMemberBinding="{Binding Path=Name}"-->
+                    <ListViewItem>Wiener Wald</ListViewItem>
+                    <ListViewItem>Buschberg</ListViewItem>
+                    <!--<ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Listitems"/>
+                                
+                            </GridView>
+                        </ListView.View>-->
+                </ListView>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</UserControl>

@@ -14,7 +14,12 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="File"></MenuItem>
+            <MenuItem Header="File">
+                <MenuItem Header="_Import" />
+                <MenuItem Header="_Export" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
             <MenuItem Header="Edit"></MenuItem>
             <MenuItem Header="Options"></MenuItem>
 

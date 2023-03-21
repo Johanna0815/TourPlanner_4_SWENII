@@ -22,40 +22,14 @@
 
         <local:NavBarView  Grid.Row="0" Grid.ColumnSpan="4" x:Name="NavBarView" />
         <local:SearchBar  Grid.Row="1" Grid.ColumnSpan="4" x:Name="SearchBar" />
+        <local:ToursListView Grid.Row="2" Grid.RowSpan="2" x:Name="ToursListView" />
+        <local:TourInfo Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="TourInfo" />
+        <local:TourLogs Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" x:Name="TourLogs"/>
 
-        <!--<Button Grid.Row="2" Grid.RowSpan="2" Content="test" ></Button>-->
-        <TabControl Grid.Row="2">
-            <TabItem Header="Tours">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
 
-        <TabControl Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3">
-            <TabItem Header="General">
-                <Grid Background="#FFE5E5E5">
-                    <ListView x:Name="listGreetings" ItemsSource="{Binding Path=Items}" VerticalAlignment="Stretch">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Listitems" DisplayMemberBinding="{Binding Path=Name}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
-                
-            </TabItem>
-            <TabItem Header="Route">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Misc">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
 
-        <TabControl Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
-            <TabItem Header="Tour Logs">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
+
+        
 
     </Grid>
 
