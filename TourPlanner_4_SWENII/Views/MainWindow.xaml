@@ -23,7 +23,7 @@
         <local:NavBarView  Grid.Row="0" Grid.ColumnSpan="4" x:Name="NavBarView" />
         <local:SearchBar  Grid.Row="1" Grid.ColumnSpan="4" x:Name="SearchBar" />
         <local:ToursListView Grid.Row="2" Grid.RowSpan="2" x:Name="ToursListView" />
-        <local:TourInfo Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="TourInfo" />
+        <local:TourInfo Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="TourInfo"/>
         <local:TourLogs Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" x:Name="TourLogs"/>
 
 

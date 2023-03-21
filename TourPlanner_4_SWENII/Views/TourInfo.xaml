@@ -9,7 +9,7 @@
     <TabControl >
         <TabItem Header="General">
             <Grid Background="#FFE5E5E5">
-                <ListView x:Name="listItems" ItemsSource="{Binding Path=Items}" VerticalAlignment="Stretch">
+                <ListView x:Name="listItems" ItemsSource="{Binding Items}" VerticalAlignment="Stretch">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Listitems" DisplayMemberBinding="{Binding Path=Name}"/>

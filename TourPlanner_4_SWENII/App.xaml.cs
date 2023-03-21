@@ -36,8 +36,10 @@ namespace TourPlanner_4_SWENII
 
             DataContext = new MainViewModel(tourListViewModel,clearCommandVM),
             SearchBar = { DataContext = clearCommandVM },
-            ToursListView = { DataContext = tourListViewModel }
-
+            ToursListView = { DataContext = tourListViewModel },
+            TourInfo = {DataContext = tourListViewModel},
+            //TourLogs = {DataContext = tourListViewModel },
+            //NavBarView = { DataContext = tourListViewModel },
 
         };
         wnd.Show();
