@@ -9,13 +9,15 @@
     <TabControl >
         <TabItem Header="General">
             <Grid Background="#FFE5E5E5">
+                <!--
                 <ListView x:Name="listItems" ItemsSource="{Binding Items}" VerticalAlignment="Stretch">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Listitems" DisplayMemberBinding="{Binding Path=Name}"/>
                         </GridView>
                     </ListView.View>
-                </ListView>
+                </ListView>-->
+                <TextBlock>Tourinfo is empty</TextBlock>
             </Grid>
 
         </TabItem>

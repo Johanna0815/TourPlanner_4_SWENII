@@ -8,17 +8,28 @@ namespace TourPlanner_4_SWENII.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        private NavBarVM navBarVM;
+        private SearchBarVM searchBarVM;
+        private TourInfoVM tourInfoVM;
+        private TourLogsVM tourLogsVM;
         private ToursListViewModel toursListViewModel;
-       // private SearchViewModel searchViewModel;
-       private ClearCommandVM clearCommandVM;
+        //private ClearCommandVM clearCommandVM;
 
-        public MainViewModel(ToursListViewModel tlvm ,ClearCommandVM ccvm) //SearchViewModel svm
+
+
+        public MainViewModel(NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm) //SearchViewModel svm
         {
-          //  this.searchViewModel = svm;
-            this.toursListViewModel = tlvm;
+            navBarVM= nbVM;
+            searchBarVM= sbVM;
+            tourInfoVM= tiVM;
+            tourLogsVM= tlogVM;
+            toursListViewModel = tlistvm;
 
-            clearCommandVM = ccvm;
-        
+            /*
+            addGreetingBarViewModel.GreetingNameChanged += (_, greetingName) =>
+            greetingsViewModel.Greetings.Add(new Greeting() { Text = greetingName, Created = DateTime.Now, Status = true });
+            */
+
         }
 
 

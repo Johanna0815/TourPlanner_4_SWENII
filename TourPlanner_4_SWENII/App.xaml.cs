@@ -24,23 +24,26 @@ namespace TourPlanner_4_SWENII
 
         // Erstellen Sie eine IMediaItemFactory-Instanz
 
-
-        ToursListViewModel tourListViewModel = new ToursListViewModel();
         //SearchViewModel searchViewModel = new SearchViewModel(mediaItemFactory);
-        ClearCommandVM clearCommandVM = new ClearCommandVM();
+        NavBarVM navBarVM = new NavBarVM();
+        SearchBarVM searchBarVM = new SearchBarVM();
+        TourInfoVM tourInfoVM = new TourInfoVM();
+        TourLogsVM tourLogsVM = new TourLogsVM();
+        ToursListViewModel tourListViewModel = new ToursListViewModel();
+        //ClearCommandVM clearCommandVM = new ClearCommandVM();
 
 
 
         var wnd = new MainWindow()
         {
 
-            DataContext = new MainViewModel(tourListViewModel,clearCommandVM),
-            SearchBar = { DataContext = clearCommandVM },
-            ToursListView = { DataContext = tourListViewModel },
-            TourInfo = {DataContext = tourListViewModel},
-            //TourLogs = {DataContext = tourListViewModel },
-            //NavBarView = { DataContext = tourListViewModel },
-
+            DataContext = new MainViewModel(navBarVM, searchBarVM, tourInfoVM, tourLogsVM, tourListViewModel),
+            
+            NavBarView = { DataContext = navBarVM },
+            SearchBar = { DataContext =  searchBarVM}, //clearCommandVM
+            TourInfo = {DataContext = tourInfoVM},            //tourListViewModel //change !!
+            TourLogs = {DataContext = tourLogsVM },
+            ToursListView = { DataContext = tourListViewModel }
         };
         wnd.Show();
       

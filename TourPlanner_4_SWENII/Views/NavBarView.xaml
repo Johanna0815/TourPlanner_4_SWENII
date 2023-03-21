@@ -1,5 +1,4 @@
-﻿
-<UserControl x:Class="TourPlanner_4_SWENII.Views.NavBarView"
+﻿<UserControl x:Class="TourPlanner_4_SWENII.Views.NavBarView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -27,12 +26,3 @@
         </Menu>
     </DockPanel>
 </UserControl>
-
-    <!--<UniformGrid Columns="6">
-        <Button Content="File" ></Button>
-        <Button Content="Edit" ></Button>
-        <Button Content="Options" ></Button>
-        <Button ></Button>
-        <Button ></Button>
-        <Button Content="Help" ></Button>
-    </UniformGrid>-->

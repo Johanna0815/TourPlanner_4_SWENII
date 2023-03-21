@@ -6,23 +6,21 @@
              xmlns:local="clr-namespace:TourPlanner_4_SWENII.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <!--<Button Grid.Row="2" Grid.RowSpan="2" Content="test" ></Button>-->
     <TabControl>
         <TabItem Header="Tours">
             <Grid Background="#FFE5E5E5">
-                <ListView x:Name="listTours"  VerticalAlignment="Stretch">
-
-                    <!--ItemsSource="{Binding Path=Items}"-->
-                    <ListViewItem >Tour1</ListViewItem>
-                    <!--DisplayMemberBinding="{Binding Path=Name}"-->
-                    <ListViewItem>Wiener Wald</ListViewItem>
-                    <ListViewItem>Buschberg</ListViewItem>
-                    <!--<ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Listitems"/>
-                                
-                            </GridView>
-                        </ListView.View>-->
+                <ListView x:Name="listTours" ItemsSource="{Binding Path=Items}" VerticalAlignment="Stretch">
+                    <ListView.Resources>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="Template" Value="{x:Null}" />
+                        </Style>
+                    </ListView.Resources>
+                    <!--<ListViewItem >Tour1</ListViewItem>-->
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"/>
+                        </GridView>
+                    </ListView.View>
                 </ListView>
             </Grid>
         </TabItem>
