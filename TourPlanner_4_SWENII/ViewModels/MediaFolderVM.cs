@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,17 +15,8 @@ namespace TourPlanner_4_SWENII.ViewModels
     public class MediaFolderVM : ViewModelBase
     {
 
-        private IMediaItemFactory mediaItemFactory;
 
-        private MediaItem currentItem;
-
-        private string searchName;
-        private RelayCommand searchCommand;
-        private RelayCommand clearCommand;
-        public ICommand SearchCommand => searchCommand ??= new RelayCommand(Search);
-
-        public ICommand ClearCommand => clearCommand ??= new RelayCommand(Clear);
-        public ObservableCollection<MediaItem> Items { get; set; }
+       
 
         public MediaItem CurrentItem
         {
@@ -54,31 +45,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        public MediaFolderVM()
-        {
-            this.mediaItemFactory = MediaItemFactory.GetInstance();
-            InitListBox();
-        }
-
-        private void InitListBox()
-        {
-            Items = new ObservableCollection<MediaItem>();
-            // foreach (COLLECTION collection in COLLECTION)
-            FillListBox();
-        }
-
-
-        /// <summary>
-        /// in the XAML file exists an <ListBox ></ListBox>
-        /// </summary>
-        private void FillListBox()
-        {
-            foreach (MediaItem item in this.mediaItemFactory.GetItems())
-            {
-                Items.Add(item);
-            }
-        }
-
+  
 
 
         /// <summary>
@@ -116,3 +83,4 @@ namespace TourPlanner_4_SWENII.ViewModels
         }
     }
 }
+*/

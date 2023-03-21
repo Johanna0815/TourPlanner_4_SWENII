@@ -9,62 +9,38 @@ namespace TourPlanner_4_SWENII.ViewModels
 {
     public class RelayCommand : ICommand
     {
-       // private readonly RelayCommand _command;
-        private readonly Action<object> executeAction;
-        private readonly Predicate<object> canExecutePredicate;
+        readonly Action<object> _execute;
+        readonly Predicate<object> _canExecute;
 
-        public RelayCommand(Action<object> execute)
-        
-            :this(execute, null) {
-
-        }
-
-        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
-        {
-            if (execute == null)
-            {
-                throw new ArgumentNullException("execute");
-            }
-
-            executeAction = execute;
-            canExecutePredicate = canExecute;
-
-        }
-
-        /// <summary>
-        ///
-        /// Defines the method to be called when the command is invoked.
-        /// </summary>
-        /// <param name="parameter"></param> Data used by the command. If the command does not require data to be passed, this object can be __
-        public void Execute(object parameter)
-        {
-            executeAction(parameter);
-
-        }
-
-
-        /// <summary>
-        ///
-        /// Defines the method that determines whether the command can execute in its current state.
-        /// </summary>
-        /// <param name="parameter"></param> Data used by the command. If the command does not require data to be passed, this object can be ___
-        /// <returns>
-        /// true if this command can be executed; otherwise false. 
-        /// </returns>
-        public bool CanExecute(object parameter)
+        public RelayCommand(Action<object> execute) : this(null, execute)
         {
 
-            return canExecutePredicate == null ? true : canExecutePredicate(parameter);
         }
 
-
-        public event EventHandler CanExecuteChanged
+        public RelayCommand(Predicate<object> canExecute, Action<object> execute)
         {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
+        public event EventHandler? CanExecuteChanged;
+
+        public void RaiseCanExecuteChanged() => this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+
+
+        // liefert uns ob das command bereit ausgeführt zuwerden wenn z.b false dann ist das button deactiviert
+        public bool CanExecute(object? parameter)
+        {
+            _canExecute.Invoke(parameter);
+            return true;
+
+        }
+
+
+
+        // die wird ausgeführt sobald das button geclickt wurde dies ruft die Methode die hinter Realycommadn so lange is nicht null 
+        public void Execute(object? parameter) => this._execute?.Invoke(parameter);
 
     }
-    
+
 }
