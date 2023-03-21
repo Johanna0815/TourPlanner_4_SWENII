@@ -36,7 +36,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             FillListBox();
         }
 
-        private void FillListBox()
+        public void FillListBox()
         {
             foreach (MediaItem item in this.mediaItemFactory.GetItems())
             {
@@ -44,5 +44,21 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
+        public void SearchFor(string query)
+        {
+            IEnumerable foundItems = mediaItemFactory.Search(query);
+            Items.Clear();
+            foreach (MediaItem item in foundItems)
+            {
+                if (item == null)
+                {
+
+                    throw new ArgumentNullException(nameof(item));
+
+                }
+                Items.Add(item);
+
+            }
+        }
     }
 }

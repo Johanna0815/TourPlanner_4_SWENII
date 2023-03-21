@@ -12,7 +12,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 {
     public class ClearCommandVM : ViewModelBase
     {
-
+        /*
         
         public ClearCommandVM()
         
@@ -65,7 +65,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
 
 
-
+        */
 
     }
 }

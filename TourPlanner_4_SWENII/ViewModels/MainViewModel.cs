@@ -13,9 +13,6 @@ namespace TourPlanner_4_SWENII.ViewModels
         private TourInfoVM tourInfoVM;
         private TourLogsVM tourLogsVM;
         private ToursListViewModel toursListViewModel;
-        //private ClearCommandVM clearCommandVM;
-
-
 
         public MainViewModel(NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm) //SearchViewModel svm
         {
@@ -25,13 +22,17 @@ namespace TourPlanner_4_SWENII.ViewModels
             tourLogsVM= tlogVM;
             toursListViewModel = tlistvm;
 
-            /*
-            addGreetingBarViewModel.GreetingNameChanged += (_, greetingName) =>
-            greetingsViewModel.Greetings.Add(new Greeting() { Text = greetingName, Created = DateTime.Now, Status = true });
-            */
+            searchBarVM.SearchForText += (_, searchText) =>
+            { 
+                //toursListViewModel.Items.Clear(); 
+                toursListViewModel.SearchFor(searchText); 
+            };
 
+            searchBarVM.SearchCleared += (_, searchText) =>
+            { 
+                toursListViewModel.Items.Clear(); 
+                toursListViewModel.FillListBox(); 
+            };
         }
-
-
     }
 }

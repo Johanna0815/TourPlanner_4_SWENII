@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TourPlanner_4_SWENII.ViewModels
 {
-    public class TourInfoVM
+    public class TourInfoVM : ViewModelBase
     {
     }
 }

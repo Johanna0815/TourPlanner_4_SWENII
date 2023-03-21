@@ -25,7 +25,6 @@ namespace TourPlanner_4_SWENII.Views
         public MainWindow()
         {
             InitializeComponent();
-           // this.DataContext = new MediaFolderVM();
         }
     }
 }
