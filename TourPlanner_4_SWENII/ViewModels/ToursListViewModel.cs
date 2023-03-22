@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Interfaces;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,8 +23,6 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             this.mediaItemFactory = MediaItemFactory.GetInstance();
             InitListBox();
-           
-            
         }
 
 
