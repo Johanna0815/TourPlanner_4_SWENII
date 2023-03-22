@@ -21,6 +21,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
             tlogVM= new TourLogsVM();
             tlistVM = new ToursListViewModel();
             mVM = new MainViewModel(nbVM, sbVM, tiVM, tlogVM, tlistVM);
+            
         }
 
         [Test]
@@ -53,6 +54,26 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 
             Assert.That(actual, Is.EqualTo(expected));
             //Assert.That(tlistVM.Items.Any(Greeting => Greeting.Text == "Hola"));
+        }
+
+        [Test]
+
+        public void SearchedText_ShouldBe_Cleard()
+        
+        {
+
+            //Act
+
+            
+            string expected = "";
+            sbVM.ClearCommand.Execute(null);
+
+            //Assert
+
+            Assert.That(sbVM.SearchText,Is.EqualTo(expected));
+
+
+
         }
     }
 }

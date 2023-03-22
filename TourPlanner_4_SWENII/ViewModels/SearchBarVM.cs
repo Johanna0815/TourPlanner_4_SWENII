@@ -60,7 +60,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         private void Clear()    //object commandParameter
         {
             Debug.Print("Text Cleared");
-            //SearchText = "";
+            SearchText = "";
 
             SearchCleared?.Invoke(this, SearchText);
         }
