@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="TourPlanner_4_SWENII.Views.TourInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourPlanner_4_SWENII.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <TabControl >
+        <TabItem Header="General">
+            <Grid Background="#FFE5E5E5">
+                <!--
+                <ListView x:Name="listItems" ItemsSource="{Binding Items}" VerticalAlignment="Stretch">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Listitems" DisplayMemberBinding="{Binding Path=Name}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>-->
+                <TextBlock>Tourinfo is empty</TextBlock>
+            </Grid>
+
+        </TabItem>
+        <TabItem Header="Route">
+            <Grid Background="#FFE5E5E5"/>
+        </TabItem>
+        <TabItem Header="Misc">
+            <Grid Background="#FFE5E5E5"/>
+        </TabItem>
+    </TabControl>
+</UserControl>

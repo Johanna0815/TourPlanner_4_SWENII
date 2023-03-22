@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:TourPlanner_4_SWENII.Views"
         mc:Ignorable="d"
-        Title="TourPlanner_4_Window" Height="210" Width="400" FontFamily="Arial">
+        Title="TourPlanner_4_Window" Height="500" Width="800" FontFamily="Arial">
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width ="100*"/>
@@ -14,15 +14,22 @@
             <ColumnDefinition Width ="100*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height ="20"/>
-            <RowDefinition Height ="50*"/>
+            <RowDefinition Height ="30"/>
+            <RowDefinition Height ="30"/>
+            <RowDefinition Height ="25*"/>
             <RowDefinition Height ="25*"/>
         </Grid.RowDefinitions>
 
         <local:NavBarView  Grid.Row="0" Grid.ColumnSpan="4" x:Name="NavBarView" />
         <local:SearchBar  Grid.Row="1" Grid.ColumnSpan="4" x:Name="SearchBar" />
+        <local:ToursListView Grid.Row="2" Grid.RowSpan="2" x:Name="ToursListView" />
+        <local:TourInfo Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="TourInfo"/>
+        <local:TourLogs Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" x:Name="TourLogs"/>
 
-        <Button Grid.Row="2" Content="test" ></Button>
+
+
+
+        
 
     </Grid>
 
