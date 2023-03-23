@@ -7,10 +7,11 @@ using TourPlanner_4_SWENII.Models;
 
 namespace TourPlanner_4_SWENII.BL
 {
-    public interface IMediaItemFactory
+    public interface ITourItemManager
+
     {
 
-        IEnumerable<MediaItem> GetItems();
-        IEnumerable<MediaItem> Search(string itemName, bool caseSensitive = false);
+        IEnumerable<TourItem> GetItems();
+        IEnumerable<TourItem> Search(string itemName, bool caseSensitive = false);
     }
 }

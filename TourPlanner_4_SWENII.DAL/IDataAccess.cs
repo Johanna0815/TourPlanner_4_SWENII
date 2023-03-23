@@ -8,7 +8,7 @@ namespace TourPlanner_4_SWENII.DAL
     internal interface IDataAccess
     {
 
-        public List<MediaItem> GetItems();
+        public List<TourItem> GetItems();
 
 
     }

@@ -16,26 +16,53 @@ namespace TourPlanner_4_SWENII.ViewModels
     public class ToursListViewModel : ViewModelBase
     {
 
-        private IMediaItemFactory mediaItemFactory;
-        public ObservableCollection<MediaItem> Items { get; set; }
+        private ITourItemManager tourManager;
+        public ObservableCollection<TourItem> Items { get; set; }
 
         public ToursListViewModel()
         {
-            this.mediaItemFactory = MediaItemFactory.GetInstance();
+            this.tourManager = TourItemManagerFactory.GetInstance();
             InitListBox();
         }
+
+        private TourItem _selecteditem;
+        public TourItem SelectedItem
+        {
+
+            get => _selecteditem;
+
+
+            set
+
+            {
+                if (value != _selecteditem)
+                {
+
+
+                    _selecteditem = value;
+
+                    RaisePropertyChangedEvent();
+
+
+                }
+
+            }
+        }
+
 
 
         private void InitListBox()
         {
-            Items = new ObservableCollection<MediaItem>();
+
+            Items = new ObservableCollection<TourItem>();
             // foreach (COLLECTION collection in COLLECTION)
             FillListBox();
+            SelectedItem = Items.First();   
         }
 
         public void FillListBox()
         {
-            foreach (MediaItem item in this.mediaItemFactory.GetItems())
+            foreach (TourItem item in this.tourManager.GetItems())
             {
                 Items.Add(item);
             }
@@ -43,9 +70,9 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         public void SearchFor(string query)
         {
-            IEnumerable foundItems = mediaItemFactory.Search(query);
+            IEnumerable foundItems = tourManager.Search(query);
             Items.Clear();
-            foreach (MediaItem item in foundItems)
+            foreach (TourItem item in foundItems)
             {
                 if (item == null)
                 {

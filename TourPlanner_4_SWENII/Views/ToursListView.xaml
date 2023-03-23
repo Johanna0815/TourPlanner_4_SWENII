@@ -9,7 +9,7 @@
     <TabControl>
         <TabItem Header="Tours">
             <Grid Background="#FFE5E5E5">
-                <ListView x:Name="listTours" ItemsSource="{Binding Path=Items}" VerticalAlignment="Stretch">
+                <ListView x:Name="listTours" ItemsSource="{Binding Path=Items}" SelectedItem="{Binding Path = SelectedItem }" VerticalAlignment="Stretch">
                     <ListView.Resources>
                         <Style TargetType="GridViewColumnHeader">
                             <Setter Property="Template" Value="{x:Null}" />

@@ -17,7 +17,7 @@ namespace TourPlanner_4_SWENII
     /// </summary>
     public partial class App : Application
     {
-        public IMediaItemFactory? mediaItemFactory;
+        public ITourItemManager? mediaItemFactory;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {

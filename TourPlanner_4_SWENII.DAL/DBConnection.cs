@@ -13,19 +13,20 @@ namespace TourPlanner_4_SWENII.DAL
         {
 
             connectionString = "...";
+
             // establish connection with DB
         }
-        public List<MediaItem> GetItems()
+        public List<TourItem> GetItems()
         {
 
             // select SQL query
-            return new List<MediaItem>()
+            return new List<TourItem>()
             {
-                new MediaItem() { Name = "TourDeFrance" },
-                new MediaItem() { Name = "TourDeSwiss" },
-                new MediaItem() { Name = "TourDeAustria" },
-                new MediaItem() { Name = "DonauRadler" },
-                new MediaItem() { Name = "HeimOderWoandersHin" }
+                new TourItem() { Name = "TourDeFrance" },
+                new TourItem() { Name = "TourDeSwiss" },
+                new TourItem() { Name = "TourDeAustria" },
+                new TourItem() { Name = "DonauRadler" },
+                new TourItem() { Name = "HeimOderWoandersHin" }
                 // throw new NotImplementedException();
             };
            // throw new NotImplementedException();

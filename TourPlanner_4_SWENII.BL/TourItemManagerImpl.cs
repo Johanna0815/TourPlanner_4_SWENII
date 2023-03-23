@@ -7,21 +7,25 @@ using TourPlanner_4_SWENII.DAL;
 using TourPlanner_4_SWENII.Models;
 
 namespace TourPlanner_4_SWENII.BL
+
+
 {
-    internal class MediaItemFactoryImpl : IMediaItemFactory
+    // Execution of the Methodes in IMediaItemFactory
+
+    internal class TourItemManagerImpl : ITourItemManager
     {
 
         private MediaItemDAO mediaItemDao = new MediaItemDAO();
 
-        public IEnumerable<MediaItem> GetItems()
+        public IEnumerable<TourItem> GetItems()
         {
            return mediaItemDao.GetItems();
             //return statement
         }
 
-        public IEnumerable<MediaItem> Search(string itemName, bool caseSensitive = false)
+        public IEnumerable<TourItem> Search(string itemName, bool caseSensitive = false)
         {
-            IEnumerable<MediaItem> items = GetItems();
+            IEnumerable<TourItem> items = GetItems();
             // throw new NotImplementedException();
             if (caseSensitive)
             {

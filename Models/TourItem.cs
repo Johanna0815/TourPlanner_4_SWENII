@@ -2,7 +2,7 @@ using System;
 
 namespace TourPlanner_4_SWENII.Models
 {
-    public class MediaItem
+    public class TourItem
 
     {
 
