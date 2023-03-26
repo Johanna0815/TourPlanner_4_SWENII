@@ -58,7 +58,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 
         [Test]
 
-        public void SearchedText_ShouldBe_Cleard()
+        public void SearchedText_ShouldBe_Cleared()
         
         {
 
