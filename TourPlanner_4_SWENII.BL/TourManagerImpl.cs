@@ -12,20 +12,20 @@ namespace TourPlanner_4_SWENII.BL
 {
     // Execution of the Methodes in IMediaItemFactory
 
-    internal class TourItemManagerImpl : ITourItemManager
+    internal class TourManagerImpl : ITourManager
     {
 
         private MediaItemDAO mediaItemDao = new MediaItemDAO();
 
-        public IEnumerable<TourItem> GetItems()
+        public IEnumerable<Tour> GetItems()
         {
            return mediaItemDao.GetItems();
             //return statement
         }
 
-        public IEnumerable<TourItem> Search(string itemName, bool caseSensitive = false)
+        public IEnumerable<Tour> Search(string itemName, bool caseSensitive = false)
         {
-            IEnumerable<TourItem> items = GetItems();
+            IEnumerable<Tour> items = GetItems();
             // throw new NotImplementedException();
             if (caseSensitive)
             {

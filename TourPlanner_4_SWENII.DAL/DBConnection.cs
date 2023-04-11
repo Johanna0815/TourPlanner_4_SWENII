@@ -16,17 +16,18 @@ namespace TourPlanner_4_SWENII.DAL
 
             // establish connection with DB
         }
-        public List<TourItem> GetItems()
+        public List<Tour> GetItems()
         {
+            Console.WriteLine($"returned items");
 
             // select SQL query
-            return new List<TourItem>()
+            return new List<Tour>()
             {
-                new TourItem() { Name = "TourDeFrance" },
-                new TourItem() { Name = "TourDeSwiss" },
-                new TourItem() { Name = "TourDeAustria" },
-                new TourItem() { Name = "DonauRadler" },
-                new TourItem() { Name = "HeimOderWoandersHin" }
+                new Tour() { Name = "TourDeFrance" },
+                new Tour() { Name = "TourDeSwiss" },
+                new Tour() { Name = "TourDeAustria" },
+                new Tour() { Name = "DonauRadler" },
+                new Tour() { Name = "HeimOderWoandersHin" }
                 // throw new NotImplementedException();
             };
            // throw new NotImplementedException();

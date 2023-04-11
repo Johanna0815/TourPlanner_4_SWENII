@@ -7,11 +7,9 @@ using TourPlanner_4_SWENII.Models;
 
 namespace TourPlanner_4_SWENII.BL
 {
-    public interface ITourItemManager
-
+    public interface ITourManager
     {
-
-        IEnumerable<TourItem> GetItems();
-        IEnumerable<TourItem> Search(string itemName, bool caseSensitive = false);
+        IEnumerable<Tour> GetItems();
+        IEnumerable<Tour> Search(string itemName, bool caseSensitive = false);
     }
 }

@@ -19,17 +19,18 @@ namespace TourPlanner_4_SWENII.DAL
             filePath = "...";
         }
 
-        public List<TourItem> GetItems()
+        public List<Tour> GetItems()
         {
 
             // get media Items from file system
-            return new List<TourItem>()
-            {
-                new TourItem() { Name = "TourDeFrance" },
-                new TourItem() { Name = "TourDeSwiss" },
-                new TourItem() { Name = "TourDeAustria" },
-                new TourItem() { Name = "DonauRadler" },
-                new TourItem() { Name = "HeimOderWoandersHin" }
+            return new List<Tour>()
+            {/*
+                new Tour() { Name = "TourDeFrance" },
+                new Tour() { Name = "TourDeSwiss" },
+                new Tour() { Name = "TourDeAustria" },
+                new Tour() { Name = "DonauRadler" },
+                new Tour() { Name = "HeimOderWoandersHin" }*/
+
                 // throw new NotImplementedException();
             };
 

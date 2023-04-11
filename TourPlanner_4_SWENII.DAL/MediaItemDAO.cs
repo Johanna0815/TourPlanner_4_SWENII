@@ -22,7 +22,7 @@ namespace TourPlanner_4_SWENII.DAL
         }
 
 
-        public List<TourItem> GetItems()
+        public List<Tour> GetItems()
         {
             return dataAccess.GetItems();
         }

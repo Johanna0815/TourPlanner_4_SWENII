@@ -16,17 +16,17 @@ namespace TourPlanner_4_SWENII.ViewModels
     public class ToursListViewModel : ViewModelBase
     {
 
-        private ITourItemManager tourManager;
-        public ObservableCollection<TourItem> Items { get; set; }
+        private ITourManager tourManager;
+        public ObservableCollection<Tour> Tours { get; set; }
 
         public ToursListViewModel()
         {
-            this.tourManager = TourItemManagerFactory.GetInstance();
+            this.tourManager = TourManagerFactory.GetInstance();
             InitListBox();
         }
 
-        private TourItem _selecteditem;
-        public TourItem SelectedItem
+        private Tour _selecteditem;
+        public Tour SelectedItem
         {
 
             get => _selecteditem;
@@ -54,33 +54,33 @@ namespace TourPlanner_4_SWENII.ViewModels
         private void InitListBox()
         {
 
-            Items = new ObservableCollection<TourItem>();
+            Tours = new ObservableCollection<Tour>();
             // foreach (COLLECTION collection in COLLECTION)
             FillListBox();
-            SelectedItem = Items.First();   
+            SelectedItem = Tours.First();   
         }
 
         public void FillListBox()
         {
-            foreach (TourItem item in this.tourManager.GetItems())
+            foreach (Tour tour in this.tourManager.GetItems())
             {
-                Items.Add(item);
+                Tours.Add(tour);
             }
         }
 
         public void SearchFor(string query)
         {
             IEnumerable foundItems = tourManager.Search(query);
-            Items.Clear();
-            foreach (TourItem item in foundItems)
+            Tours.Clear();
+            foreach (Tour tour in foundItems)
             {
-                if (item == null)
+                if (tour == null)
                 {
 
-                    throw new ArgumentNullException(nameof(item));
+                    throw new ArgumentNullException(nameof(tour));
 
                 }
-                Items.Add(item);
+                Tours.Add(tour);
 
             }
         }

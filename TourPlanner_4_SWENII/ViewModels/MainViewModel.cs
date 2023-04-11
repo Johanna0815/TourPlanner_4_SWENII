@@ -30,7 +30,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             searchBarVM.SearchCleared += (_, searchText) =>
             { 
-                toursListViewModel.Items.Clear(); 
+                toursListViewModel.Tours.Clear(); 
                 toursListViewModel.FillListBox(); 
             };
         }
