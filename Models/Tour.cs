@@ -14,21 +14,21 @@ namespace TourPlanner_4_SWENII.Models
     {
         public Tour() { }  
 
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int Id { get; set; } = 0;
+        public string Name { get; set; } = string.Empty;
 
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         //rename?
-        public string From { get; set; }
+        public string From { get; set; } = string.Empty;
         //rename?
-        public string To { get; set; }
+        public string To { get; set; } = string.Empty;
 
         public TransportType TransportType { get; set; }
 
-        public decimal Distance { get; set; }
+        public decimal Distance { get; set; } = 0;
 
-        public DateTime EstimatedTime { get; set; }
+        public DateTime EstimatedTime { get; set; } = DateTime.UtcNow;
 
         //public AllowedMemberLocations AllowedMemberLocations { get; set; } = new AllowedMemberLocations();
         //abstract Lookup<Tour, TransportType> RestoreTransportType();

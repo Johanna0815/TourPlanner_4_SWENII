@@ -62,7 +62,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         public void FillListBox()
         {
-            foreach (Tour tour in this.tourManager.GetItems())
+            foreach (Tour tour in this.tourManager.GetTours())
             {
                 Tours.Add(tour);
             }

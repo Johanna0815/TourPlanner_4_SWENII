@@ -1,4 +1,9 @@
-﻿using System;
+﻿
+
+//DEPRECATED
+
+/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,12 +29,12 @@ namespace TourPlanner_4_SWENII.DAL
 
             // get media Items from file system
             return new List<Tour>()
-            {/*
+            {
                 new Tour() { Name = "TourDeFrance" },
                 new Tour() { Name = "TourDeSwiss" },
                 new Tour() { Name = "TourDeAustria" },
                 new Tour() { Name = "DonauRadler" },
-                new Tour() { Name = "HeimOderWoandersHin" }*/
+                new Tour() { Name = "HeimOderWoandersHin" }
 
                 // throw new NotImplementedException();
             };
@@ -38,3 +43,4 @@ namespace TourPlanner_4_SWENII.DAL
         }
     }
 }
+*/

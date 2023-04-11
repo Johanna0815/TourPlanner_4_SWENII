@@ -9,7 +9,7 @@ namespace TourPlanner_4_SWENII.BL
 {
     public interface ITourManager
     {
-        IEnumerable<Tour> GetItems();
+        IEnumerable<Tour> GetTours();
         IEnumerable<Tour> Search(string itemName, bool caseSensitive = false);
     }
 }

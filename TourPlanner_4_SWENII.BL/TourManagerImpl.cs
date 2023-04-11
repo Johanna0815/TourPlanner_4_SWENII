@@ -14,18 +14,18 @@ namespace TourPlanner_4_SWENII.BL
 
     internal class TourManagerImpl : ITourManager
     {
+        private IDataHandler dal = new DataHandlerMemory();
+        //private MediaItemDAO mediaItemDao = new MediaItemDAO();
 
-        private MediaItemDAO mediaItemDao = new MediaItemDAO();
-
-        public IEnumerable<Tour> GetItems()
+        public IEnumerable<Tour> GetTours()
         {
-           return mediaItemDao.GetItems();
+           return dal.GetTours();
             //return statement
         }
 
         public IEnumerable<Tour> Search(string itemName, bool caseSensitive = false)
         {
-            IEnumerable<Tour> items = GetItems();
+            IEnumerable<Tour> items = GetTours();
             // throw new NotImplementedException();
             if (caseSensitive)
             {
