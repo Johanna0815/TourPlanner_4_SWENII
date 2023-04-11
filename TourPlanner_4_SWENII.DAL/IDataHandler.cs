@@ -10,6 +10,7 @@ namespace TourPlanner_4_SWENII.DAL
     public interface IDataHandler
     {
         public IEnumerable<Tour> GetTours();
-        //public void AddTour(Tour newTour);
+        public void AddTour(Tour newTour);
+        public void DeleteTour(Tour tour);
     }
 }

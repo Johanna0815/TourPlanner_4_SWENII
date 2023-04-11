@@ -9,36 +9,44 @@
     <Grid>
         <!--Command="{Binding AddTourCommand}"-->
         <StackPanel Panel.ZIndex="1">
-            <Button Click="Add" Height="20" Width="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
-            <Border Name="TextPrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
-            <StackPanel Background="#ffe5e5e5">
-                <TextBox Name="txtSearchName" Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
-                     Text="{Binding SearchText, Mode=TwoWay}"/>
-                <Button Command="{Binding AddTourCommand}" Height="20" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 5">Add Tour</Button>
-            </StackPanel>
+            <WrapPanel FlowDirection="RightToLeft">
+                <Button Click="Remove" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">-</Button>
+                <Button Click="Add" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
+            </WrapPanel>
+            <Border x:Name="TourNamePrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
+                <StackPanel Background="#ffe5e5e5">
+                    <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
+                     Text="{Binding NewTourName, Mode=TwoWay}"/>
+                    <Button Command="{Binding AddTourCommand}" Click="Add" Height="20" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 5">Add Tour</Button>
+                </StackPanel>
+            </Border>
+            <Border x:Name="RemoveTourPrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
+                <StackPanel Background="#ffe5e5e5">
+                    <Button Command="{Binding DeleteTourCommand}" Click="Remove" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5, 5, 5, 5">Delete Selected Tour</Button>
+                </StackPanel>
             </Border>
 
         </StackPanel>
-        
+
         <TabControl>
             <TabItem Header="Tours">
                 <Grid Background="#FFE5E5E5">
                     <ListView x:Name="listTours" ItemsSource="{Binding Path=Tours}" SelectedItem="{Binding Path = SelectedItem }" VerticalAlignment="Stretch">
-                    <ListView.Resources>
-                        <Style TargetType="GridViewColumnHeader">
-                            <Setter Property="Template" Value="{x:Null}" />
-                        </Style>
-                    </ListView.Resources>
-                    <!--<ListViewItem >Tour1</ListViewItem>-->
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>
-        </TabItem>
-        
-    </TabControl>
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Template" Value="{x:Null}" />
+                            </Style>
+                        </ListView.Resources>
+                        <!--<ListViewItem >Tour1</ListViewItem>-->
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
     </Grid>
 </UserControl>

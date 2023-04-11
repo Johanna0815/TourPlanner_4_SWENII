@@ -15,6 +15,17 @@ namespace TourPlanner_4_SWENII.BL
     internal class TourManagerImpl : ITourManager
     {
         private IDataHandler dal = new DataHandlerMemory();
+
+        public void AddTour(string tourName)
+        {
+            dal.AddTour(new Tour() { Name=tourName });
+        }
+
+        public void DeleteTour(Tour tour)
+        {
+            dal.DeleteTour(tour);
+        }
+
         //private MediaItemDAO mediaItemDao = new MediaItemDAO();
 
         public IEnumerable<Tour> GetTours()

@@ -11,5 +11,8 @@ namespace TourPlanner_4_SWENII.BL
     {
         IEnumerable<Tour> GetTours();
         IEnumerable<Tour> Search(string itemName, bool caseSensitive = false);
+
+        void AddTour(string tourName);
+        void DeleteTour(Tour item);
     }
 }

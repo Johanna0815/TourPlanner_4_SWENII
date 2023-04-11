@@ -10,7 +10,7 @@ using System.Windows.Input;
 using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.Models;
 using TourPlanner_4_SWENII.ViewModels;
-
+using TourPlanner_4_SWENII.Views;
 
 namespace TourPlanner_4_SWENII.ViewModels
 {
@@ -20,42 +20,26 @@ namespace TourPlanner_4_SWENII.ViewModels
         private ITourManager tourManager;
         public ObservableCollection<Tour> Tours { get; set; }
 
-        
-
-        public RelayCommand AddTourCommand { get; set; }
-
-        public event EventHandler<string> TourAdded;
-        /*
-        private string searchtext;
-        public string SearchText
+        private string newTourName;
+        public string NewTourName
         {
-            get => searchtext;
+            get => newTourName;
 
             set
             {
-                if (searchtext != value)
+                if (newTourName != value)
                 {
-                    searchtext = value;
+                    newTourName = value;
                     this.RaisePropertyChangedEvent();
-                    this.ClearCommand.RaiseCanExecuteChanged();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
-        private void Search()
-        {
-            Debug.Print($"Searching for text {SearchText}");
+        public RelayCommand AddTourCommand { get; set; }
+        public RelayCommand DeleteTourCommand { get; set; }
 
-            SearchForText?.Invoke(this, SearchText);
-        }
-
-        private void Clear()    //object commandParameter
-        {
-            Debug.Print("Text Cleared");
-            SearchText = "";
-
-            SearchCleared?.Invoke(this, SearchText);
-        }*/
+        //public event EventHandler<string> TourAdded;
 
         public ToursListViewModel()
         {
@@ -63,18 +47,35 @@ namespace TourPlanner_4_SWENII.ViewModels
             InitListBox();
 
             AddTourCommand = new RelayCommand(
-                (O) => { return true; }, //1.Paramater canexecute //!String.IsNullOrEmpty(SearchText)
-                (O) => { AddTour(); }//2.p execute
+                (O) => !String.IsNullOrEmpty(NewTourName),
+                (O) => { AddTour(); }
             );
 
-            //SearchText = "First";
+            DeleteTourCommand = new RelayCommand(
+                (O) => SelectedItem != null && !String.IsNullOrEmpty(SelectedItem.Name),
+                (O) => { DeleteTour(SelectedItem); }
+            );
+
+            NewTourName = "";
         }
 
         private void AddTour()
         {
-            Debug.Print($"Adding tour");
+            Debug.Print($"Adding tour {NewTourName}");
 
-            //SearchForText?.Invoke(this, SearchText);
+            tourManager.AddTour(NewTourName);
+            FillListBox();
+
+            
+            //TourAdded?.Invoke(this, NewTourName);
+        }
+
+        private void DeleteTour(Tour item)
+        {
+            Debug.Print($"Deleting tour {item.Name}");
+
+            tourManager.DeleteTour(item);
+            FillListBox();
         }
 
         private Tour _selecteditem;
@@ -90,7 +91,6 @@ namespace TourPlanner_4_SWENII.ViewModels
 
                     RaisePropertyChangedEvent();
                 }
-
             }
         }
 
@@ -105,7 +105,10 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         public void FillListBox()
         {
-            foreach (Tour tour in this.tourManager.GetTours())
+            //todo?: remove clear
+            //this is here right now to allow reading the whole list from the db after every change
+            Tours.Clear();
+            foreach (Tour tour in tourManager.GetTours())
             {
                 Tours.Add(tour);
             }

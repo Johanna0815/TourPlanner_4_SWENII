@@ -26,7 +26,19 @@ namespace TourPlanner_4_SWENII.DAL
             context.SaveChanges();
         }
 
-		public IEnumerable<Tour> GetTours()
+        public void AddTour(Tour newTour)
+        {
+            context.Tours.Add(newTour);
+            context.SaveChanges();
+        }
+
+        public void DeleteTour(Tour tour)
+        {
+            context.Tours.Remove(tour);
+            context.SaveChanges();
+        }
+
+        public IEnumerable<Tour> GetTours()
         {
             context.Tours.Load();
             return context.Tours;

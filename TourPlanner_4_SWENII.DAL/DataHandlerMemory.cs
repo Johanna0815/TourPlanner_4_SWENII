@@ -17,6 +17,19 @@ namespace TourPlanner_4_SWENII.DAL
         {
             //tours.Add(new Tour() { name = "demo", ...});
         }
+
+        public void AddTour(Tour newTour)
+        {
+            //todo: save in memory
+            dataHandlerEF.AddTour(newTour);
+        }
+
+        public void DeleteTour(Tour tour)
+        {
+            //todo: save in memory
+            dataHandlerEF.DeleteTour(tour);
+        }
+
         public IEnumerable<Tour> GetTours()
         {
             tours = dataHandlerEF.GetTours();

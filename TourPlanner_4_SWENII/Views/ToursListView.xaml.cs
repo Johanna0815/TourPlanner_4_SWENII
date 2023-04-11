@@ -27,14 +27,30 @@ namespace TourPlanner_4_SWENII.Views
 
         public void Add(object sender, RoutedEventArgs e)
         {
-            if(TextPrompt.Visibility == Visibility.Visible)
+            if(TourNamePrompt.Visibility == Visibility.Visible)
             {
-                TextPrompt.Visibility = Visibility.Collapsed;
+                TourNamePrompt.Visibility = Visibility.Collapsed;
             }
             else
             {
-                TextPrompt.Visibility = Visibility.Visible;
+                TourNamePrompt.Visibility = Visibility.Visible;
             }
+
+            RemoveTourPrompt.Visibility = Visibility.Collapsed;
+        }
+
+        public void Remove(object sender, RoutedEventArgs e)
+        {
+            if (RemoveTourPrompt.Visibility == Visibility.Visible)
+            {
+                RemoveTourPrompt.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                RemoveTourPrompt.Visibility = Visibility.Visible;
+            }
+
+            TourNamePrompt.Visibility = Visibility.Collapsed;
         }
     }
 }
