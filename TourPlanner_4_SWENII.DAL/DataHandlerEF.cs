@@ -17,13 +17,14 @@ namespace TourPlanner_4_SWENII.DAL
             context.Database.EnsureCreated();
 
             //for testing only:
+            /*
             context.Tours.AddRange(
                 new Tour() { Name = "TourDeFrance" },
                 new Tour() { Name = "TourDeSwiss" },
                 new Tour() { Name = "TourDeAustria" },
                 new Tour() { Name = "DonauRadler" },
                 new Tour() { Name = "HeimOderWoandersHin" });
-            context.SaveChanges();
+            context.SaveChanges();*/
         }
 
         public void AddTour(Tour newTour)
