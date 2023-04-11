@@ -18,6 +18,6 @@ namespace TourPlanner_4_SWENII.Models
         public int Rating { get; set; }
         public TourLog() { }
 
-
+      
     }
 }
