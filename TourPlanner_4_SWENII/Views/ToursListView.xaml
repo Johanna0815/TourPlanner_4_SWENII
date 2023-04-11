@@ -6,10 +6,24 @@
              xmlns:local="clr-namespace:TourPlanner_4_SWENII.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <TabControl>
-        <TabItem Header="Tours">
-            <Grid Background="#FFE5E5E5">
-                <ListView x:Name="listTours" ItemsSource="{Binding Path=Tours}" SelectedItem="{Binding Path = SelectedItem }" VerticalAlignment="Stretch">
+    <Grid>
+        <!--Command="{Binding AddTourCommand}"-->
+        <StackPanel Panel.ZIndex="1">
+            <Button Click="Add" Height="20" Width="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
+            <Border Name="TextPrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
+            <StackPanel Background="#ffe5e5e5">
+                <TextBox Name="txtSearchName" Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
+                     Text="{Binding SearchText, Mode=TwoWay}"/>
+                <Button Command="{Binding AddTourCommand}" Height="20" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 5">Add Tour</Button>
+            </StackPanel>
+            </Border>
+
+        </StackPanel>
+        
+        <TabControl>
+            <TabItem Header="Tours">
+                <Grid Background="#FFE5E5E5">
+                    <ListView x:Name="listTours" ItemsSource="{Binding Path=Tours}" SelectedItem="{Binding Path = SelectedItem }" VerticalAlignment="Stretch">
                     <ListView.Resources>
                         <Style TargetType="GridViewColumnHeader">
                             <Setter Property="Template" Value="{x:Null}" />
@@ -24,5 +38,7 @@
                 </ListView>
             </Grid>
         </TabItem>
+        
     </TabControl>
+    </Grid>
 </UserControl>
