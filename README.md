@@ -21,3 +21,14 @@ the     <TargetFramework>net7.0-windows</TargetFramework> .
 
 
 
+_______________notes: 
+### Database PostgreSQL 
+
+- Database named: 
+- postgres image running on Docker
+- Docker compose .yml file included in the project
+
+
+// TODO: include UML | https://drive.google.com/file/d/15EUxkCWOCbWE_4D4CVqPU1yTH-qm9TNI/view?ts=6411c8db
+
+
