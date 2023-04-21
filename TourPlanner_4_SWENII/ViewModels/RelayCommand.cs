@@ -28,7 +28,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         public void RaiseCanExecuteChanged() => this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 
 
-        // liefert uns ob das command bereit ausgeführt zuwerden wenn z.b false dann ist das button deactiviert
+        // liefert uns ob das command bereit ausgeführt zuwerden wenn z.b false dann ist der button deactiviert
         public bool CanExecute(object? parameter)
         {
             _canExecute.Invoke(parameter);
@@ -36,9 +36,8 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         }
 
-
-
-        // die wird ausgeführt sobald das button geclickt wurde dies ruft die Methode die hinter Realycommadn so lange is nicht null 
+        // wird ausgeführt sobald der button geklickt wurde,
+        // dies ruft die Methode die hinter Relaycommand steht solange is nicht null 
         public void Execute(object? parameter) => this._execute?.Invoke(parameter);
 
     }

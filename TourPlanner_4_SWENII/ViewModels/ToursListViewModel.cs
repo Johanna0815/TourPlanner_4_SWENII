@@ -32,6 +32,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                     newTourName = value;
                     this.RaisePropertyChangedEvent();
                     this.AddTourCommand.RaiseCanExecuteChanged();
+                    Debug.Print($" changed newTourName to {value}");
                 }
             }
         }
@@ -67,7 +68,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             tourManager.AddTour(NewTourName);
             FillListBox();
 
-
+            NewTourName = "";
             //TourAdded?.Invoke(this, NewTourName);
         }
 

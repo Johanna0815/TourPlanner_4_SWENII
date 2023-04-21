@@ -27,16 +27,7 @@ namespace TourPlanner_4_SWENII.Views
 
         public void Add(object sender, RoutedEventArgs e)
         {
-            if (TourNamePrompt.Visibility == Visibility.Visible)
-            {
-                TourNamePrompt.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                TourNamePrompt.Visibility = Visibility.Visible;
-            }
-
-            RemoveTourPrompt.Visibility = Visibility.Collapsed;
+            
         }
 
         public void Remove(object sender, RoutedEventArgs e)
@@ -50,11 +41,21 @@ namespace TourPlanner_4_SWENII.Views
                 RemoveTourPrompt.Visibility = Visibility.Visible;
             }
 
-            TourNamePrompt.Visibility = Visibility.Collapsed;
+            EditTourLogPrompt.Visibility = Visibility.Collapsed;
         }
 
         public void Edit(object sender, RoutedEventArgs e)
         {
+            if (EditTourLogPrompt.Visibility == Visibility.Visible)
+            {
+                EditTourLogPrompt.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                EditTourLogPrompt.Visibility = Visibility.Visible;
+            }
+
+            RemoveTourPrompt.Visibility = Visibility.Collapsed;
         }
     }
 }
