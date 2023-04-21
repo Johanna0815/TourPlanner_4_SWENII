@@ -41,9 +41,10 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         //public event EventHandler<string> TourAdded;
 
-        public ToursListViewModel()
+        public ToursListViewModel() //ITourManager tourmanager
         {
-            tourManager = TourManagerFactory.GetInstance();
+            //this.tourmanager = tourmanager
+            tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
             InitListBox();
 
             AddTourCommand = new RelayCommand(
@@ -66,7 +67,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             tourManager.AddTour(NewTourName);
             FillListBox();
 
-            
+
             //TourAdded?.Invoke(this, NewTourName);
         }
 
@@ -100,7 +101,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             // foreach (COLLECTION collection in COLLECTION)
             FillListBox();
-            SelectedItem = Tours.First();   
+            // SelectedItem = Tours.First();   
         }
 
         public void FillListBox()

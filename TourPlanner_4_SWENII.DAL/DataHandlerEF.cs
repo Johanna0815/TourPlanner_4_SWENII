@@ -10,7 +10,7 @@ namespace TourPlanner_4_SWENII.DAL
 {
     public class DataHandlerEF : IDataHandler
     {
-        private TourPlannerDBContext context = new();
+        private TourPlannerDBContext context = new(); //_dbContext
 
         public DataHandlerEF()
         {
@@ -19,10 +19,15 @@ namespace TourPlanner_4_SWENII.DAL
             //for testing only:
             /*
             context.Tours.AddRange(
-                new Tour() { Name = "TourDeFrance" },
-                new Tour() { Name = "TourDeSwiss" },
-                new Tour() { Name = "TourDeAustria" },
-                new Tour() { Name = "DonauRadler" },
+                new Tour() { Name = "TourDeFrance", TourLogs = new List<TourLog>() 
+                    { 
+                        new TourLog() { Comment = "thsi is a test" },
+                        new TourLog() { Comment = "this is also a test uwu" }
+                    } 
+                },
+                //new Tour() { Name = "TourDeSwiss" },
+                //new Tour() { Name = "TourDeAustria" },
+                //new Tour() { Name = "DonauRadler" },
                 new Tour() { Name = "HeimOderWoandersHin" });
             context.SaveChanges();*/
         }

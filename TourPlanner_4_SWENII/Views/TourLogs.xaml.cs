@@ -24,5 +24,37 @@ namespace TourPlanner_4_SWENII.Views
         {
             InitializeComponent();
         }
+
+        public void Add(object sender, RoutedEventArgs e)
+        {
+            if (TourNamePrompt.Visibility == Visibility.Visible)
+            {
+                TourNamePrompt.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                TourNamePrompt.Visibility = Visibility.Visible;
+            }
+
+            RemoveTourPrompt.Visibility = Visibility.Collapsed;
+        }
+
+        public void Remove(object sender, RoutedEventArgs e)
+        {
+            if (RemoveTourPrompt.Visibility == Visibility.Visible)
+            {
+                RemoveTourPrompt.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                RemoveTourPrompt.Visibility = Visibility.Visible;
+            }
+
+            TourNamePrompt.Visibility = Visibility.Collapsed;
+        }
+
+        public void Edit(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

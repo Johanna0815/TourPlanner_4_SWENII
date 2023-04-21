@@ -9,8 +9,10 @@ namespace TourPlanner_4_SWENII.DAL
 {
     public interface IDataHandler
     {
-        public IEnumerable<Tour> GetTours();
+        public IEnumerable<Tour> GetTours();    //only for inMemory
+        //public IEnumerable<Tour> LoadTours();   //for loading from db
         public void AddTour(Tour newTour);
+        //public void EditTour(Tour tour);
         public void DeleteTour(Tour tour);
     }
 }

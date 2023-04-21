@@ -9,7 +9,42 @@
     <TabControl >
         <TabItem Header="Tour Logs">
             <Grid Background="#FFE5E5E5">
-                <TextBlock>Tourlogs are empty</TextBlock>
+                <StackPanel Panel.ZIndex="1">
+                    <WrapPanel FlowDirection="RightToLeft">
+                        <Button Click="Remove" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">-</Button>
+                        <Button Click="Add" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
+                        <Button Click="Edit" Height="20" VerticalAlignment="Top" Margin="0,0,3,0">Edit</Button>
+                    </WrapPanel>
+                    <Border x:Name="TourNamePrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
+                        <StackPanel Background="#ffe5e5e5">
+                            <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
+                     Text="{Binding NewTourName, Mode=TwoWay}"/>
+                            <Button Command="{Binding AddTourCommand}" Click="Add" Height="20" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 5">Add Tour</Button>
+                        </StackPanel>
+                    </Border>
+                    <Border x:Name="RemoveTourPrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
+                        <StackPanel Background="#ffe5e5e5">
+                            <Button Command="{Binding DeleteTourCommand}" Click="Remove" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5, 5, 5, 5">Delete Selected Tour</Button>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                <ListView x:Name="listTours" ItemsSource="{Binding Path=TourLogs}" SelectedItem="{Binding Path=SelectedItem}" VerticalAlignment="Stretch">
+                    <!--<ListView.Resources>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="Template" Value="{x:Null}" />
+                        </Style>
+                    </ListView.Resources>-->
+                    <!--<ListViewItem >Tour1</ListViewItem>-->
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Time of Log" DisplayMemberBinding="{Binding Path=timeNow}"/>
+                            <GridViewColumn Header="Difficulty" DisplayMemberBinding="{Binding Path=Difficulty}"/>
+                            <GridViewColumn Header="Total Time" DisplayMemberBinding="{Binding Path=totalTime}"/>
+                            <GridViewColumn Header="Rating" DisplayMemberBinding="{Binding Path=Rating}"/>
+                            <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Path=Comment}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
         </TabItem>
     </TabControl>

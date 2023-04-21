@@ -14,7 +14,11 @@ namespace TourPlanner_4_SWENII.BL
 
     internal class TourManagerImpl : ITourManager
     {
-        private IDataHandler dal = new DataHandlerMemory();
+        private IDataHandler dal = new DataHandlerMemory();//remove instantiation
+
+        public TourManagerImpl() { //IDataHandler dal
+            //this.dal = dal;
+        }   
 
         public void AddTour(string tourName)
         {
@@ -47,7 +51,5 @@ namespace TourPlanner_4_SWENII.BL
 
             return items.Where(x => x.Name.ToLower().Contains(itemName.ToLower()));
         }
-
-
     }
 }

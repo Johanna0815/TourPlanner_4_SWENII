@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -20,20 +21,33 @@ namespace TourPlanner_4_SWENII.DAL
 
         public void AddTour(Tour newTour)
         {
-            //todo: save in memory
+            //tours.Append(newTour);
             dataHandlerEF.AddTour(newTour);
+        }
+
+        public void EditTour(Tour tour)
+        {
+            //tours = tours.Where(t => t.Id == tour.Id).
         }
 
         public void DeleteTour(Tour tour)
         {
-            //todo: save in memory
+            //tours = tours.Where(t => t.Id != tour.Id).ToList();
             dataHandlerEF.DeleteTour(tour);
         }
 
         public IEnumerable<Tour> GetTours()
         {
-            tours = dataHandlerEF.GetTours();
+            tours = dataHandlerEF.GetTours();   //(List<Tour>)
             return tours;
         }
+
+        /*
+         //Add for getting from db, getTours only from memory
+        public IEnumerable<Tour> LoadTours()
+        {
+            
+            return tours;
+        }*/
     }
 }

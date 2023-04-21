@@ -11,6 +11,7 @@ namespace TourPlanner_4_SWENII.DAL
     public class TourPlannerDBContext : DbContext
     {
         public DbSet<Tour> Tours { get; set; }
+        public DbSet<TourLog> TourLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

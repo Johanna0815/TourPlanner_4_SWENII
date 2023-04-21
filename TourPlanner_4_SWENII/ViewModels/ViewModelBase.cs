@@ -12,12 +12,7 @@ using TourPlanner_4_SWENII.Models;
 namespace TourPlanner_4_SWENII.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
-
-
     {
-
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void RaisePropertyChangedEvent([CallerMemberName] string propertyName = "")
@@ -34,7 +29,5 @@ namespace TourPlanner_4_SWENII.ViewModels
                 throw new ArgumentException("Invalid propery name: " + propertyName);
             }
         }
-
-
     }
 }
