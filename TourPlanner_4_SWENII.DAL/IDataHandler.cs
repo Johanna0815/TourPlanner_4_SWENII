@@ -14,5 +14,7 @@ namespace TourPlanner_4_SWENII.DAL
         public void AddTour(Tour newTour);
         //public void EditTour(Tour tour);
         public void DeleteTour(Tour tour);
+
+        public IEnumerable<TourLog> GetTourLogs(int tourId);
     }
 }

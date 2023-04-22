@@ -25,16 +25,31 @@ namespace TourPlanner_4_SWENII.BL
             dal.AddTour(new Tour() { Name=tourName });
         }
 
+        public void AddTourLog(int TourId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteTour(Tour tour)
         {
             dal.DeleteTour(tour);
+        }
+
+        public void DeleteTourLog(TourLog tourLog)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<TourLog> GetTourLogs(int tourId)
+        {
+            return dal.GetTourLogs(tourId);
         }
 
         //private MediaItemDAO mediaItemDao = new MediaItemDAO();
 
         public IEnumerable<Tour> GetTours()
         {
-           return dal.GetTours();
+            return dal.GetTours();
             //return statement
         }
 
@@ -50,6 +65,11 @@ namespace TourPlanner_4_SWENII.BL
             }
 
             return items.Where(x => x.Name.ToLower().Contains(itemName.ToLower()));
+        }
+
+        public void UpdateTourLog(TourLog tourLog)
+        {
+            throw new NotImplementedException();
         }
     }
 }

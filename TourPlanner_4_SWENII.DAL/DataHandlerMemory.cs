@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -40,6 +41,19 @@ namespace TourPlanner_4_SWENII.DAL
         {
             tours = dataHandlerEF.GetTours();   //(List<Tour>)
             return tours;
+        }
+
+        public IEnumerable<TourLog> GetTourLogs(int tourId)
+        {
+            if(tours.Where(t => t.Id == tourId).Count() > 0)
+            {
+                return tours.Where(t => t.Id == tourId).First().TourLogs;
+            }
+            else
+            {
+                Debug.WriteLine($"No Tour with id {tourId} found");
+                return new List<TourLog>();
+            }
         }
 
         /*

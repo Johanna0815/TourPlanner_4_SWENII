@@ -44,6 +44,11 @@ namespace TourPlanner_4_SWENII.DAL
             context.SaveChanges();
         }
 
+        public IEnumerable<TourLog> GetTourLogs(int tourId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Tour> GetTours()
         {
             context.Tours.Load();

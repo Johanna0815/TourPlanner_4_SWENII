@@ -14,5 +14,10 @@ namespace TourPlanner_4_SWENII.BL
 
         void AddTour(string tourName);
         void DeleteTour(Tour item);
+
+        IEnumerable<TourLog> GetTourLogs(int tourId);
+        void AddTourLog(int TourId);
+        void UpdateTourLog(TourLog tourLog);
+        void DeleteTourLog(TourLog tourLog);
     }
 }
