@@ -20,6 +20,9 @@ namespace TourPlanner_4_SWENII.Models
 
         // or should rating be decimal ? // or calc with the difficulty ? difficulty 5 is hard to do. 
         public int Rating { get; set; }
+
+        public int TourId { get; set; }
+
         public TourLog() { }
 
       

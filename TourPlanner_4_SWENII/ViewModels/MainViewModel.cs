@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,12 @@ namespace TourPlanner_4_SWENII.ViewModels
             { 
                 toursListViewModel.Tours.Clear(); 
                 toursListViewModel.FillListBox(); 
+            };
+
+            toursListViewModel.PropertyChanged += (_, SelectedItem) =>
+            {
+                Debug.WriteLine($"property selectedItem {SelectedItem} was changed");
+                tourLogsVM.GetTourLogs(toursListViewModel.SelectedItem.Id);
             };
         }
     }

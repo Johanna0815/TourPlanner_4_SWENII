@@ -18,6 +18,13 @@ namespace TourPlanner_4_SWENII.DAL
         public DataHandlerMemory()
         {
             //tours.Add(new Tour() { name = "demo", ...});
+            IEnumerable<TourLog> tourLogs = dataHandlerEF.GetTourLogs(0);
+            
+            //not neccessary :)
+            /*foreach(TourLog log in tourLogs)
+            {
+                //tours.Where(t => t.Id == log.TourId);
+            }*/
         }
 
         public void AddTour(Tour newTour)

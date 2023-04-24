@@ -87,9 +87,20 @@ namespace TourPlanner_4_SWENII.ViewModels
         public RelayCommand EditTourLogCommand { get; set; }
         public RelayCommand DeleteTourLogCommand { get; set; }
 
-        private void GetTourLogs(int tourId)
+        public void GetTourLogs(int tourId)
         {
-            tourManager.GetTourLogs(tourId);
+            Debug.WriteLine($"getting new tour logs");
+            // tourLogs = 
+            var result = tourManager.GetTourLogs(tourId);
+            selectedTourId = tourId;
+            Debug.WriteLine($"tourid: {tourId}");
+            TourLogs.Clear();
+            foreach ( var item in result )
+            {
+                Debug.WriteLine($"adding tour log {item}");
+                TourLogs.Add( item );
+            }
+            Debug.WriteLine($"added new tour logs");
         }
         private void AddTourLog()
         {
