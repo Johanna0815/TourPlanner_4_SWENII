@@ -12,6 +12,7 @@
             <WrapPanel FlowDirection="RightToLeft">
                 <Button Click="Remove" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">-</Button>
                 <Button Click="Add" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
+                <Button Height="20" Width="50" Margin="0,0,3,0" Content="{Binding Path = SelectedItem.Id}"></Button>
             </WrapPanel>
             <Border x:Name="TourNamePrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
                 <StackPanel Background="#ffe5e5e5">

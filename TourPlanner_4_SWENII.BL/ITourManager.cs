@@ -12,11 +12,11 @@ namespace TourPlanner_4_SWENII.BL
         IEnumerable<Tour> GetTours();
         IEnumerable<Tour> Search(string itemName, bool caseSensitive = false);
 
-        void AddTour(string tourName);
+        Tour AddTour(string tourName);
         void DeleteTour(Tour item);
 
         IEnumerable<TourLog> GetTourLogs(int tourId);
-        void AddTourLog(int TourId);
+        TourLog AddTourLog(int TourId);
         void UpdateTourLog(TourLog tourLog);
         void DeleteTourLog(TourLog tourLog);
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace TourPlanner_4_SWENII.DAL
             context.Database.EnsureCreated();
 
             //for testing only:
-            
+            /*
             context.Tours.AddRange(
                 new Tour() { Name = "TourDeFrance", TourLogs = new List<TourLog>() 
                     { 
@@ -29,13 +30,23 @@ namespace TourPlanner_4_SWENII.DAL
                 //new Tour() { Name = "TourDeAustria" },
                 //new Tour() { Name = "DonauRadler" },
                 new Tour() { Name = "HeimOderWoandersHin" });
-            context.SaveChanges();
+            context.SaveChanges();*/
         }
 
-        public void AddTour(Tour newTour)
+        public Tour AddTour(Tour newTour)
         {
+            Debug.WriteLine($"getting newTour with Id {newTour.Id}");
             context.Tours.Add(newTour);
             context.SaveChanges();
+            Debug.WriteLine($"returning newTour with Id {newTour.Id}");
+            return newTour;
+        }
+
+        public TourLog AddTourLog(TourLog newTourLog)
+        {
+            context.Tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Add(newTourLog);
+            context.SaveChanges();
+            return newTourLog;
         }
 
         public void DeleteTour(Tour tour)
@@ -55,12 +66,5 @@ namespace TourPlanner_4_SWENII.DAL
             context.Tours.Load();
             return context.Tours;
         }
-
-        /*
-        public void AddTour(Tour newTour)
-        {
-            context.Tours.Add(newTour);
-            context.SaveChanges();
-        }*/
     }
 }

@@ -89,7 +89,9 @@
                     <!--<ListViewItem >Tour1</ListViewItem>-->
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Time of Log" DisplayMemberBinding="{Binding Path=timeNow}"/>
+                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>
+                            <GridViewColumn Header="TourId" DisplayMemberBinding="{Binding Path=TourId}"/>
+                            <GridViewColumn Header="Time of Log" DisplayMemberBinding="{Binding Path=TimeNow}"/>
                             <GridViewColumn Header="Difficulty" DisplayMemberBinding="{Binding Path=Difficulty}"/>
                             <GridViewColumn Header="Total Time" DisplayMemberBinding="{Binding Path=TotalTime}"/>
                             <GridViewColumn Header="Rating" DisplayMemberBinding="{Binding Path=Rating}"/>

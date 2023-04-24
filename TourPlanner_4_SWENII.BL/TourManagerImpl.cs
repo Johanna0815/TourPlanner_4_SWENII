@@ -20,14 +20,14 @@ namespace TourPlanner_4_SWENII.BL
             //this.dal = dal;
         }   
 
-        public void AddTour(string tourName)
+        public Tour AddTour(string tourName)
         {
-            dal.AddTour(new Tour() { Name=tourName });
+            return dal.AddTour(new Tour() { Name=tourName });
         }
 
-        public void AddTourLog(int TourId)
+        public TourLog AddTourLog(int TourId)
         {
-            throw new NotImplementedException();
+            return dal.AddTourLog(new TourLog() { TourId=TourId });
         }
 
         public void DeleteTour(Tour tour)

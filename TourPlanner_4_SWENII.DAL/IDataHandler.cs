@@ -11,10 +11,11 @@ namespace TourPlanner_4_SWENII.DAL
     {
         public IEnumerable<Tour> GetTours();    //only for inMemory
         //public IEnumerable<Tour> LoadTours();   //for loading from db
-        public void AddTour(Tour newTour);
+        public Tour AddTour(Tour newTour);
         //public void EditTour(Tour tour);
         public void DeleteTour(Tour tour);
 
         public IEnumerable<TourLog> GetTourLogs(int tourId);
+        public TourLog AddTourLog(TourLog newTourLog);
     }
 }

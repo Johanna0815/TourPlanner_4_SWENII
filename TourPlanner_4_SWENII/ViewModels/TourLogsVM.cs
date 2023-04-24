@@ -16,7 +16,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         private ITourManager tourManager;
 
         private int selectedTourId = 0;
-        public ObservableCollection<TourLog> TourLogs { get; set; }
+        public ObservableCollection<TourLog> TourLogs { get; set; } = new();
 
         /*
         private string newTourName;
@@ -55,11 +55,11 @@ namespace TourPlanner_4_SWENII.ViewModels
             tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
             // InitTourLogList();
 
-            TourLogs = new ObservableCollection<TourLog>() { 
+            /*TourLogs = new ObservableCollection<TourLog>() { 
                 new TourLog(){timeNow=new DateTime(), Comment="Hello my good sir", Rating=4, TotalTime=1.5, Difficulty=Difficulty.Easy},
                 new TourLog(){timeNow=new DateTime(), Comment="Hello", Rating=4, TotalTime=1.5, Difficulty=Difficulty.CanDoKidsToo},
                 new TourLog(){timeNow=new DateTime(), Comment=":)", Rating=4, TotalTime=1.2, Difficulty=Difficulty.BetterTrainHardBefore}
-            };
+            };*/
 
             AddTourLogCommand = new RelayCommand(
                 (O) => { return true; },
@@ -91,11 +91,13 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             Debug.WriteLine($"getting new tour logs");
             // tourLogs = 
+
+            // get tour logs from bl
             var result = tourManager.GetTourLogs(tourId);
             selectedTourId = tourId;
-            Debug.WriteLine($"tourid: {tourId}");
+            //Debug.WriteLine($"tourid: {tourId}");
             TourLogs.Clear();
-            foreach ( var item in result )
+            foreach ( var item in result ) //debug: already doubled here
             {
                 Debug.WriteLine($"adding tour log {item}");
                 TourLogs.Add( item );
@@ -105,9 +107,10 @@ namespace TourPlanner_4_SWENII.ViewModels
         private void AddTourLog()
         {
             Debug.Print($"Adding new tour log");
+            //TourLogs.Add(new TourLog() { TourId = selectedTourId});
 
             //notify mainVM to get tour id
-            tourManager.AddTourLog(selectedTourId);
+            TourLogs.Add(tourManager.AddTourLog(selectedTourId));
             //FillListBox();
 
             //NewTourName = "";

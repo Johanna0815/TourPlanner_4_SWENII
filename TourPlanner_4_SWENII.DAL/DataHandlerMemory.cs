@@ -17,9 +17,11 @@ namespace TourPlanner_4_SWENII.DAL
 
         public DataHandlerMemory()
         {
+            Debug.WriteLine($"data handler memory ctor called");
             //tours.Add(new Tour() { name = "demo", ...});
             IEnumerable<TourLog> tourLogs = dataHandlerEF.GetTourLogs(0);
-            
+            tours = dataHandlerEF.GetTours();   //(List<Tour>)
+
             //not neccessary :)
             /*foreach(TourLog log in tourLogs)
             {
@@ -27,10 +29,11 @@ namespace TourPlanner_4_SWENII.DAL
             }*/
         }
 
-        public void AddTour(Tour newTour)
+        public Tour AddTour(Tour newTour)
         {
-            //tours.Append(newTour);
-            dataHandlerEF.AddTour(newTour);
+            newTour = dataHandlerEF.AddTour(newTour);   // add to db and return because of id
+            tours.Append(newTour);                      // add to memory
+            return newTour;                             // pass to bl->view
         }
 
         public void EditTour(Tour tour)
@@ -40,13 +43,12 @@ namespace TourPlanner_4_SWENII.DAL
 
         public void DeleteTour(Tour tour)
         {
-            //tours = tours.Where(t => t.Id != tour.Id).ToList();
+            tours = tours.Where(t => t.Id != tour.Id).ToList();
             dataHandlerEF.DeleteTour(tour);
         }
 
         public IEnumerable<Tour> GetTours()
         {
-            tours = dataHandlerEF.GetTours();   //(List<Tour>)
             return tours;
         }
 
@@ -54,6 +56,10 @@ namespace TourPlanner_4_SWENII.DAL
         {
             if(tours.Where(t => t.Id == tourId).Count() > 0)
             {
+                Debug.WriteLine($"GetTourLogs:");
+                Debug.WriteLine($"Tours with right Id found: {tours.Where(t => t.Id == tourId).Count()} (should be 1)");
+                Debug.WriteLine($"TourLogs in that Tour found: {tours.Where(t => t.Id == tourId).First().TourLogs.Count()}");
+
                 return tours.Where(t => t.Id == tourId).First().TourLogs;
             }
             else
@@ -61,6 +67,45 @@ namespace TourPlanner_4_SWENII.DAL
                 Debug.WriteLine($"No Tour with id {tourId} found");
                 return new List<TourLog>();
             }
+        }
+
+        public TourLog AddTourLog(TourLog newTourLog)
+        {
+            try
+            {
+                /*
+                Debug.WriteLine($"AddTourLog:");
+                Debug.WriteLine($"adding Log for Tours with Id: {newTourLog.TourId}");
+                Debug.WriteLine($"Tours with right Id found: {tours.Where(t => t.Id == newTourLog.TourId).Count()} (should be 1)");
+                Debug.WriteLine($"TourLogs inMemory counted: {tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Count()}");
+                Debug.WriteLine($"");
+                Debug.WriteLine($"newTourLog Id before adding in EF: {newTourLog.Id}");*/
+
+                newTourLog = dataHandlerEF.AddTourLog(newTourLog);          //get from EF because of Id
+                //auto saves tourlog in memory
+                //  -> but WHY though ???!!?!
+                
+                /*Debug.WriteLine($"newTourLog Id after adding in EF: {newTourLog.Id}");
+                Debug.WriteLine($"Tours with right Id found: {tours.Where(t => t.Id == newTourLog.TourId).Count()} (should be 1)");
+                Debug.WriteLine($"TourLogs inMemory counted: {tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Count()}");
+                Debug.WriteLine($"");
+                Debug.WriteLine($"adding in mem ->");*/
+
+                //not neccessary - but why !??!?!?
+                //tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Add(newTourLog); //is it this?
+
+                /*Debug.WriteLine($"newTourLog Id after adding in Memory: {newTourLog.Id}");
+                Debug.WriteLine($"Tours with right Id found: {tours.Where(t => t.Id == newTourLog.TourId).Count()} (should be 1)");
+                Debug.WriteLine($"TourLogs inMemory counted: {tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Count()} (should be one more than before)");
+                */
+                return newTourLog;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Add TourLog failed because: ");
+                Debug.WriteLine(ex.InnerException);
+            }
+            return new TourLog();
         }
 
         /*

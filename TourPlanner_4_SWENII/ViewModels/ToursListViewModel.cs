@@ -65,8 +65,9 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             Debug.Print($"Adding tour {NewTourName}");
 
-            tourManager.AddTour(NewTourName);
-            FillListBox();
+            var newTour = tourManager.AddTour(NewTourName);
+            Tours.Add(newTour);
+            //FillListBox();
 
             NewTourName = "";
             //TourAdded?.Invoke(this, NewTourName);
@@ -76,8 +77,9 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             Debug.Print($"Deleting tour {item.Name}");
 
+            Tours.Remove(item);
             tourManager.DeleteTour(item);
-            FillListBox();
+            //FillListBox();
         }
 
         private Tour _selecteditem;
@@ -109,7 +111,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             //todo?: remove clear
             //this is here right now to allow reading the whole list from the db after every change
-            Tours.Clear();
+            //Tours.Clear();
             foreach (Tour tour in tourManager.GetTours())
             {
                 Tours.Add(tour);
