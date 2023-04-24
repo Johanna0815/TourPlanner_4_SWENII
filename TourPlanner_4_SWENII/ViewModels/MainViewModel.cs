@@ -38,7 +38,14 @@ namespace TourPlanner_4_SWENII.ViewModels
             toursListViewModel.PropertyChanged += (_, SelectedItem) =>
             {
                 Debug.WriteLine($"property selectedItem {SelectedItem} was changed");
-                tourLogsVM.GetTourLogs(toursListViewModel.SelectedItem.Id);
+                if(toursListViewModel.SelectedItem != null)
+                {
+                    tourLogsVM.GetTourLogs(toursListViewModel.SelectedItem.Id);
+                }
+                else
+                {
+                    tourLogsVM.GetTourLogs(0);
+                }
             };
         }
     }

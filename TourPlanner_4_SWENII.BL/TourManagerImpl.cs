@@ -42,6 +42,10 @@ namespace TourPlanner_4_SWENII.BL
 
         public IEnumerable<TourLog> GetTourLogs(int tourId)
         {
+            if (tourId == 0)
+            {
+                return new List<TourLog>();
+            }
             return dal.GetTourLogs(tourId);
         }
 
