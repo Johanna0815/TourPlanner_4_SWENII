@@ -1,8 +1,13 @@
-﻿using System;
+﻿using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+//using System.Windows.Documents;
 using TourPlanner_4_SWENII.DAL;
 using TourPlanner_4_SWENII.Models;
 
@@ -38,6 +43,16 @@ namespace TourPlanner_4_SWENII.BL
         public void DeleteTourLog(TourLog tourLog)
         {
             throw new NotImplementedException();
+        }
+
+        public void GenerateReport(Tour tour, string filename)
+        {
+            var writer = new PdfWriter(filename);
+            PdfDocument pdf = new PdfDocument(writer);
+            var document = new iText.Layout.Document(pdf);
+
+            document.Add(new Paragraph($"{tour.Name}"));
+            document.Close();
         }
 
         public IEnumerable<TourLog> GetTourLogs(int tourId)

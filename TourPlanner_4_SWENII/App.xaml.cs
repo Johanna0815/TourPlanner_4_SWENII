@@ -32,12 +32,13 @@ namespace TourPlanner_4_SWENII
             TourInfoVM tourInfoVM = new TourInfoVM();
             TourLogsVM tourLogsVM = new TourLogsVM();
             ToursListViewModel tourListViewModel = new ToursListViewModel();
+            ITourManager tourManager = TourManagerFactory.GetInstance();
             //ClearCommandVM clearCommandVM = new ClearCommandVM();
 
             var wnd = new MainWindow()
             {
 
-                DataContext = new MainViewModel(navBarVM, searchBarVM, tourInfoVM, tourLogsVM, tourListViewModel),
+                DataContext = new MainViewModel(tourManager, navBarVM, searchBarVM, tourInfoVM, tourLogsVM, tourListViewModel),
 
                 NavBarView = { DataContext = navBarVM },
                 SearchBar = { DataContext = searchBarVM },
