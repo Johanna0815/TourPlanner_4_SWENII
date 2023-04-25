@@ -19,5 +19,7 @@ namespace TourPlanner_4_SWENII.BL
         TourLog AddTourLog(int TourId);
         void UpdateTourLog(TourLog tourLog);
         void DeleteTourLog(TourLog tourLog);
+
+        void GenerateReport(Tour tour, string filename);
     }
 }

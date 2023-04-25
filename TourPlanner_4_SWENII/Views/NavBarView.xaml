@@ -16,6 +16,7 @@
             <MenuItem Header="File">
                 <MenuItem Header="_Import" />
                 <MenuItem Header="_Export" />
+                <MenuItem Command="{Binding Path=GenerateReportCommand}" Header="Generate Report" />
                 <Separator />
                 <MenuItem Header="_Exit" />
             </MenuItem>
