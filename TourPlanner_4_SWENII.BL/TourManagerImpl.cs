@@ -3,6 +3,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -51,7 +52,15 @@ namespace TourPlanner_4_SWENII.BL
             PdfDocument pdf = new PdfDocument(writer);
             var document = new iText.Layout.Document(pdf);
 
-            document.Add(new Paragraph($"{tour.Name}"));
+            if(tour != null)
+            {
+                document.Add(new Paragraph($"{tour.Name}"));
+            }
+            else
+            {
+                Debug.WriteLine("no tour was selected when creating a report");
+                document.Add(new Paragraph($"No tour was selected"));
+            }
             document.Close();
         }
 

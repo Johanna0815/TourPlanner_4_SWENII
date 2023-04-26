@@ -19,7 +19,8 @@ namespace TourPlanner_4_SWENII.DAL
         {
             Debug.WriteLine($"data handler memory ctor called");
             //tours.Add(new Tour() { name = "demo", ...});
-            IEnumerable<TourLog> tourLogs = dataHandlerEF.GetTourLogs(0);
+            //IEnumerable<TourLog> tourLogs =
+            dataHandlerEF.GetTourLogs(0);
             tours = dataHandlerEF.GetTours();   //(List<Tour>)
 
             //not neccessary :)
