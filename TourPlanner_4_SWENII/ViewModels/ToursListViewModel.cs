@@ -18,7 +18,7 @@ namespace TourPlanner_4_SWENII.ViewModels
     {
 
         private ITourManager tourManager;
-        public ObservableCollection<Tour> Tours { get; set; }
+        public ObservableCollection<Tour> Tours { get; set; } = new();
 
         private string newTourName;
         public string NewTourName
@@ -32,7 +32,6 @@ namespace TourPlanner_4_SWENII.ViewModels
                     newTourName = value;
                     this.RaisePropertyChangedEvent();
                     this.AddTourCommand.RaiseCanExecuteChanged();
-                    Debug.Print($" changed newTourName to {value}");
                 }
             }
         }
@@ -63,11 +62,11 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         private void AddTour()
         {
-            Debug.Print($"Adding tour {NewTourName}");
+            //Debug.Print($"Adding tour {NewTourName}");
 
             var newTour = tourManager.AddTour(NewTourName);
-            Tours.Add(newTour);
-            //FillListBox();
+            //Tours.Add(newTour);
+            FillListBox();
 
             NewTourName = "";
             //TourAdded?.Invoke(this, NewTourName);
@@ -75,11 +74,11 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         private void DeleteTour(Tour item)
         {
-            Debug.Print($"Deleting tour {item.Name}");
+            //Debug.Print($"Deleting tour {item.Name}");
 
-            Tours.Remove(item);
+            //Tours.Remove(item);
             tourManager.DeleteTour(item);
-            //FillListBox();
+            FillListBox();
         }
 
         private Tour _selecteditem;
@@ -100,7 +99,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         private void InitListBox()
         {
-            Tours = new ObservableCollection<Tour>();
+            //Tours = new ObservableCollection<Tour>();
 
             // foreach (COLLECTION collection in COLLECTION)
             FillListBox();
@@ -111,7 +110,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             //todo?: remove clear
             //this is here right now to allow reading the whole list from the db after every change
-            //Tours.Clear();
+            Tours.Clear();
             foreach (Tour tour in tourManager.GetTours())
             {
                 Tours.Add(tour);
@@ -126,14 +125,14 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             foreach (Tour tour in foundItems)
             {
+                /*
                 if (tour == null)
                 {
 
                     throw new ArgumentNullException(nameof(tour));
 
-                }
+                }*/
                 Tours.Add(tour);
-
             }
         }
     }

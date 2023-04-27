@@ -18,23 +18,6 @@ namespace TourPlanner_4_SWENII.ViewModels
         private int selectedTourId = 0;
         public ObservableCollection<TourLog> TourLogs { get; set; } = new();
 
-        /*
-        private string newTourName;
-        public string NewTourName
-        {
-            get => newTourName;
-
-            set
-            {
-                if (newTourName != value)
-                {
-                    newTourName = value;
-                    this.RaisePropertyChangedEvent();
-                    this.AddTourCommand.RaiseCanExecuteChanged();
-                    Debug.Print($" changed newTourName to {value}");
-                }
-            }
-        }*/
         private TourLog _selecteditem;
         public TourLog SelectedItem
         {
@@ -89,24 +72,27 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         public void GetTourLogs(int tourId)
         {
-            Debug.WriteLine($"getting new tour logs");
+            //Debug.WriteLine($"getting new tour logs");
             // tourLogs = 
 
             // get tour logs from bl
-            var result = tourManager.GetTourLogs(tourId);
-            selectedTourId = tourId;
-            //Debug.WriteLine($"tourid: {tourId}");
             TourLogs.Clear();
+            var result = tourManager.GetTourLogs(tourId);
+            
+            //Debug.WriteLine($"tourid: {tourId}");
+            
             foreach ( var item in result ) //debug: already doubled here
             {
                 Debug.WriteLine($"adding tour log {item}");
                 TourLogs.Add( item );
             }
-            Debug.WriteLine($"added new tour logs");
+            //Debug.WriteLine($"added new tour logs");
+
+            selectedTourId = tourId;
         }
         private void AddTourLog()
         {
-            Debug.Print($"Adding new tour log");
+            //Debug.Print($"Adding new tour log");
             //TourLogs.Add(new TourLog() { TourId = selectedTourId});
 
             //notify mainVM to get tour id
