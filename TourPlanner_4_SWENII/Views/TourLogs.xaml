@@ -101,5 +101,15 @@
                 </ListView>
             </Grid>
         </TabItem>
+        <TabItem Header="Tour Logs 2">
+            <DataGrid ItemsSource="{Binding Path=TourLogs}" SelectedItem="{Binding Path = SelectedItem }">
+                <DataGrid.Columns>
+                    <!--
+                    <DataGridTextColumn Header="Id" Width="*"/>
+                    <DataGridTextColumn Header="2" Width="20*"/>
+                    <DataGridTextColumn Header="3" Width="10*"/>-->
+                </DataGrid.Columns>
+            </DataGrid>
+        </TabItem>
     </TabControl>
 </UserControl>
