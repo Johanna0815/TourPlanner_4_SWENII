@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner_4_SWENII.BL", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner_4_SWENII.DAL", "TourPlanner_4_SWENII.DAL\TourPlanner_4_SWENII.DAL.csproj", "{5A3674F8-DF17-4D57-9C8D-CEA070451727}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner_4_SWENII.Test", "TourPlanner_4_SWENII.Test\TourPlanner_4_SWENII.Test.csproj", "{960DB902-4D14-47E3-A267-E9D2819449E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner_4_SWENII.Test", "TourPlanner_4_SWENII.Test\TourPlanner_4_SWENII.Test.csproj", "{960DB902-4D14-47E3-A267-E9D2819449E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{521C87C8-7BA7-427F-ACC8-6D644CB1E984}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

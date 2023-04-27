@@ -1,4 +1,9 @@
-﻿using System;
+﻿
+
+//DEPRECATED
+
+/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,10 +27,12 @@ namespace TourPlanner_4_SWENII.DAL
         }
 
 
-        public List<MediaItem> GetItems()
+        public List<Tour> GetItems()
         {
             return dataAccess.GetItems();
         }
 
+      
+
     }
-}
+}*/

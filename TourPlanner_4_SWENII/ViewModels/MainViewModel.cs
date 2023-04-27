@@ -1,8 +1,13 @@
-﻿using System;
+﻿using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourPlanner_4_SWENII.BL;
 
 namespace TourPlanner_4_SWENII.ViewModels
 {
@@ -13,14 +18,18 @@ namespace TourPlanner_4_SWENII.ViewModels
         private TourInfoVM tourInfoVM;
         private TourLogsVM tourLogsVM;
         private ToursListViewModel toursListViewModel;
+        private ITourManager tourManager;
 
-        public MainViewModel(NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm) //SearchViewModel svm
+        public MainViewModel(ITourManager tourManager, NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm) //SearchViewModel svm
         {
+            
+
             navBarVM= nbVM;
             searchBarVM= sbVM;
             tourInfoVM= tiVM;
             tourLogsVM= tlogVM;
             toursListViewModel = tlistvm;
+            this.tourManager = tourManager;
 
             searchBarVM.SearchForText += (_, searchText) =>
             { 
@@ -30,8 +39,30 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             searchBarVM.SearchCleared += (_, searchText) =>
             { 
-                toursListViewModel.Items.Clear(); 
+                toursListViewModel.Tours.Clear(); 
                 toursListViewModel.FillListBox(); 
+            };
+
+            toursListViewModel.PropertyChanged += (_, SelectedItem) =>
+            {
+                Debug.WriteLine($"property selectedItem {SelectedItem} was changed");
+                if(toursListViewModel.SelectedItem != null)
+                {
+                    tourLogsVM.GetTourLogs(toursListViewModel.SelectedItem.Id);
+                }
+                else
+                {
+                    tourLogsVM.GetTourLogs(0);
+                }
+            };
+
+            navBarVM.GenerateReport += (_, _) =>
+            {
+                var tour = toursListViewModel.SelectedItem;
+
+                tourManager.GenerateReport(tour, "report.pdf");
+
+                    
             };
         }
     }

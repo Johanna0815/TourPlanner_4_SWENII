@@ -1,3 +1,8 @@
+
+
+//maybe deprecated ??
+
+/*
 using System;
 using System.Collections.Generic;
 using TourPlanner_4_SWENII.Models;
@@ -13,22 +18,25 @@ namespace TourPlanner_4_SWENII.DAL
         {
 
             connectionString = "...";
+
             // establish connection with DB
         }
-        public List<MediaItem> GetItems()
+        public List<Tour> GetItems()
         {
+            Console.WriteLine($"returned items");
 
             // select SQL query
-            return new List<MediaItem>()
+            return new List<Tour>()
             {
-                new MediaItem() { Name = "TourDeFrance" },
-                new MediaItem() { Name = "TourDeSwiss" },
-                new MediaItem() { Name = "TourDeAustria" },
-                new MediaItem() { Name = "DonauRadler" },
-                new MediaItem() { Name = "HeimOderWoandersHin" }
+                new Tour() { Name = "TourDeFrance" },
+                new Tour() { Name = "TourDeSwiss" },
+                new Tour() { Name = "TourDeAustria" },
+                new Tour() { Name = "DonauRadler" },
+                new Tour() { Name = "HeimOderWoandersHin" }
                 // throw new NotImplementedException();
             };
            // throw new NotImplementedException();
         }
     }
 }
+*/

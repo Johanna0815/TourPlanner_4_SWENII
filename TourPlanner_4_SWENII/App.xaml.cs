@@ -17,36 +17,36 @@ namespace TourPlanner_4_SWENII
     /// </summary>
     public partial class App : Application
     {
-        public IMediaItemFactory? mediaItemFactory;
+        public ITourManager? mediaItemFactory;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            // Create all Layers
 
-        // Erstellen Sie eine IMediaItemFactory-Instanz
-
-        //SearchViewModel searchViewModel = new SearchViewModel(mediaItemFactory);
-        NavBarVM navBarVM = new NavBarVM();
-        SearchBarVM searchBarVM = new SearchBarVM();
-        TourInfoVM tourInfoVM = new TourInfoVM();
-        TourLogsVM tourLogsVM = new TourLogsVM();
-        ToursListViewModel tourListViewModel = new ToursListViewModel();
-        //ClearCommandVM clearCommandVM = new ClearCommandVM();
+            //SearchViewModel searchViewModel = new SearchViewModel(mediaItemFactory); // Erstellen Sie eine IMediaItemFactory-Instanz
 
 
+            // create all VMs and inject them later
+            NavBarVM navBarVM = new NavBarVM();
+            SearchBarVM searchBarVM = new SearchBarVM();
+            TourInfoVM tourInfoVM = new TourInfoVM();
+            TourLogsVM tourLogsVM = new TourLogsVM();
+            ToursListViewModel tourListViewModel = new ToursListViewModel();
+            ITourManager tourManager = TourManagerFactory.GetInstance();
+            //ClearCommandVM clearCommandVM = new ClearCommandVM();
 
-        var wnd = new MainWindow()
-        {
+            var wnd = new MainWindow()
+            {
 
-            DataContext = new MainViewModel(navBarVM, searchBarVM, tourInfoVM, tourLogsVM, tourListViewModel),
-            
-            NavBarView = { DataContext = navBarVM },
-            SearchBar = { DataContext =  searchBarVM}, //clearCommandVM
-            TourInfo = {DataContext = tourInfoVM},            //tourListViewModel //change !!
-            TourLogs = {DataContext = tourLogsVM },
-            ToursListView = { DataContext = tourListViewModel }
-        };
-        wnd.Show();
-      
-}
+                DataContext = new MainViewModel(tourManager, navBarVM, searchBarVM, tourInfoVM, tourLogsVM, tourListViewModel),
+
+                NavBarView = { DataContext = navBarVM },
+                SearchBar = { DataContext = searchBarVM },
+                TourInfo = { DataContext = tourInfoVM },
+                TourLogs = { DataContext = tourLogsVM },
+                ToursListView = { DataContext = tourListViewModel }
+            };
+            wnd.Show();
+        }
     }
 }

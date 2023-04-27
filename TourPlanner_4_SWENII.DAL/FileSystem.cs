@@ -1,4 +1,9 @@
-﻿using System;
+﻿
+
+//DEPRECATED
+
+/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,17 +24,18 @@ namespace TourPlanner_4_SWENII.DAL
             filePath = "...";
         }
 
-        public List<MediaItem> GetItems()
+        public List<Tour> GetItems()
         {
 
             // get media Items from file system
-            return new List<MediaItem>()
+            return new List<Tour>()
             {
-                new MediaItem() { Name = "TourDeFrance" },
-                new MediaItem() { Name = "TourDeSwiss" },
-                new MediaItem() { Name = "TourDeAustria" },
-                new MediaItem() { Name = "DonauRadler" },
-                new MediaItem() { Name = "HeimOderWoandersHin" }
+                new Tour() { Name = "TourDeFrance" },
+                new Tour() { Name = "TourDeSwiss" },
+                new Tour() { Name = "TourDeAustria" },
+                new Tour() { Name = "DonauRadler" },
+                new Tour() { Name = "HeimOderWoandersHin" }
+
                 // throw new NotImplementedException();
             };
 
@@ -37,3 +43,4 @@ namespace TourPlanner_4_SWENII.DAL
         }
     }
 }
+*/
