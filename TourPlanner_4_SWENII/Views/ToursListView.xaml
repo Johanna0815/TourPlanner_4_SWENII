@@ -12,7 +12,7 @@
             <WrapPanel FlowDirection="RightToLeft">
                 <Button Click="Remove" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">-</Button>
                 <Button Click="Add" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
-                <Button Height="20" Width="50" Margin="0,0,3,0" Content="{Binding Path = SelectedItem.Id}"></Button>
+                <Button Height="20" Width="20" Margin="0,0,3,0" Content="{Binding Path = SelectedItem.Id}"></Button>
             </WrapPanel>
             <Border x:Name="TourNamePrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
                 <StackPanel Background="#ffe5e5e5">
@@ -31,23 +31,21 @@
 
         <TabControl>
             <TabItem Header="Tours">
-                <Grid Background="#FFE5E5E5">
-                    <ListView x:Name="listTours" ItemsSource="{Binding Path=Tours}" SelectedItem="{Binding Path = SelectedItem }" VerticalAlignment="Stretch">
-                        <ListView.Resources>
-                            <Style TargetType="GridViewColumnHeader">
-                                <Setter Property="Template" Value="{x:Null}" />
-                            </Style>
-                        </ListView.Resources>
-                        <!--<ListViewItem >Tour1</ListViewItem>-->
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
+                <ListView x:Name="listTours" ItemsSource="{Binding Path=Tours}" SelectedItem="{Binding Path = SelectedItem }" VerticalAlignment="Stretch">
+                    <ListView.Resources>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="Template" Value="{x:Null}" />
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Padding="1" Text="{Binding Name}"></TextBlock>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </TabItem>
-
         </TabControl>
     </Grid>
 </UserControl>
