@@ -13,17 +13,17 @@ namespace TourPlanner_4_SWENII.DAL
     public class DataHandlerMemory : IDataHandler
     {
         private IEnumerable<Tour> tours = new List<Tour>();
-        private DataHandlerEF dataHandlerEF = new();
+        // private DataHandlerEF dataHandlerEF = new();
 
         public DataHandlerMemory()
         {
-            //Debug.WriteLine($"data handler memory ctor called");
-            //tours.Add(new Tour() { name = "demo", ...});
-            //IEnumerable<TourLog> tourLogs =
-            dataHandlerEF.GetTourLogs(0);
-            tours = dataHandlerEF.GetTours();   //(List<Tour>)
+            // Debug.WriteLine($"data handler memory ctor called");
+            // tours.Add(new Tour() { name = "demo", ...});
+            // IEnumerable<TourLog> tourLogs =
+            // dataHandlerEF.GetTourLogs(0);
+            // tours = dataHandlerEF.GetTours();   //(List<Tour>)
 
-            //not neccessary :)
+            // not neccessary :)
             /*foreach(TourLog log in tourLogs)
             {
                 //tours.Where(t => t.Id == log.TourId);
@@ -32,9 +32,9 @@ namespace TourPlanner_4_SWENII.DAL
 
         public Tour AddTour(Tour newTour)
         {
-            //newTour = 
-            dataHandlerEF.AddTour(newTour);   // add to db and return because of id
-            //tours.Append(newTour);                      // add to memory
+            // newTour = 
+            // dataHandlerEF.AddTour(newTour);   // add to db and return because of id
+            tours.Append(newTour);                      // add to memory
             return newTour;                             // pass to bl->view
         }
 
@@ -45,8 +45,8 @@ namespace TourPlanner_4_SWENII.DAL
 
         public void DeleteTour(Tour tour)
         {
-            //tours = tours.Where(t => t.Id != tour.Id).ToList();
-            dataHandlerEF.DeleteTour(tour);
+            tours = tours.Where(t => t.Id != tour.Id).ToList();
+            // dataHandlerEF.DeleteTour(tour);
         }
 
         public IEnumerable<Tour> GetTours()
@@ -58,10 +58,6 @@ namespace TourPlanner_4_SWENII.DAL
         {
             if(tours.Where(t => t.Id == tourId).Count() > 0)
             {
-                //Debug.WriteLine($"GetTourLogs:");
-                //Debug.WriteLine($"Tours with right Id found: {tours.Where(t => t.Id == tourId).Count()} (should be 1)");
-                //Debug.WriteLine($"TourLogs in that Tour found: {tours.Where(t => t.Id == tourId).First().TourLogs.Count()}");
-
                 return tours.Where(t => t.Id == tourId).First().TourLogs;
             }
             else
@@ -76,8 +72,9 @@ namespace TourPlanner_4_SWENII.DAL
             try
             {
                 //newTourLog = 
-                dataHandlerEF.AddTourLog(newTourLog);          //get from EF because of Id
-                //tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Add(newTourLog);
+                //dataHandlerEF.AddTourLog(newTourLog);          //deprecated
+
+                tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Add(newTourLog);
 
                 return newTourLog;
             }

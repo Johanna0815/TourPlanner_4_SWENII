@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TourPlanner_4_SWENII.Models;
 
 namespace TourPlanner_4_SWENII.DAL
@@ -16,6 +17,8 @@ namespace TourPlanner_4_SWENII.DAL
         public DataHandlerEF()
         {
             context.Database.EnsureCreated();
+            context.TourLogs.Load();
+            context.Tours.Load();
 
             //for testing only:
             /*
@@ -35,15 +38,14 @@ namespace TourPlanner_4_SWENII.DAL
 
         public Tour AddTour(Tour newTour)
         {
-            Debug.WriteLine($"getting newTour with Id {newTour.Id}");
             context.Tours.Add(newTour);
             context.SaveChanges();
-            Debug.WriteLine($"returning newTour with Id {newTour.Id}");
             return newTour;
         }
 
         public TourLog AddTourLog(TourLog newTourLog)
         {
+            //change to use tourlogs directly??
             context.Tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Add(newTourLog);
             context.SaveChanges();
             return newTourLog;
@@ -57,13 +59,19 @@ namespace TourPlanner_4_SWENII.DAL
 
         public IEnumerable<TourLog> GetTourLogs(int tourId)
         {
-            context.TourLogs.Load();
-            return context.TourLogs;
+            if (context.TourLogs.Where(t => t.TourId == tourId).Count() > 0)
+            {
+                return context.TourLogs.Where(t => t.TourId == tourId);
+            }
+            else
+            {
+                Debug.WriteLine($"No Tour with id {tourId} found");
+                return new List<TourLog>();
+            }
         }
 
         public IEnumerable<Tour> GetTours()
         {
-            context.Tours.Load();
             return context.Tours;
         }
     }

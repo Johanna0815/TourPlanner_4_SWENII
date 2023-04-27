@@ -20,9 +20,10 @@ namespace TourPlanner_4_SWENII.BL
 
     internal class TourManagerImpl : ITourManager
     {
-        private IDataHandler dal = new DataHandlerMemory();//remove instantiation
+        private IDataHandler dal;
 
         public TourManagerImpl() { //IDataHandler dal
+             dal = new DataHandlerEF();//remove instantiation
             //this.dal = dal;
         }   
 
