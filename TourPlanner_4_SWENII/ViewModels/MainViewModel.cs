@@ -67,6 +67,15 @@ namespace TourPlanner_4_SWENII.ViewModels
 
                     
             };
+
+            navBarVM.GetMap += (_, _) =>
+            {
+
+
+                tourManager.GetMap();
+
+
+            };
         }
     }
 }

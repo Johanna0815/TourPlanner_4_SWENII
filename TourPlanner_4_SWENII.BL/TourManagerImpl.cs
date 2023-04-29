@@ -25,6 +25,7 @@ namespace TourPlanner_4_SWENII.BL
     internal class TourManagerImpl : ITourManager
     {
         private IDataHandler dal;
+        private MapQuest mapquest = new();
 
         public TourManagerImpl() { //IDataHandler dal
              dal = new DataHandlerEF();//remove instantiation
@@ -105,6 +106,12 @@ namespace TourPlanner_4_SWENII.BL
         public void UpdateTourLog(TourLog tourLog)
         {
             throw new NotImplementedException();
+        }
+
+        public void GetMap()
+        {
+            mapquest.GetMapQuest();
+
         }
     }
 }

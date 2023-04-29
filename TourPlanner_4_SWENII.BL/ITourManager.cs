@@ -22,5 +22,7 @@ namespace TourPlanner_4_SWENII.BL
         void DeleteTourLog(TourLog tourLog);
 
         void GenerateReport(Tour tour, string filename);
+
+        void GetMap();
     }
 }
