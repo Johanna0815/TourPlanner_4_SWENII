@@ -3,21 +3,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TourPlanner_4_SWENII.Views"
+             xmlns:local="clr-namespace:TourPlanner_4_SWENII.Views" xmlns:viewmodels="clr-namespace:TourPlanner_4_SWENII.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:TourInfoVM}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <TabControl >
         <TabItem Header="General">
             <Grid Background="#FFE5E5E5">
-                <!--
-                <ListView x:Name="listItems" ItemsSource="{Binding Items}" VerticalAlignment="Stretch">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Listitems" DisplayMemberBinding="{Binding Path=Name}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>-->
-                <TextBlock>Tourinfo is empty</TextBlock>
+               
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width ="100*"/>
+                    <ColumnDefinition Width ="150*"/>
+                    <ColumnDefinition Width ="100*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+
+
+
+                </Grid.RowDefinitions>
+
+
+
+                <TextBlock Grid.Column="1" FontWeight="UltraBold"  TextAlignment="Center" FontSize="20" FontStyle="Italic" FontFamily="Arial"> Tours Information </TextBlock>
+                <Label Grid.Column="0" Grid.Row="1" FontSize="15" FontWeight="UltraBold" VerticalContentAlignment="Center" >Tourname : </Label>
+
+                <ListView x:Name="listTours" ItemsSource="{Binding Path=Tour}" Grid.Column="1"  Grid.Row="1"  VerticalAlignment="Stretch">
+                    <ListView.Resources>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="Template" Value="{x:Null}" />
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Padding="1" Text="{Binding Name}"></TextBlock>
+                                <TextBlock Padding="1" Text="{Binding Description}"></TextBlock>
+                                <TextBlock Padding="1" Text="{Binding From}"></TextBlock>
+                                <TextBlock Padding="1" Text="{Binding To}"></TextBlock>
+                                <TextBlock Padding="1" Text="{Binding TransportType}"></TextBlock>
+                                <TextBlock Padding="1" Text="{Binding Distance}"></TextBlock>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+              <!--  <TextBox Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="1" FontSize="10" Foreground="ForestGreen" Text="{Binding }" IsReadOnly="true" > </TextBox> -->
+
             </Grid>
 
         </TabItem>

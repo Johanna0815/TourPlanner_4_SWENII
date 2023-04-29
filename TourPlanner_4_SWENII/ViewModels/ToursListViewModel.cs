@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -30,6 +31,86 @@ namespace TourPlanner_4_SWENII.ViewModels
                 if (newTourName != value)
                 {
                     newTourName = value;
+                    this.RaisePropertyChangedEvent();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    this.RaisePropertyChangedEvent();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        private string from;
+        public string From
+        {
+            get => from;
+
+            set
+            {
+                if (from != value)
+                {
+                    from = value;
+                    this.RaisePropertyChangedEvent();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        private string to;
+        public string To
+        {
+            get => to;
+
+            set
+            {
+                if (to != value)
+                {
+                    to = value;
+                    this.RaisePropertyChangedEvent();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        private TransportType _transportType;
+        public TransportType TransportType
+        {
+            get => _transportType;
+
+            set
+            {
+                if (_transportType != value)
+                {
+                    _transportType = value;
+                    this.RaisePropertyChangedEvent();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        private decimal _distance;
+        public decimal Distance
+        {
+            get => _distance;
+
+            set
+            {
+                if (_distance != value)
+                {
+                    _distance = value;
                     this.RaisePropertyChangedEvent();
                     this.AddTourCommand.RaiseCanExecuteChanged();
                 }
@@ -64,11 +145,16 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             //Debug.Print($"Adding tour {NewTourName}");
 
-            var newTour = tourManager.AddTour(NewTourName);
+            var newTour = tourManager.AddTour(NewTourName,Description,From,To, (Models.HelperEnums.TransportType)TransportType,Distance);
             //Tours.Add(newTour);
             FillListBox();
 
             NewTourName = "";
+            Description = "";
+            From = "";
+            To = "";
+            TransportType = 0;
+            Distance = 0;
             //TourAdded?.Invoke(this, NewTourName);
         }
 

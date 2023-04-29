@@ -70,7 +70,7 @@ namespace TourPlanner_4_SWENII.DAL
             }
         }
 
-        public IEnumerable<Tour> GetTours()
+       public IEnumerable<Tour> GetTours()
         {
             return context.Tours;
         }
