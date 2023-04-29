@@ -16,10 +16,14 @@ We added an NUnit Testproject (called TourPlanner_4_SWENII.Test); changed - as b
 the     <TargetFramework>net7.0-windows</TargetFramework> .
 - installed Microsoft.NET.Test.Sdk 
 - installed NUnit package
+
+- Npqsl [included in the DAL, for database access]
+
+- itext7  [included in the BL, for Creating pdf-Reports]
 - 
 
 
-
+[MapQuest link0<----------------------]
 
 _______________notes: 
 ### Database PostgreSQL 
