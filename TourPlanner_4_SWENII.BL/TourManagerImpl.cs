@@ -3,14 +3,18 @@ using iText.Layout;
 using iText.Layout.Element;
 using System;
 using System.Collections.Generic;
+using System.Net.Mime;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using TourPlanner_4_SWENII.Models.HelperEnums;
 //using System.Windows.Documents;
 using TourPlanner_4_SWENII.DAL;
 using TourPlanner_4_SWENII.Models;
+using TransportType = TourPlanner_4_SWENII.Models.HelperEnums.TransportType;
 
 namespace TourPlanner_4_SWENII.BL
 
@@ -26,9 +30,9 @@ namespace TourPlanner_4_SWENII.BL
             //this.dal = dal;
         }   
 
-        public Tour AddTour(string tourName)
+        public Tour AddTour(string tourName,string description, string from, string to , TransportType transportType,decimal distance  )
         {
-            return dal.AddTour(new Tour() { Name=tourName });
+            return dal.AddTour(new Tour() { Name=tourName,Description=description,From=from,To=to,TransportType = transportType, Distance = distance });
         }
 
         public TourLog AddTourLog(int TourId)
@@ -75,7 +79,7 @@ namespace TourPlanner_4_SWENII.BL
 
         //private MediaItemDAO mediaItemDao = new MediaItemDAO();
 
-        public IEnumerable<Tour> GetTours()
+       public IEnumerable<Tour> GetTours()
         {
             return dal.GetTours();
             //return statement
@@ -94,6 +98,8 @@ namespace TourPlanner_4_SWENII.BL
 
             return items.Where(x => x.Name.ToLower().Contains(itemName.ToLower()));
         }
+
+        
 
         public void UpdateTourLog(TourLog tourLog)
         {

@@ -43,12 +43,15 @@ namespace TourPlanner_4_SWENII.ViewModels
                 toursListViewModel.FillListBox(); 
             };
 
+
+
             toursListViewModel.PropertyChanged += (_, SelectedItem) =>
             {
                 Debug.WriteLine($"property selectedItem {SelectedItem} was changed");
                 if(toursListViewModel.SelectedItem != null)
                 {
                     tourLogsVM.GetTourLogs(toursListViewModel.SelectedItem.Id);
+                    tourInfoVM.GetTour(toursListViewModel.SelectedItem.Id);
                 }
                 else
                 {
