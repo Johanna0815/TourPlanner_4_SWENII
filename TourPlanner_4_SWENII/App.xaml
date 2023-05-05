@@ -5,6 +5,8 @@
              Startup ="Application_Startup">
     
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <local:IoCContainerConfig x:Key="IoCConfig"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

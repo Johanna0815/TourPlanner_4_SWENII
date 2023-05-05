@@ -21,6 +21,7 @@ namespace TourPlanner_4_SWENII
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            /*
             // Create all Layers
 
             //SearchViewModel searchViewModel = new SearchViewModel(mediaItemFactory); // Erstellen Sie eine IMediaItemFactory-Instanz
@@ -45,6 +46,16 @@ namespace TourPlanner_4_SWENII
                 TourInfo = { DataContext = tourInfoVM },
                 TourLogs = { DataContext = tourLogsVM },
                 ToursListView = { DataContext = tourListViewModel }
+            };
+            wnd.Show();*/
+
+            var ioCConfig = (IoCContainerConfig)Application.Current.Resources["IoCConfig"];
+
+            var wnd = new MainWindow
+            {
+                DataContext = ioCConfig.MainViewModel,
+                AddTaskBar = { DataContext = ioCConfig.AddTaskBarViewModel },
+                TasksView = { DataContext = ioCConfig.TasksViewModel }
             };
             wnd.Show();
         }

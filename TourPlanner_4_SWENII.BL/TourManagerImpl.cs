@@ -22,14 +22,14 @@ namespace TourPlanner_4_SWENII.BL
 {
     // Execution of the Methodes in IMediaItemFactory
 
-    internal class TourManagerImpl : ITourManager
+    public class TourManagerImpl : ITourManager
     {
         private IDataHandler dal;
         private MapQuest mapquest = new();
 
-        public TourManagerImpl() { //IDataHandler dal
-             dal = new DataHandlerEF();//remove instantiation
-            //this.dal = dal;
+        public TourManagerImpl(IDataHandler dal) {
+            //dal = new DataHandlerEF();//remove instantiation
+            this.dal = dal;
         }   
 
         public Tour AddTour(string tourName,string description, string from, string to , TransportType transportType,decimal distance  )
