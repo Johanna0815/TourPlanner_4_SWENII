@@ -25,7 +25,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         public ObservableCollection<Tour> Tour { get; set; } = new();
 
         public System.Windows.Controls.Image testImage { get; set; } = new();
-        string ImgSourceText = "C:\\Users\\Miriam\\Pictures\\biology.PNG";
+        //string ImgSourceText = string.Empty;
 
         private Tour _selectedTour;
         private int _tourId;
@@ -34,7 +34,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             tourManager = TourManagerFactory.GetInstance();
 
-            LoadImage(ImgSourceText);
+            
         }
 
         public Tour SelectedTour
@@ -58,27 +58,49 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             Tour.Clear();
 
-          var tours  = tourManager.GetTours();
+            var tours  = tourManager.GetTours();
 
-           Tour.Add(tours.Where(t => t.Id == tour_id).First());
-           
-           
+            Tour.Add(tours.Where(t => t.Id == tour_id).First());
+
+            LoadImage($"{Tour[0].Name}{Tour[0].Id}.png");
 
         }
 
         public void LoadImage(string imagePath)
         {
-            Debug.WriteLine($"current dirctory: {System.AppDomain.CurrentDomain.BaseDirectory}");
+            try
+            {
+                //imagePath = "C:\\Users\\Miriam\\Pictures\\random stuff to sort\\Capture (2).PNG";
+                //imagePath = "test 234.png";
 
-            // UriKind uriKind = UriKind.Absolute;
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            //bitmap.UriSource = new Uri(ImgSourceText, uriKind);
-            //bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            bitmap.UriSource = new Uri(imagePath);
-            bitmap.EndInit();
-            testImage.Stretch = Stretch.Fill;
-            testImage.Source = bitmap;
+                Debug.WriteLine($"current dirctory: {System.AppDomain.CurrentDomain.BaseDirectory}");
+
+
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+
+
+                //UriKind uriKind = UriKind.Absolute;
+                UriKind uriKind = UriKind.Relative;
+
+                bitmap.UriSource = new Uri(imagePath, uriKind);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+
+                bitmap.EndInit();
+
+                testImage.Stretch = Stretch.Fill;
+                testImage.Source = bitmap;
+            }
+            catch (System.IO.FileNotFoundException ex)
+            {
+                Debug.WriteLine("Picture does not exist error: ");
+                Debug.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Unnkown error:");
+                Debug.WriteLine(ex.Message);
+            }
         }
 
     }
