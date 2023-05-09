@@ -17,7 +17,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 {
     public class ToursListViewModel : ViewModelBase
     {
-
+     
         private ITourManager tourManager;
         public ObservableCollection<Tour> Tours { get; set; } = new();
 
@@ -128,6 +128,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
             FillListBox();
 
+
             AddTourCommand = new RelayCommand(
                 (O) => !String.IsNullOrEmpty(NewTourName),
                 (O) => { AddTour(); }
@@ -140,6 +141,26 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             NewTourName = "";
         }
+
+        public ToursListViewModel(ITourManager tourmanager) //
+        {
+            this.tourManager = tourmanager;
+            //tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
+            FillListBox();
+
+            AddTourCommand = new RelayCommand(
+                (O) => !String.IsNullOrEmpty(NewTourName),
+                (O) => { AddTour(); }
+            );
+
+            DeleteTourCommand = new RelayCommand(
+                (O) => SelectedItem != null && !String.IsNullOrEmpty(SelectedItem.Name),
+                (O) => { DeleteTour(SelectedItem); }
+            );
+
+            NewTourName = "";
+        }
+
 
         private void AddTour()
         {
