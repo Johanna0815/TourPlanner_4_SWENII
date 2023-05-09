@@ -60,6 +60,7 @@
         <TabItem Header="Route">
             <Grid Background="#FFE5E5E5">
                 <Image Source="{Binding Path=testImage.Source}"></Image>
+                <!--"/TourPlanner_4_SWENII;component/Capture (2).PNG"-->
             </Grid>
         </TabItem>
         <TabItem Header="Misc">
