@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -17,8 +18,6 @@ namespace TourPlanner_4_SWENII.DAL
         public DataHandlerEF()
         {
             context.Database.EnsureCreated();
-            context.TourLogs.Load();
-            context.Tours.Load();
 
             //for testing only:
             /*
@@ -74,5 +73,76 @@ namespace TourPlanner_4_SWENII.DAL
         {
             return context.Tours;
         }
+
+
+
+
+
+        // might using this as unique Feature ?
+        public void ToOrderTour()
+        {
+
+            Queue<Tour> orderTours = new Queue<Tour>();
+
+            foreach (Tour o in RecieveOrdersFromBranch1()) // will return an order Array. 
+            {
+                // add each Tour to the queue.
+                orderTours.Enqueue(o);
+            }
+
+            foreach (Tour o in RecieveOrdersFromBranch2())
+            {
+                orderTours.Enqueue(o);
+
+            }
+
+            while (orderTours.Count > 0)
+            {
+
+                // remove the order At the fornt odf the queuee
+                // and store it in a var called currentTour.
+                Tour currentTour = orderTours.Dequeue();
+                // 
+                currentTour.ProcessTour();
+            }
+
+
+
+        }
+
+
+
+
+        static Tour[] RecieveOrdersFromBranch1()
+        {
+            Tour[] orderedTour = new Tour[]
+            {
+                new Tour("firstTour",1),
+                new Tour("fifthTour",3),
+                new Tour("thirdTour",2)
+            };
+            return orderedTour;
+
+
+        }
+
+
+        static Tour[] RecieveOrdersFromBranch2()
+        {
+            Tour[] orderedTour = new Tour[]
+            {
+                new Tour("fourthTour",4),
+                new Tour("secondTour",5),
+                new Tour("sixthTour",7)
+            };
+            return orderedTour;
+
+
+        }
+
+
+
+
+
     }
 }

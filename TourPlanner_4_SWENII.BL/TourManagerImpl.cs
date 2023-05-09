@@ -27,19 +27,24 @@ namespace TourPlanner_4_SWENII.BL
         private IDataHandler dal;
         private MapQuest mapquest = new();
 
-        public TourManagerImpl() { //IDataHandler dal
-             dal = new DataHandlerEF();//remove instantiation
+        public TourManagerImpl()
+        { //IDataHandler dal
+            dal = new DataHandlerEF();//remove instantiation
             //this.dal = dal;
-        }   
+        }
 
-        public Tour AddTour(string tourName,string description, string from, string to , TransportType transportType,decimal distance  )
+        public Tour AddTour(string tourName, string description, string from, string to, TransportType transportType, decimal distance)
         {
-            return dal.AddTour(new Tour() { Name=tourName,Description=description,From=from,To=to,TransportType = transportType, Distance = distance });
+            if (tourName == null || tourName == "")
+            {
+                tourName = "New Tour";
+            }
+            return dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType, Distance = distance });
         }
 
         public TourLog AddTourLog(int TourId)
         {
-            return dal.AddTourLog(new TourLog() { TourId=TourId });
+            return dal.AddTourLog(new TourLog() { TourId = TourId });
         }
 
         public void DeleteTour(Tour tour)
@@ -58,7 +63,7 @@ namespace TourPlanner_4_SWENII.BL
             PdfDocument pdf = new PdfDocument(writer);
             var document = new iText.Layout.Document(pdf);
 
-            if(tour != null)
+            if (tour != null)
             {
                 document.Add(new Paragraph($"{tour.Name}"));
             }
@@ -81,7 +86,7 @@ namespace TourPlanner_4_SWENII.BL
 
         //private MediaItemDAO mediaItemDao = new MediaItemDAO();
 
-       public IEnumerable<Tour> GetTours()
+        public IEnumerable<Tour> GetTours()
         {
             return dal.GetTours();
             //return statement
@@ -101,7 +106,7 @@ namespace TourPlanner_4_SWENII.BL
             return items.Where(x => x.Name.ToLower().Contains(itemName.ToLower()));
         }
 
-        
+
 
         public void UpdateTourLog(TourLog tourLog)
         {
