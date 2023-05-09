@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Models\TourPlanner_4_SWENII.Models.csproj" />
     <ProjectReference Include="..\TourPlanner_4_SWENII.BL\TourPlanner_4_SWENII.BL.csproj" />
+    <ProjectReference Include="..\TourPlanner_4_SWENII.DAL\TourPlanner_4_SWENII.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

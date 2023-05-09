@@ -1,4 +1,4 @@
-﻿    using global::Example.Log4Net.logging;
+﻿using global::TourPlanner_4_SWENII.logging;
     using System;
     using System.IO;
 

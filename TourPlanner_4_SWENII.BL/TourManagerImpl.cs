@@ -15,15 +15,20 @@ using TourPlanner_4_SWENII.Models.HelperEnums;
 using TourPlanner_4_SWENII.DAL;
 using TourPlanner_4_SWENII.Models;
 using TransportType = TourPlanner_4_SWENII.Models.HelperEnums.TransportType;
+using log4net.Core;
+using Microsoft.Extensions.Logging;
 
 namespace TourPlanner_4_SWENII.BL
-
-
 {
     // Execution of the Methodes in IMediaItemFactory
 
+
     internal class TourManagerImpl : ITourManager
     {
+
+        // get the logger from a factory so that the concrete implementation is hidden behind some interface
+        private static ILoggerWrapper logger = LoggerFactory.GetLogger();
+
         private IDataHandler dal;
         private MapQuest mapquest = new();
 
