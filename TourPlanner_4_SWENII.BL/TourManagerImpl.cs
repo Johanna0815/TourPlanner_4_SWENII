@@ -39,12 +39,16 @@ namespace TourPlanner_4_SWENII.BL
             {
                 tourName = "New Tour";
             }
-            return dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType, Distance = distance });
+            Tour newTour = dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType, Distance = distance });
+            GetMap(newTour);
+            return newTour;
+            
         }
 
         public TourLog AddTourLog(int TourId)
         {
             return dal.AddTourLog(new TourLog() { TourId = TourId });
+            //delete !!
         }
 
         public void DeleteTour(Tour tour)
@@ -113,9 +117,9 @@ namespace TourPlanner_4_SWENII.BL
             throw new NotImplementedException();
         }
 
-        public void GetMap()
+        public void GetMap(Tour tour)
         {
-            mapquest.GetMapQuest();
+            mapquest.GetMapQuest(tour);
 
         }
     }
