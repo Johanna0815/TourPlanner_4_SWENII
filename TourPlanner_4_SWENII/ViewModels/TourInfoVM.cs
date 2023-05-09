@@ -64,6 +64,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             var tours  = tourManager.GetTours();
 
             Tour.Add(tours.Where(t => t.Id == tour_id).First());
+            SelectedTour = tours.First(t => t.Id == tour_id);
 
             LoadImage($"{Tour[0].Name}{Tour[0].Id}.png");
 
@@ -83,8 +84,6 @@ namespace TourPlanner_4_SWENII.ViewModels
 
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
-            SelectedTour = tours.First(t => t.Id == tour_id);
-
 
                 //UriKind uriKind = UriKind.Absolute;
                 UriKind uriKind = UriKind.Relative;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -34,7 +35,11 @@ namespace TourPlanner_4_SWENII.BL
             var rootNode = JsonNode.Parse(content);
             Console.WriteLine(rootNode?.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
 
-
+            if (rootNode["info"]["statuscode"].ToString() != "0")
+            {
+                Debug.WriteLine($"Error {rootNode["info"]["statuscode"]}: getting map failed");
+                return;
+            }
             var sessionId = rootNode["route"]["sessionId"].ToString();
             var boundingBox = rootNode["route"]["boundingBox"];
             var ul_lat = boundingBox["ul"]["lat"].ToString();
