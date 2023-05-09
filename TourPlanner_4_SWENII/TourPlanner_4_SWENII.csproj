@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="itext7" Version="7.2.5" />
+    <PackageReference Include="log4net" Version="2.0.15" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,12 @@
 
   <ItemGroup>
     <Resource Include="Capture (2).PNG" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="logging\log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
