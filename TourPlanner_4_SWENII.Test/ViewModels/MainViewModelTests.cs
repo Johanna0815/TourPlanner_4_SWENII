@@ -1,3 +1,4 @@
+using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.ViewModels;
 
 namespace TourPlanner_4_SWENII.Test.ViewModels
@@ -10,6 +11,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
         private TourInfoVM tiVM;
         private TourLogsVM tlogVM;
         private ToursListViewModel tlistVM;
+        private ITourManager tourManager;
 
         [SetUp]
         public void Setup()
@@ -20,7 +22,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
             tiVM= new TourInfoVM();
             tlogVM= new TourLogsVM();
             tlistVM = new ToursListViewModel();
-            mVM = new MainViewModel(nbVM, sbVM, tiVM, tlogVM, tlistVM);
+            mVM = new MainViewModel(tourManager, nbVM, sbVM, tiVM, tlogVM, tlistVM);
             
         }
 
