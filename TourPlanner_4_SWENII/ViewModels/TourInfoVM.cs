@@ -16,17 +16,17 @@ namespace TourPlanner_4_SWENII.ViewModels
     {
 
         private ITourManager tourManager;
-        public ObservableCollection<Tour> Tour { get; set; } = new();
+        public ObservableCollection<Tour> Tour { get; set; } = new ();
 
          
 
         private Tour _selectedTour;
-        private int _tourId;
+        //private int _tourId;
 
         public TourInfoVM()
         {
-            tourManager = TourManagerFactory.GetInstance(); 
-             
+            tourManager = TourManagerFactory.GetInstance();
+            
         }
 
         public Tour SelectedTour
@@ -39,6 +39,8 @@ namespace TourPlanner_4_SWENII.ViewModels
                 {
                     _selectedTour = value;
 
+                   
+
                     RaisePropertyChangedEvent();
 
                 }
@@ -46,15 +48,13 @@ namespace TourPlanner_4_SWENII.ViewModels
         }
 
         // Get the selected Tour 
-        public void GetTour(int tour_id)
+       public void GetTour(int tour_id)
         {
             Tour.Clear();
 
-          var tours  = tourManager.GetTours();
+            var tours = tourManager.GetTours();
 
-           Tour.Add(tours.Where(t => t.Id == tour_id).First());
-           
-           
+            SelectedTour = tours.First(t => t.Id == tour_id);
 
         }
        
