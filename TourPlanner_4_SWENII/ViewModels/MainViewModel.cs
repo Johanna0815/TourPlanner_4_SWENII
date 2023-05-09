@@ -72,7 +72,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             {
 
 
-                tourManager.GetMap();
+                //tourManager.GetMap();
 
 
             };
