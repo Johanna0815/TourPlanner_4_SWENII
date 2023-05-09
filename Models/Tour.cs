@@ -41,7 +41,7 @@ namespace TourPlanner_4_SWENII.Models
         //rename?
         public string To { get; set; } = string.Empty;
 
-        public TransportType TransportType { get; set; }
+        public TransportType TransportType { get; set; } = TransportType.None;
 
         public decimal Distance { get; set; } = 0;
 
