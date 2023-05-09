@@ -126,7 +126,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             //this.tourmanager = tourmanager
             tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
-            InitListBox();
+            FillListBox();
 
             AddTourCommand = new RelayCommand(
                 (O) => !String.IsNullOrEmpty(NewTourName),
@@ -181,15 +181,6 @@ namespace TourPlanner_4_SWENII.ViewModels
                     RaisePropertyChangedEvent();
                 }
             }
-        }
-
-        private void InitListBox()
-        {
-            //Tours = new ObservableCollection<Tour>();
-
-            // foreach (COLLECTION collection in COLLECTION)
-            FillListBox();
-            // SelectedItem = Tours.First();   
         }
 
         public void FillListBox()
