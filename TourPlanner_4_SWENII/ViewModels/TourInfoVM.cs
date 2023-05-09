@@ -15,6 +15,7 @@ using TourPlanner_4_SWENII.Models;
 using System.Windows.Controls;
 using TourPlanner_4_SWENII.Views;
 using System.Windows.Media;
+using System.Windows;
 
 namespace TourPlanner_4_SWENII.ViewModels
 {
@@ -70,8 +71,10 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             try
             {
+                testImage.Source = null;
+
                 //imagePath = "C:\\Users\\Miriam\\Pictures\\random stuff to sort\\Capture (2).PNG";
-                //imagePath = "test 234.png";
+                //imagePath = "/TourPlanner_4_SWENII;component/Capture (2).PNG";
 
                 Debug.WriteLine($"current dirctory: {System.AppDomain.CurrentDomain.BaseDirectory}");
 
