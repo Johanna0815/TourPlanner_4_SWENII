@@ -19,19 +19,33 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
     public class ToursListViewModelTest
     {
         // nsjkdf wher T : Tour();
-        IEnumerable<Tour> Tours;
-        Tour tour;
+        //IEnumerable<Tour> Tours;
+        //Tour tour;
+
+        ObservableCollection<Tour> tours;
+        Mock<ITourManager> tourManager;
+        ToursListViewModel tlvm;
+
         //ITourManager TourManager;
 
         [SetUp]
         public void SetUp()
         {
-            tour = new() { Name = "Tour1" };
-            Tours = new List<Tour>() { tour };
+            
+
+            tourManager = new Mock<ITourManager>();
+            tlvm = new ToursListViewModel(tourManager.Object);
+
+            tours = new()
+            {
+                new Tour { Name = "Tour1", Description = "Description1", From = "From1", To = "To1", Distance = 100, TransportType = 0 }
+
+            };
+
             //TourManager = new MoqTourManager(Tours);
         }
 
-        [Test]
+       /* [Test]
         public void Tours_ShouldContain()
         {
             var mockTourManager = new Mock<ITourManager>();
@@ -50,41 +64,23 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
             Assert.That(tlvm.Tours[0].Name, Is.EqualTo(tour.Name));
             //Assert.Contains("");
 
-        }
+        }*/
 
-        [Test]
-        public void Test2()
-        {
-            Assert.True(true);
-        }
+
         [Test]
 
         public void Tours_ShouldBeAdded()
         {
             //Arrange
-            var tourManager = new Mock<ITourManager>();
-            var tlvm = new ToursListViewModel(tourManager.Object);
 
-            ObservableCollection<Tour> tour = new()
-            {
-                new Tour { Name = "Tour1", Description = "Description1", From = "From1", To = "To1", Distance = 100, TransportType = 0 }
-
-            };
-
-            tourManager.Setup(x => x.GetTours()).Returns(tour);
+            tourManager.Setup(x => x.GetTours()).Returns(tours);
 
             //Act
             tlvm.AddTour();
 
             //Assert
 
-            Assert.AreEqual(tour.First().Name, tlvm.Tours.First().Name);
-
-
-
-
-
-
+            Assert.That(tlvm.Tours.First().Name, Is.EqualTo(tours.First().Name));
 
         }
 
@@ -93,50 +89,35 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
         [Test]
         public void ToursForm_ShouldBeEmptyAfterAdding()
         {
-            // Arrange 
-            var tourManager = new Mock<ITourManager>();
-            var viewModel = new ToursListViewModel(tourManager.Object);
-
-
-
+            // Arrange // by Setup()
+          
             // Act 
-            viewModel.NewTourName = "MyTour";
-            viewModel.AddTour();
-
-
-
+            tlvm.NewTourName = "MyTour";
+            tlvm.AddTour();
 
             //Assert
 
-
-
-            Assert.AreEqual("", viewModel.NewTourName);
+            Assert.That(tlvm.NewTourName, Is.EqualTo(""));
         }
 
         [Test]
 
         public void Tours_ShouldBeAddedToViewList()
 
-
         {
             // Arrange
-            ObservableCollection<Tour> tours = new()
+            ObservableCollection<Tour> expectedTours = new()
             {
                     new Tour { Name = "Tour1", Description = "Description1", From = "From1", To = "To1", Distance = 100, TransportType = 0 },
                     new Tour { Name = "Tour2", Description = "Description2", From = "From2", To = "To2", Distance = 200, TransportType = 0 },
                     new Tour { Name = "Tour3", Description = "Description3", From = "From3", To = "To3", Distance = 300, TransportType = 0 }
             };
 
-            var tourManager = new Mock<ITourManager>();
-
-            tourManager.Setup(x => x.GetTours()).Returns(tours);
-            var tlvm = new ToursListViewModel(tourManager.Object);
-
+            tourManager.Setup(x => x.GetTours()).Returns(expectedTours);
+          
             // Act
 
             tlvm.FillListBox();
-
-
 
             // Assert
             Assert.That(tlvm.Tours.Count, Is.EqualTo(3));
@@ -150,8 +131,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
         {
             //Arrange
 
-            var tourManager = new Mock<ITourManager>();
-            var tlvm = new ToursListViewModel(tourManager.Object);
+         
 
             ObservableCollection<Tour> expectedtours = new()
             {
@@ -166,29 +146,21 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
                 new Tour { Name = "Paris Tour", Description = "Paris2" }
             };
 
-
-
-
-            var searchingText = "tour";
+            
+            var searchingText = "tour1";
             tourManager.Setup(x => x.Search(searchingText, false)).Returns(expectedtours);
             tourManager.Setup(x => x.Search("Paris", false)).Returns(matchingTours2);
-
-
-
 
 
             //Act 
 
             tlvm.SearchFor(searchingText);
-            Assert.AreEqual(3, tlvm.Tours.Count());
+            Assert.That(tlvm.Tours.Count(), Is.EqualTo(3));
 
             //Assert
 
             tlvm.SearchFor("Paris");
-            Assert.AreEqual(2, tlvm.Tours.Count());
-
-
-
+            Assert.That(tlvm.Tours.Count(), Is.EqualTo(2));
 
         }
 
@@ -200,8 +172,6 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 
         {
             //Arrange
-            var tourManager = new Mock<ITourManager>();
-            var tlvm = new ToursListViewModel(tourManager.Object);
 
             ObservableCollection<Tour> tours = new()
             {
@@ -232,7 +202,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 
             //Assert
 
-            Assert.AreEqual(2, tlvm.Tours.Count);
+            Assert.That(tlvm.Tours.Count, Is.EqualTo(2)); // expectedTours != tlvm.Tours ???
 
 
         }
