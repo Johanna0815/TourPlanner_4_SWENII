@@ -23,9 +23,9 @@ namespace TourPlanner_4_SWENII.ViewModels
         private Tour _selectedTour;
         private int _tourId;
 
-        public TourInfoVM()
+        public TourInfoVM(ITourManager tourManager)
         {
-            tourManager = TourManagerFactory.GetInstance(); 
+            this.tourManager = tourManager;
              
         }
 
