@@ -27,12 +27,12 @@ namespace TourPlanner_4_SWENII
 
 
             // create all VMs and inject them later
+            ITourManager tourManager = TourManagerFactory.GetInstance();
             NavBarVM navBarVM = new NavBarVM();
             SearchBarVM searchBarVM = new SearchBarVM();
             TourInfoVM tourInfoVM = new TourInfoVM();
             TourLogsVM tourLogsVM = new TourLogsVM();
-            ToursListViewModel tourListViewModel = new ToursListViewModel();
-            ITourManager tourManager = TourManagerFactory.GetInstance();
+            ToursListViewModel tourListViewModel = new ToursListViewModel(tourManager);
             //ClearCommandVM clearCommandVM = new ClearCommandVM();
 
             var wnd = new MainWindow()

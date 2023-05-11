@@ -18,7 +18,7 @@ namespace TourPlanner_4_SWENII.ViewModels
     public class ToursListViewModel : ViewModelBase
     {
      
-        private ITourManager tourManager;
+        public  ITourManager tourManager;
         public ObservableCollection<Tour> Tours { get; set; } = new();
 
         private string newTourName = string.Empty;
@@ -122,7 +122,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         //public event EventHandler<string> TourAdded;
 
-        public ToursListViewModel() //ITourManager tourmanager
+     /*   public ToursListViewModel() //ITourManager tourmanager
         {
             //this.tourmanager = tourmanager
             tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
@@ -140,7 +140,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             );
 
             NewTourName = "";
-        }
+        }*/
 
         public ToursListViewModel(ITourManager tourmanager) //
         {
@@ -162,7 +162,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         }
 
 
-        private void AddTour()
+        public void AddTour()
         {
             //Debug.Print($"Adding tour {NewTourName}");
 
@@ -179,13 +179,13 @@ namespace TourPlanner_4_SWENII.ViewModels
             //TourAdded?.Invoke(this, NewTourName);
         }
 
-        private void DeleteTour(Tour item)
+        public void DeleteTour(Tour tour)
         {
             //Debug.Print($"Deleting tour {item.Name}");
 
-            //Tours.Remove(item);
-            tourManager.DeleteTour(item);
-            FillListBox();
+            tourManager.DeleteTour(tour);
+            Tours.Remove(tour);
+           // FillListBox();
         }
 
         private Tour _selecteditem;
