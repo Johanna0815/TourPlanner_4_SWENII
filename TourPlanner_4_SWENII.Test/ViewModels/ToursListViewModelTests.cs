@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,24 +16,27 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
        // nsjkdf wher T : Tour();
         IEnumerable<Tour> Tours;
         Tour tour;
-        ITourManager TourManager;
+        //ITourManager TourManager;
 
         [SetUp]
         public void SetUp()
         {
             tour = new() { Name = "Tour1" };
             Tours = new List<Tour>() { tour };
-            TourManager = new MoqTourManager(Tours);
+            //TourManager = new MoqTourManager(Tours);
         }
         
         [Test]
         public void Tours_ShouldContain()
         {
+            var mockTourManager = new Mock<ITourManager>();
+            mockTourManager.Setup(m => m.GetTours()).Returns(Tours); //m.GetTours(It.IsAny<Product>())
+
             //Arrange
             ToursListViewModel tlvm;
 
             //Act
-            tlvm = new ToursListViewModel(TourManager);
+            tlvm = new ToursListViewModel(mockTourManager.Object);
 
             //Assert
             Assert.IsNotNull(tlvm);
@@ -49,7 +53,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
             Assert.True(true);
         }
     }
-
+    /*
     public class MoqTourManager : ITourManager
     {
         IEnumerable<Tour> Tours;
@@ -109,5 +113,5 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
         {
             throw new NotImplementedException();
         }
-    }
+    }*/
 }
