@@ -22,8 +22,6 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         public MainViewModel(ITourManager tourManager, NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm) //SearchViewModel svm
         {
-            
-
             navBarVM= nbVM;
             searchBarVM= sbVM;
             tourInfoVM= tiVM;

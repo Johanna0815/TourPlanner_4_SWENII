@@ -122,29 +122,9 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         //public event EventHandler<string> TourAdded;
 
-     /*   public ToursListViewModel() //ITourManager tourmanager
+        public ToursListViewModel(ITourManager tourManager) //
         {
-            //this.tourmanager = tourmanager
-            tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
-            FillListBox();
-
-
-            AddTourCommand = new RelayCommand(
-                (O) => !String.IsNullOrEmpty(NewTourName),
-                (O) => { AddTour(); }
-            );
-
-            DeleteTourCommand = new RelayCommand(
-                (O) => SelectedItem != null && !String.IsNullOrEmpty(SelectedItem.Name),
-                (O) => { DeleteTour(SelectedItem); }
-            );
-
-            NewTourName = "";
-        }*/
-
-        public ToursListViewModel(ITourManager tourmanager) //
-        {
-            this.tourManager = tourmanager;
+            this.tourManager = tourManager;
             //tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
             FillListBox();
 

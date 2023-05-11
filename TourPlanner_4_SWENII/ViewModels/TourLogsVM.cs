@@ -34,8 +34,8 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        public TourLogsVM() {
-            tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
+        public TourLogsVM(ITourManager tourManager) {
+            this.tourManager = tourManager; //create and pass in app-startup
             // InitTourLogList();
 
             /*TourLogs = new ObservableCollection<TourLog>() { 
