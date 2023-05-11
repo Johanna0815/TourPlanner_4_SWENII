@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,10 @@ namespace TourPlanner_4_SWENII.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Include Error Detail=True;Host=localhost;Database=test;Username=postgres;Password=changeme");
+            string connectionString = ConfigurationManager.ConnectionStrings["PostgreSQLConnectionString"].ConnectionString;
+            optionsBuilder.UseNpgsql(connectionString);
+
+            //optionsBuilder.UseNpgsql("Include Error Detail=True;Host=localhost;Database=test;Username=postgres;Password=changeme");
         }
     }
 }
