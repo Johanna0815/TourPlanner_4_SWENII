@@ -21,7 +21,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         private ITourManager tourManager;
         public ObservableCollection<Tour> Tours { get; set; } = new();
 
-        private string newTourName;
+        private string newTourName = string.Empty;
         public string NewTourName
         {
             get => newTourName;
@@ -37,7 +37,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        private string _description;
+        private string _description = string.Empty;
         public string Description
         {
             get => _description;
@@ -53,7 +53,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        private string from;
+        private string from = string.Empty;
         public string From
         {
             get => from;
@@ -69,7 +69,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        private string to;
+        private string to = string.Empty;
         public string To
         {
             get => to;
