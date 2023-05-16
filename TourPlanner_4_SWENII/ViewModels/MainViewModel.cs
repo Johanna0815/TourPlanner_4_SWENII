@@ -1,6 +1,7 @@
 ﻿using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+//using log4net.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TourPlanner_4_SWENII.BL;
+using TourPlanner_4_SWENII.logging;
 
 namespace TourPlanner_4_SWENII.ViewModels
 {
@@ -19,6 +21,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         private TourLogsVM tourLogsVM;
         private ToursListViewModel toursListViewModel;
         private ITourManager tourManager;
+        private static ILoggerWrapper logger = LoggerFactory.GetLogger();
 
         public MainViewModel(ITourManager tourManager, NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm) //SearchViewModel svm
         {
@@ -32,8 +35,10 @@ namespace TourPlanner_4_SWENII.ViewModels
             this.tourManager = tourManager;
 
             searchBarVM.SearchForText += (_, searchText) =>
-            { 
+            {
                 //toursListViewModel.Items.Clear(); 
+                logger.Debug($"Searching for text {searchText}");
+
                 toursListViewModel.SearchFor(searchText); 
             };
 

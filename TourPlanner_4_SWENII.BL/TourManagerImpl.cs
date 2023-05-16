@@ -27,7 +27,7 @@ namespace TourPlanner_4_SWENII.BL
     {
 
         // get the logger from a factory so that the concrete implementation is hidden behind some interface
-        private static ILoggerWrapper logger = LoggerFactory.GetLogger();
+        //private static ILoggerWrapper logger = LoggerFactory.GetLogger();
 
         private IDataHandler dal;
         private MapQuest mapquest = new();
