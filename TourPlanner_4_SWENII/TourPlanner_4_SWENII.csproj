@@ -20,16 +20,11 @@
     <ProjectReference Include="..\Models\TourPlanner_4_SWENII.Models.csproj" />
     <ProjectReference Include="..\TourPlanner_4_SWENII.BL\TourPlanner_4_SWENII.BL.csproj" />
     <ProjectReference Include="..\TourPlanner_4_SWENII.DAL\TourPlanner_4_SWENII.DAL.csproj" />
+    <ProjectReference Include="..\TourPlanner_4_SWENII.Utils\TourPlanner_4_SWENII.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Capture (2).PNG" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

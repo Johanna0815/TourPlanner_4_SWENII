@@ -8,3 +8,5 @@
         void Warn(string message);
     }
 }
+
+//to use with: private static ILoggerWrapper logger = LoggerFactory.GetLogger();
