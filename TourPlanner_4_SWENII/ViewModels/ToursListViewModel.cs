@@ -17,9 +17,9 @@ namespace TourPlanner_4_SWENII.ViewModels
 {
     public class ToursListViewModel : ViewModelBase
     {
-
         private ITourManager tourManager;
         public ObservableCollection<Tour> Tours { get; set; } = new();
+
 
         private string newTourName = string.Empty;
         public string NewTourName

@@ -13,11 +13,14 @@
 
   <ItemGroup>
     <PackageReference Include="itext7" Version="7.2.5" />
+    <PackageReference Include="log4net" Version="2.0.15" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Models\TourPlanner_4_SWENII.Models.csproj" />
     <ProjectReference Include="..\TourPlanner_4_SWENII.BL\TourPlanner_4_SWENII.BL.csproj" />
+    <ProjectReference Include="..\TourPlanner_4_SWENII.DAL\TourPlanner_4_SWENII.DAL.csproj" />
+    <ProjectReference Include="..\TourPlanner_4_SWENII.Utils\TourPlanner_4_SWENII.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
