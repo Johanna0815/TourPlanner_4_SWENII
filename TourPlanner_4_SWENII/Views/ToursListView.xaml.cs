@@ -52,5 +52,19 @@ namespace TourPlanner_4_SWENII.Views
 
             TourNamePrompt.Visibility = Visibility.Collapsed;
         }
+
+        public void Update(object sender, RoutedEventArgs e)
+        {
+            if (UpdateTourPrompt.Visibility == Visibility.Visible)
+            {
+                UpdateTourPrompt.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                UpdateTourPrompt.Visibility = Visibility.Visible;
+            }
+
+           // TourNamePrompt.Visibility = Visibility.Collapsed;
+        }
     }
 }

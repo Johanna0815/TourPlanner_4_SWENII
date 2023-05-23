@@ -41,6 +41,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                 toursListViewModel.FillListBox(); 
             };
 
+     
 
 
             toursListViewModel.PropertyChanged += (_, SelectedItem) =>
@@ -50,6 +51,8 @@ namespace TourPlanner_4_SWENII.ViewModels
                 {
                     tourLogsVM.GetTourLogs(toursListViewModel.SelectedItem.Id);
                     tourInfoVM.GetTour(toursListViewModel.SelectedItem.Id);
+                   
+                    
                 }
                 else
                 {

@@ -21,6 +21,9 @@ namespace TourPlanner_4_SWENII.BL
 
             return instance;
         }*/
-
+        public static ITourManager GetInstance()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

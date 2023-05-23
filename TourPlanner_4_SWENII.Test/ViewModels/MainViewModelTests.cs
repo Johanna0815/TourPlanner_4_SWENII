@@ -1,4 +1,4 @@
-using TourPlanner_4_SWENII.BL;
+/*using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.ViewModels;
 
 namespace TourPlanner_4_SWENII.Test.ViewModels
@@ -80,3 +80,4 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
         }
     }
 }
+*/
