@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.Models;
 
+
 namespace TourPlanner_4_SWENII.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
@@ -20,9 +21,10 @@ namespace TourPlanner_4_SWENII.ViewModels
             ValidatePropertyName(propertyName);
             if(PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+    
         }
 
-        protected void ValidatePropertyName(string propertyName)
+       protected void ValidatePropertyName(string propertyName)
         {
             if (TypeDescriptor.GetProperties(this)[propertyName] == null)
             {

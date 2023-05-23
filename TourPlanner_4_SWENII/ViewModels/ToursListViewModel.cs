@@ -33,6 +33,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                     newTourName = value;
                     this.RaisePropertyChangedEvent();
                     this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -49,6 +50,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                     _description = value;
                     this.RaisePropertyChangedEvent();
                     this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -65,6 +67,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                     from = value;
                     this.RaisePropertyChangedEvent();
                     this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -81,6 +84,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                     to = value;
                     this.RaisePropertyChangedEvent();
                     this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -97,6 +101,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                     _transportType = value;
                     this.RaisePropertyChangedEvent();
                     this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -113,6 +118,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                     _distance = value;
                     this.RaisePropertyChangedEvent();
                     this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -120,6 +126,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         public RelayCommand AddTourCommand { get; set; }
         public RelayCommand DeleteTourCommand { get; set; }
 
+        public RelayCommand UpdateTourCommand { get; set; }
         //public event EventHandler<string> TourAdded;
 
         public ToursListViewModel(ITourManager tourManager) //
@@ -138,6 +145,11 @@ namespace TourPlanner_4_SWENII.ViewModels
                 (O) => { DeleteTour(SelectedItem); }
             );
 
+            UpdateTourCommand = new RelayCommand(
+               (O) => SelectedItem != null && !String.IsNullOrEmpty(SelectedItem.Name),
+               (O) => { UpdateTour(); }
+           );
+
             NewTourName = "";
         }
 
@@ -148,14 +160,26 @@ namespace TourPlanner_4_SWENII.ViewModels
             var newTour = tourManager.AddTour(NewTourName,Description,From,To, (Models.HelperEnums.TransportType)TransportType,Distance);
             //Tours.Add(newTour);
             FillListBox();
+            SetFormEmpty();
 
-            NewTourName = "";
-            Description = "";
-            From = "";
-            To = "";
-            TransportType = 0;
-            Distance = 0;
             //TourAdded?.Invoke(this, NewTourName);
+        }
+
+        public void UpdateTour()
+        {
+            SelectedItem.Name = newTourName;
+            SelectedItem.Description = _description;
+            SelectedItem.From = from;
+            SelectedItem.To = to;
+            SelectedItem.TransportType = (Models.HelperEnums.TransportType)_transportType;
+            SelectedItem.Distance = _distance;
+
+            tourManager.UpdateTour(SelectedItem);
+            tourManager.GetMap(SelectedItem);
+            FillListBox();
+
+            SetFormEmpty();
+
         }
 
         private void DeleteTour(Tour item)
@@ -178,7 +202,10 @@ namespace TourPlanner_4_SWENII.ViewModels
                 {
                     _selecteditem = value;
 
-                    RaisePropertyChangedEvent();
+                   
+                    this.RaisePropertyChangedEvent();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
+
                 }
             }
         }
@@ -220,6 +247,18 @@ namespace TourPlanner_4_SWENII.ViewModels
                 }*/
                 Tours.Add(tour);
             }
+        }
+
+        private void SetFormEmpty()
+        {
+            NewTourName = "";
+            Description = "";
+            From = "";
+            To = "";
+            TransportType = 0;
+            Distance = 0;
+
+
         }
     }
 }

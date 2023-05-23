@@ -36,7 +36,7 @@
                 <TextBlock Grid.Column="1" FontWeight="UltraBold"  TextAlignment="Center" FontSize="20" FontStyle="Italic" FontFamily="Arial"> Tours Information </TextBlock>
                
                 <Label Grid.Column="0" Grid.Row="1" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >Tourname : </Label>
-                <TextBlock Grid.Column="1" Grid.Row=" 1" FontSize="13" Foreground="DarkGreen"  VerticalAlignment="Center" Text="{Binding SelectedTour.Name}"/>
+                <TextBlock Grid.Column="1" Grid.Row=" 1" FontSize="13" Foreground="DarkGreen"  VerticalAlignment="Center" Text="{Binding SelectedTour.Name, Mode=TwoWay}"/>
 
                 <Label Grid.Column="0" Grid.Row="2" FontSize="13" FontWeight="UltraBold"  VerticalContentAlignment="Top" >From:</Label>
                 <TextBlock Grid.Column="1" Grid.Row=" 2" FontSize="13" Foreground="DarkGreen" VerticalAlignment="Center" Text="{Binding SelectedTour.From}"/>
