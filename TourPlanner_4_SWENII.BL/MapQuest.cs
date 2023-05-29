@@ -37,7 +37,7 @@ namespace TourPlanner_4_SWENII.BL
 
 
             var rootNode = JsonNode.Parse(content);
-          //  var rootNode = JsonDocument.Parse(content).RootElement;
+            //  var rootNode = JsonDocument.Parse(content).RootElement;
             Console.WriteLine(rootNode?.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
 
             if (rootNode["info"]["statuscode"].ToString() != "0")
@@ -47,34 +47,32 @@ namespace TourPlanner_4_SWENII.BL
             }
             var sessionId = rootNode["route"]["sessionId"].ToString();
             var boundingBox = rootNode["route"]["boundingBox"];
-           // tour.Distance = rootNode["route"]["distance"].GetDecimal();
+            // tour.Distance = rootNode["route"]["distance"].GetDecimal();
 
-           //  tour.Distance = rootNode["route"]["distance"].GetValue<decimal>();
+            //  tour.Distance = rootNode["route"]["distance"].GetValue<decimal>();
 
-           try
-           {
+            try
+            {
 
-               var routeNode = rootNode["route"];
-               var distanceNode = routeNode?["distance"];
+                var routeNode = rootNode["route"];
+                var distanceNode = routeNode?["distance"];
 
-               if (routeNode != null && distanceNode != null)
-               {
-                   tour.Distance = distanceNode.GetValue<decimal>();
-               }
-               else
-               {
-                   // Handle the case when the required nodes are missing or have unexpected structure
-                   // You can log an error, throw an exception, or set a default value for Distance
-                   Debug.Print($"The Distance is {tour.Distance} long.");
-                   tour.Distance = 0; // Setting a default value for Distance
-               }
+                if (routeNode != null && distanceNode != null)
+                {
+                    tour.Distance = distanceNode.GetValue<decimal>();
+                }
+                else
+                {
 
-           }
-           catch (Exception ex)
-           {
-               Console.WriteLine($" In {tour.Distance } occured the following exception: {ex}");
-           }
+                    Debug.Print($"The Distance is {tour.Distance} long.");
+                    tour.Distance = 0; // Setting a default value for Distance
+                }
 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($" In {tour.Distance} occured the following exception: {ex}");
+            }
 
 
 
@@ -84,7 +82,8 @@ namespace TourPlanner_4_SWENII.BL
 
 
 
-           //  tour.Distance = rootNode["route"]["distance"].Deserialize<Decimal>();
+
+            //  tour.Distance = rootNode["route"]["distance"].Deserialize<Decimal>();
 
 
 
@@ -95,7 +94,7 @@ namespace TourPlanner_4_SWENII.BL
 
             Debug.Print($"{tour.EstimatedTime}");
             //   Debug.Print($"hier ist die distance.{Distance}");
-         
+
 
 
             // tour.EstimatedTime = .logging{""} // 
