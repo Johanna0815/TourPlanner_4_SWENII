@@ -15,6 +15,8 @@ using TourPlanner_4_SWENII.Models.HelperEnums;
 using TourPlanner_4_SWENII.DAL;
 using TourPlanner_4_SWENII.Models;
 using TransportType = TourPlanner_4_SWENII.Models.HelperEnums.TransportType;
+using System.Windows.Input;
+using log4net;
 
 namespace TourPlanner_4_SWENII.BL
 {
@@ -29,10 +31,11 @@ namespace TourPlanner_4_SWENII.BL
         private IDataHandler dal;
         private MapQuest mapquest = new();
 
-        public TourManagerImpl(IDataHandler dal) {
+        public TourManagerImpl(IDataHandler dal)
+        {
             //dal = new DataHandlerEF();//remove instantiation
             this.dal = dal;
-        }   
+        }
 
         public Tour AddTour(string tourName, string description, string from, string to, TransportType transportType, decimal distance)
         {
@@ -43,7 +46,7 @@ namespace TourPlanner_4_SWENII.BL
             Tour newTour = dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType, Distance = distance });
             GetMap(newTour);
             return newTour;
-            
+
         }
 
         public TourLog AddTourLog(int TourId)
@@ -112,11 +115,56 @@ namespace TourPlanner_4_SWENII.BL
         }
 
 
-
+        //  string tourName
         public void UpdateTourLog(TourLog tourLog)
         {
+            // Find the tour in the list
+            //var tour = tours.FirstOrDefault(t => t.Name == tourName);
+            //if (tour != null)
+            //{
+            //    // Find the tour log in the tour
+            //    var existingLog = tour.Logs.FirstOrDefault(l => l.DateTime == log.DateTime);
+            //    if (existingLog != null)
+            //    {
+            //        // Update the tour log properties
+            //        existingLog.Comment = log.Comment;
+            //        existingLog.Difficulty = log.Difficulty;
+            //        existingLog.TotalTime = log.TotalTime;
+            //        existingLog.Rating = log.Rating;
+
+
+
             throw new NotImplementedException();
+
+
         }
+
+
+        // Method to update an existing tour
+        //public void UpdateTour(Tour tour)
+        //{
+        //    // Find the tour in the list
+        //    var existingTour = tours.FirstOrDefault(t => t.Name == tour.Name);
+        //    if (existingTour != null)
+        //    {
+        //        PopulateTourData(tour);
+
+        //        // Update the tour properties
+        //        existingTour.Description = tour.Description;
+        //        existingTour.From = tour.From;
+        //        existingTour.To = tour.To;
+        //        existingTour.TransportType = tour.TransportType;
+        //        existingTour.Distance = tour.Distance;
+        //        existingTour.EstimatedTime = tour.EstimatedTime;
+        //        existingTour.RouteInformation = tour.RouteInformation;
+        //    }
+        //}
+
+
+
+
+
+
 
         public void GetMap(Tour tour)
         {
@@ -132,3 +180,4 @@ namespace TourPlanner_4_SWENII.BL
         }
     }
 }
+            

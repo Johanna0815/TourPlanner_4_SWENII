@@ -23,8 +23,9 @@ namespace TourPlanner_4_SWENII.Models.HelperEnums
         Bike = 1,
         Hike = 2,
         Running = 4,
-        Vacation = 8,
-        MixedTransportType = Hike ^ Running,
+        Vacation = 8,  // vacation-) tours TODO 
+        MixedTransportType = Hike ^ Running, // genau ein Ausdruck trifft hier zu; (gut für die Streckenberechnung ?) 
+
 
 
 

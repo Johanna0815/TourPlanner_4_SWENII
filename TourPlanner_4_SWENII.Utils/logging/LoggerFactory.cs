@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace TourPlanner_4_SWENII.logging
 {
-        public static class LoggerFactory
+    public static class LoggerFactory
+    {
+        public static ILoggerWrapper GetLogger()
         {
-            public static ILoggerWrapper GetLogger()
-            {
-                return Log4NetWrapper.CreateLogger("./log4net.config"); //"./log4net.config"
-            }
+            return Log4NetWrapper.CreateLogger("./log4net.config"); //"./log4net.config"
         }
+    }
 }

@@ -1,0 +1,269 @@
+[33mcommit e54e85eb49f6aed076af6b36b8c8ace0cf3bdacf[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m
+Author: Johanna0815 <81578777+Johanna0815@users.noreply.github.com>
+Date:   Wed May 10 17:15:27 2023 +0200
+
+    trying out
+
+[33mcommit 22126fa76e76f8d236005432efb1754c6d310c99[m
+Author: Johanna0815 <johanna_ist_da@yahoo.de>
+Date:   Tue May 9 15:04:14 2023 +0200
+
+    merge
+
+[33mcommit b3911917928dc91a670fc653c4ed1d137abd834f[m
+Merge: cd343d6 8b343ff
+Author: Johanna0815 <johanna_ist_da@yahoo.de>
+Date:   Tue May 9 14:56:01 2023 +0200
+
+    Merge branch 'develop' of https://github.com/Johanna0815/TourPlanner_4_SWENII into develop
+
+[33mcommit 8b343ff38536058caa0e434c257b2ab370937e10[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue May 9 14:54:55 2023 +0200
+
+    error handling
+
+[33mcommit 45f80da17bb512513f9937ab8bd382f33b0fa289[m
+Merge: e89dffb 691044b
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue May 9 14:27:53 2023 +0200
+
+    merge mapQuest
+
+[33mcommit cd343d69b9d582dbdad596adcd02bf6f59de5f26[m
+Author: Johanna0815 <johanna_ist_da@yahoo.de>
+Date:   Tue May 9 14:08:42 2023 +0200
+
+    test to Test.
+
+[33mcommit 8c00d449ba39f8405d6ff6f0c66aef1552b9401d[m
+Merge: a22a274 388fcc3
+Author: Johanna0815 <johanna_ist_da@yahoo.de>
+Date:   Tue May 9 14:08:10 2023 +0200
+
+    tst to Test.
+
+[33mcommit a22a274f754e88b5e5a8a02068d808ed7776a3f9[m
+Author: Johanna0815 <johanna_ist_da@yahoo.de>
+Date:   Tue May 9 14:04:42 2023 +0200
+
+    test to begin.
+
+[33mcommit e89dffba59d23685473dce321de6f14f20c62c8b[m
+Merge: 388fcc3 40867e6
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue May 9 14:01:29 2023 +0200
+
+    merge tourInfo
+
+[33mcommit 388fcc36450dcf2bea5c7bb332f98ce6c21e0810[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue May 9 13:31:36 2023 +0200
+
+    init tour with default values
+
+[33mcommit 691044b17cd4bab0eda1fcff92f1b919632b3444[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue May 9 13:18:35 2023 +0200
+
+    comment
+
+[33mcommit c84bbcbba736b69a0989f43a0288c82cce4538c6[m
+Author: Johanna0815 <81578777+Johanna0815@users.noreply.github.com>
+Date:   Tue May 9 13:17:46 2023 +0200
+
+    ordering function in project but not included.
+
+[33mcommit 32261b7b43cc32028d7cb686f80e3187d6c20c81[m[33m ([m[1;31morigin/feature/MapQuest[m[33m)[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue May 9 12:53:42 2023 +0200
+
+    remove old image from view when no correct one was found
+
+[33mcommit 3c4b85a1657f8c34202319e6089ebe3526cb2103[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue May 9 12:10:05 2023 +0200
+
+    get correct tour map from .exe folder
+
+[33mcommit f55619e571e9fb008d7a41b1c10d3c254e5827f8[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue May 9 11:34:47 2023 +0200
+
+    show random image
+
+[33mcommit 105e9e7f54119f484be4b6de0ad74e00c570af5c[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue May 9 11:01:40 2023 +0200
+
+    get map when adding a new tour
+
+[33mcommit 40867e662314fdb28cfd0f914a7beb0a221e457c[m[33m ([m[1;31morigin/TourInfo[m[33m)[m
+Author: DYO1407 <96904584+DYO1407@users.noreply.github.com>
+Date:   Tue May 9 10:45:19 2023 +0200
+
+    Tour Info are now in TextBlocke displayed
+
+[33mcommit a6de5c6091132529de2d386004b711b414588e59[m[33m ([m[1;31morigin/feature/editTourLogs[m[33m)[m
+Author: DYO1407 <96904584+DYO1407@users.noreply.github.com>
+Date:   Sat Apr 29 17:59:21 2023 +0200
+
+    intgreted MapQuest Class
+
+[33mcommit 4742e23e481ac558ccb5cc6cc094ff701ce1f264[m
+Merge: c8e50c4 0be5685
+Author: DYO1407 <96904584+DYO1407@users.noreply.github.com>
+Date:   Sat Apr 29 17:03:21 2023 +0200
+
+    Merge branch 'TourInfo' into develop
+
+[33mcommit 0be5685ed33a2e89994d4cb21689f2d721a1a710[m
+Author: DYO1407 <96904584+DYO1407@users.noreply.github.com>
+Date:   Sat Apr 29 16:59:47 2023 +0200
+
+    display tourinfo
+
+[33mcommit c8e50c460a674c3f7c7cfc6200922c34f562f9bf[m
+Merge: 90d9182 5df22b0
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Thu Apr 27 12:19:28 2023 +0200
+
+    Merge branch 'develop' of https://github.com/Johanna0815/TourPlanner_4_SWENII into develop
+
+[33mcommit 90d9182f036e05812f438b927cd36a90db560400[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Thu Apr 27 12:03:56 2023 +0200
+
+    repurpose DataHandlerEF and DataHandlerMemory
+
+[33mcommit 0e75157d9677e8a51ece1879b88df8f3d1c7a851[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Thu Apr 27 11:35:14 2023 +0200
+
+    add different tourlogs view
+
+[33mcommit 5df22b0c4edd3aae536d96b001a13cc915553cb6[m
+Author: DYO1407 <96904584+DYO1407@users.noreply.github.com>
+Date:   Thu Apr 27 10:09:09 2023 +0200
+
+    everything is oaky
+
+[33mcommit 400360b977d047b492d52c45ed5e031fe71e855f[m
+Author: DYO1407 <96904584+DYO1407@users.noreply.github.com>
+Date:   Thu Apr 27 10:06:50 2023 +0200
+
+    test
+
+[33mcommit 2e237d861ec694c85670e54ad851687d7b7daebf[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Thu Apr 27 09:40:46 2023 +0200
+
+    change tours listview
+
+[33mcommit dbe9d4cb91d14ebbf5dc7a20895410fd700d5ea1[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Thu Apr 27 08:35:14 2023 +0200
+
+    remove double adding to tours
+
+[33mcommit 8d27670d4fbebd7cee152a20885386bb89b92299[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Wed Apr 26 17:35:25 2023 +0200
+
+    add condition for empty report
+
+[33mcommit 5adc22bfa97a18c533747bbfb696f21f0ad4760c[m
+Merge: 02b41c7 6c6a0a8
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue Apr 25 11:12:03 2023 +0200
+
+    Merge branch 'developMiriam' into develop
+
+[33mcommit 6c6a0a806ff160e73f153316736540b3f91edfcb[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue Apr 25 11:11:28 2023 +0200
+
+    add BL to mainViewModel and add GenerateReport functionality
+
+[33mcommit 02b41c771449ef2d9f73ee153a02b0c7b709a3f5[m
+Merge: f49928a f9ff341
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Mon Apr 24 20:45:06 2023 +0200
+
+    Merge branch 'develop' of https://github.com/Johanna0815/TourPlanner_4_SWENII into develop
+
+[33mcommit f49928a4e7dcb3654ae45fc0898fb5029186f285[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Mon Apr 24 20:24:43 2023 +0200
+
+    add functionality to add TourLogs
+
+[33mcommit 0c58a318666972f5402de93c4dfa9108460eac75[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Mon Apr 24 13:26:07 2023 +0200
+
+    fix tour add
+
+[33mcommit a5c1497c4ad03234e389684f3726a2004c033ec1[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Mon Apr 24 10:45:33 2023 +0200
+
+    load and display correct tour logs
+
+[33mcommit bc0129f7ac9fb5157a9a500373912a8aba347442[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Sat Apr 22 19:49:01 2023 +0200
+
+    add tourLog connection from VM to DB
+
+[33mcommit ba4800ee766b4e8af808c72e057ee932a38ea83b[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Fri Apr 21 11:10:38 2023 +0200
+
+    add Gridsplitters and form for editing TourLogs
+
+[33mcommit 766e5178aaabceaf3f6cd73db06b0fa56317ff29[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Fri Apr 21 08:13:59 2023 +0200
+
+    add TourLogs in view and db
+
+[33mcommit f9ff3416bcf02fd84a75c721b019ecdc23efbf00[m
+Author: Johanna0815 <81578777+Johanna0815@users.noreply.github.com>
+Date:   Fri Apr 14 01:07:04 2023 +0200
+
+    Update README.md
+
+[33mcommit b06a0d98e0de94c6a2f98f7eef8b0d6da75ffa85[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue Apr 11 15:12:32 2023 +0200
+
+    remove auto-filling with dummy data
+
+[33mcommit df6cf7ae8b5d8c5f0c2ef935965467b276b19eb3[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue Apr 11 15:07:14 2023 +0200
+
+    add functionality to add and remove a tour
+
+[33mcommit 9577584ca788cb6a0378c79d9ac62f23c72d6b54[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue Apr 11 13:55:33 2023 +0200
+
+    add (nonfuntional) button for adding tours
+
+[33mcommit d85c38c43a3905b0013e66a753fca7402ba3677f[m
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue Apr 11 12:16:18 2023 +0200
+
+    add access to db with entity framework and refactoring
+
+[33mcommit 952623f61c5f5c3cf6d9a7d73fcddc65dc0a161c[m
+Merge: 6d26e7f adf9eb5
+Author: Miriaana <7h.miriam@gmail.com>
+Date:   Tue Apr 11 10:08:12 2023 +0200
+
+    refactoring
+
+[33mcommit 6d26e7f54e74b0fe09482f53b62a2d3c35213782[m
+Author: Miriaana <7h.miri
