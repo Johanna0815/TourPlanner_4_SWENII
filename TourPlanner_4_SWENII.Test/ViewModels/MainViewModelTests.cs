@@ -5,6 +5,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 {
     public class Tests
     {
+        /*
         private MainViewModel mVM;
         private NavBarVM nbVM;
         private SearchBarVM sbVM;
@@ -25,8 +26,8 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
             tourManager = TourManagerFactory.GetInstance();
             mVM = new MainViewModel(tourManager, nbVM, sbVM, tiVM, tlogVM, tlistVM);
             
-        }
-
+        }*/
+        /*
         [Test]
         public void TestItems_ShouldContainInitialTourList()
         {
@@ -36,7 +37,8 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
             //Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
-
+        */
+        /*
         [Test]
         public void TestItems_ShouldSearchForText()
         {
@@ -57,10 +59,10 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 
             Assert.That(actual, Is.EqualTo(expected));
             //Assert.That(tlistVM.Items.Any(Greeting => Greeting.Text == "Hola"));
-        }
-
+        }*/
+        /*
         [Test]
-
+        
         public void SearchedText_ShouldBe_Cleared()
         
         {
@@ -77,7 +79,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 
 
 
-        }
+        }*/
     }
 }
 */
