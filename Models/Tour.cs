@@ -43,9 +43,10 @@ namespace TourPlanner_4_SWENII.Models
 
         public TransportType TransportType { get; set; } = TransportType.None;
 
-        public decimal Distance { get; set; } = 0;
+        public decimal Distance { get; set; }  = 0;
 
-        public DateTime EstimatedTime { get; set; } = DateTime.UtcNow;
+        // vorher war DateTime
+        public TimeSpan EstimatedTime { get; set; } //= DateTime.UtcNow;
 
         //public AllowedMemberLocations AllowedMemberLocations { get; set; } = new AllowedMemberLocations();
         //abstract Lookup<Tour, TransportType> RestoreTransportType();

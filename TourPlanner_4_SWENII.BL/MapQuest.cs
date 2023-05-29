@@ -9,14 +9,18 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.CompilerServices;
+using TourPlanner_4_SWENII.logging;
 using TourPlanner_4_SWENII.Models;
 
 namespace TourPlanner_4_SWENII.BL
 {
     public class MapQuest
     {
+        private static ILoggerWrapper logger = LoggerFactory.GetLogger();
 
-        public async void GetMapQuest(Tour tour)
+
+        public async Task<Tour> GetMapQuest(Tour tour)
         {
             var key = "vp9wvjCQjHGcsdhQt6LZ1vqkgyZkOT5W";
             var from = tour.From;
@@ -33,15 +37,71 @@ namespace TourPlanner_4_SWENII.BL
 
 
             var rootNode = JsonNode.Parse(content);
+          //  var rootNode = JsonDocument.Parse(content).RootElement;
             Console.WriteLine(rootNode?.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
 
             if (rootNode["info"]["statuscode"].ToString() != "0")
             {
                 Debug.WriteLine($"Error {rootNode["info"]["statuscode"]}: getting map failed");
-                return;
+                return tour;
             }
             var sessionId = rootNode["route"]["sessionId"].ToString();
             var boundingBox = rootNode["route"]["boundingBox"];
+           // tour.Distance = rootNode["route"]["distance"].GetDecimal();
+
+           //  tour.Distance = rootNode["route"]["distance"].GetValue<decimal>();
+
+           try
+           {
+
+               var routeNode = rootNode["route"];
+               var distanceNode = routeNode?["distance"];
+
+               if (routeNode != null && distanceNode != null)
+               {
+                   tour.Distance = distanceNode.GetValue<decimal>();
+               }
+               else
+               {
+                   // Handle the case when the required nodes are missing or have unexpected structure
+                   // You can log an error, throw an exception, or set a default value for Distance
+                   Debug.Print($"The Distance is {tour.Distance} long.");
+                   tour.Distance = 0; // Setting a default value for Distance
+               }
+
+           }
+           catch (Exception ex)
+           {
+               Console.WriteLine($" In {tour.Distance } occured the following exception: {ex}");
+           }
+
+
+
+
+
+
+
+
+
+
+           //  tour.Distance = rootNode["route"]["distance"].Deserialize<Decimal>();
+
+
+
+            tour.EstimatedTime = rootNode["route"]["formattedTime"].Deserialize<TimeSpan>(); // datemnTyp DateTime ?
+
+
+            logger.Debug($"{tour.EstimatedTime}");
+
+            Debug.Print($"{tour.EstimatedTime}");
+            //   Debug.Print($"hier ist die distance.{Distance}");
+         
+
+
+            // tour.EstimatedTime = .logging{""} // 
+            //var ul_lng = boundingBox["ul"]["lng"].ToString();
+
+
             var ul_lat = boundingBox["ul"]["lat"].ToString();
             var ul_lng = boundingBox["ul"]["lng"].ToString();
             var lr_lat = boundingBox["lr"]["lat"].ToString();
@@ -54,8 +114,24 @@ namespace TourPlanner_4_SWENII.BL
             stream.CopyTo(filestream);
 
 
+
+            return tour;
         }
+
+        //public async void Image()
+        //{
+
+
+
+        //    await 
+
+
+        //}
+
+
+
+
     }
 }
 
-        
+
