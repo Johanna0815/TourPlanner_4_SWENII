@@ -37,13 +37,13 @@ namespace TourPlanner_4_SWENII.BL
             this.dal = dal;
         }
 
-        public Tour AddTour(string tourName, string description, string from, string to, TransportType transportType, decimal distance)
+        public Tour AddTour(string tourName, string description, string from, string to, TransportType transportType)
         {
             if (tourName == null || tourName == "")
             {
                 tourName = "New Tour";
             }
-            Tour newTour = dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType, Distance = distance });
+            Tour newTour = dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType });
             GetMap(newTour);
             return newTour;
 

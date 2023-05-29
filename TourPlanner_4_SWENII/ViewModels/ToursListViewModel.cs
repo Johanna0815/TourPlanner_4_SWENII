@@ -106,7 +106,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                 }
             }
         }
-
+        /*
         private decimal _distance;
         public decimal Distance
         {
@@ -122,7 +122,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                     this.UpdateTourCommand.RaiseCanExecuteChanged();
                 }
             }
-        }
+        }*/
 
         public RelayCommand AddTourCommand { get; set; }
         public RelayCommand DeleteTourCommand { get; set; }
@@ -159,7 +159,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             //Debug.Print($"Adding tour {NewTourName}");
 
-            var newTour = tourManager.AddTour(NewTourName,Description,From,To, (Models.HelperEnums.TransportType)TransportType,Distance);
+            var newTour = tourManager.AddTour(NewTourName,Description,From,To, (Models.HelperEnums.TransportType)TransportType);
             //Tours.Add(newTour);
             FillListBox();
             SetFormEmpty();
@@ -174,7 +174,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             SelectedItem.From = from;
             SelectedItem.To = to;
             SelectedItem.TransportType = (Models.HelperEnums.TransportType)_transportType;
-            SelectedItem.Distance = _distance;
+            //SelectedItem.Distance = _distance;
 
             tourManager.UpdateTour(SelectedItem);
             tourManager.GetMap(SelectedItem);
@@ -184,7 +184,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         }
 
-        private void DeleteTour(Tour tour)
+        public void DeleteTour(Tour tour)
         {
             //Debug.Print($"Deleting tour {item.Name}");
 
@@ -249,7 +249,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             From = "";
             To = "";
             TransportType = 0;
-            Distance = 0;
+            //Distance = 0;
 
 
         }

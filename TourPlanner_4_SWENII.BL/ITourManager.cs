@@ -13,7 +13,7 @@ namespace TourPlanner_4_SWENII.BL
         IEnumerable<Tour> GetTours();
         IEnumerable<Tour> Search(string itemName, bool caseSensitive = false);
 
-        Tour AddTour(string tourName, string description, string from, string to, TransportType transportType,decimal distance);
+        Tour AddTour(string tourName, string description, string from, string to, TransportType transportType);
         void DeleteTour(Tour item);
 
         IEnumerable<TourLog> GetTourLogs(int tourId);
