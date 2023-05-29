@@ -38,9 +38,11 @@ namespace TourPlanner_4_SWENII.DAL
             return newTour;                             // pass to bl->view
         }
 
-        public void EditTour(Tour tour)
+        public Tour  UpdateTour(Tour tour)
         {
-            //tours = tours.Where(t => t.Id == tour.Id).
+            tours = tours.Where(t => t.Id == tour.Id).ToList();
+
+            return tour;
         }
 
         public void DeleteTour(Tour tour)

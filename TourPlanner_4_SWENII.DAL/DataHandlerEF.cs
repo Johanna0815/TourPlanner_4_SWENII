@@ -46,6 +46,7 @@ namespace TourPlanner_4_SWENII.DAL
         {
             //change to use tourlogs directly??
             context.Tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Add(newTourLog);
+              
             context.SaveChanges();
             return newTourLog;
         }
@@ -55,6 +56,8 @@ namespace TourPlanner_4_SWENII.DAL
             context.Tours.Remove(tour);
             context.SaveChanges();
         }
+
+
 
         public IEnumerable<TourLog> GetTourLogs(int tourId)
         {
@@ -74,6 +77,13 @@ namespace TourPlanner_4_SWENII.DAL
             return context.Tours;
         }
 
+        public Tour UpdateTour(Tour newTour)
+        
+        {
+            context.Tours.Update(newTour);
+            context.SaveChanges();
+            return newTour;
+        }
 
 
 

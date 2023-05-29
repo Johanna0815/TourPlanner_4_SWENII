@@ -171,6 +171,13 @@ namespace TourPlanner_4_SWENII.BL
             mapquest.GetMapQuest(tour);
 
         }
+
+        public void UpdateTour(Tour selectedTour)
+
+        {
+            dal.UpdateTour(selectedTour);
+
+        }
     }
 }
             

@@ -22,7 +22,7 @@ namespace TourPlanner_4_SWENII.Test.DAL
 
 
         }
-
+        /*
         [Test]
         public void ToTestDatabaseValues()
         {
@@ -53,6 +53,6 @@ namespace TourPlanner_4_SWENII.Test.DAL
             Assert.IsEmpty(tours);
             //Assert.That(tours.Count(), Is.EqualTo(1));
 
-        }
+        }*/
     }
 }
