@@ -1,5 +1,5 @@
 ﻿using Moq;
-using Moq;
+
 using NUnit;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,7 @@ using TourPlanner_4_SWENII.DAL;
 using TourPlanner_4_SWENII.Models;
 using TourPlanner_4_SWENII.Models.HelperEnums;
 using TourPlanner_4_SWENII.ViewModels;
+
 
 
 namespace TourPlanner_4_SWENII.Test.ViewModels
