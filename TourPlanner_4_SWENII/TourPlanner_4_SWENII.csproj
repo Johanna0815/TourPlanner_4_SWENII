@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="Capture %282%29.PNG" />
+    <None Remove="Icons\1944491.png" />
+    <None Remove="Icons\draw.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +27,8 @@
 
   <ItemGroup>
     <Resource Include="Capture (2).PNG" />
+    <Resource Include="Icons\1944491.png" />
+    <Resource Include="Icons\draw.png" />
   </ItemGroup>
 
 </Project>

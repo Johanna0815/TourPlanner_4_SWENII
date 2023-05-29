@@ -23,7 +23,7 @@
 
             <StackPanel Orientation="Horizontal">
 
-                <Image Stretch="Fill" Source="C:\Users\deyaa\Downloads\1944491.png"/>
+                <Image Stretch="Fill" Source="pack://application:,,,/Icons/1944491.png" />
 
             </StackPanel>
            
