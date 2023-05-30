@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualBasic.CompilerServices;
 using TourPlanner_4_SWENII.logging;
 using TourPlanner_4_SWENII.Models;
+using TourPlanner_4_SWENII.Models.HelperEnums;
 
 namespace TourPlanner_4_SWENII.BL
 {
@@ -25,9 +26,10 @@ namespace TourPlanner_4_SWENII.BL
             var key = "vp9wvjCQjHGcsdhQt6LZ1vqkgyZkOT5W";
             var from = tour.From;
             var to = tour.To;
+            var routeType = TransportType.Bicycle.ToString().ToLower();
+            Debug.WriteLine($"RouteType: {TransportType.Bicycle.ToString().ToLower()}");
 
-
-            var url = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={from}&to={to}&unit=k";
+            var url = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={from}&to={to}&unit=k&routeType={routeType}";
 
             using var client = new HttpClient();
             var response = await client.GetAsync(url);
