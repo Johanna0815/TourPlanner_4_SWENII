@@ -69,9 +69,10 @@ namespace TourPlanner_4_SWENII.ViewModels
             {
                 var tour = toursListViewModel.SelectedItem;
 
-                tourManager.GenerateReport(tour, "report.pdf");
+                tourManager.GenerateReport(tour,tour.Name + "_Report.pdf");
 
-                    
+
+
             };
 
             navBarVM.GetMap += (_, _) =>

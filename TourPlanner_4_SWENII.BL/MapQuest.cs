@@ -27,7 +27,7 @@ namespace TourPlanner_4_SWENII.BL
             var to = tour.To;
 
 
-            var url = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={from}&to={to}&unit=%20k";
+            var url = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={from}&to={to}&unit=k";
 
             using var client = new HttpClient();
             var response = await client.GetAsync(url);
@@ -60,18 +60,18 @@ namespace TourPlanner_4_SWENII.BL
                 if (routeNode != null && distanceNode != null)
                 {
                     tour.Distance = distanceNode.GetValue<decimal>();
+                    Debug.WriteLine($"The Distance is {tour.Distance} long.");
                 }
                 else
                 {
 
-                    Debug.Print($"The Distance is {tour.Distance} long.");
                     tour.Distance = 0; // Setting a default value for Distance
                 }
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine($" In {tour.Distance} occured the following exception: {ex}");
+                Debug.WriteLine($" In {tour.Distance} occured the following exception: {ex}");
             }
 
 
@@ -100,14 +100,28 @@ namespace TourPlanner_4_SWENII.BL
             // tour.EstimatedTime = .logging{""} // 
             //var ul_lng = boundingBox["ul"]["lng"].ToString();
 
+            /*
+            var ul_lat = boundingBox["ul"]["lat"].Deserialize<double>();
+            var ul_lng = boundingBox["ul"]["lng"].Deserialize<double>();
+            var lr_lat = boundingBox["lr"]["lat"].Deserialize<double>();
+            var lr_lng = boundingBox["lr"]["lng"].Deserialize<double>();
 
+            var difference_lat = ul_lat - lr_lat;
+            var difference_lng = ul_lng - lr_lng;*/
+
+            //ul_lat += difference_lat;
+            //ul_lng += difference_lng;
+            //lr_lat += difference_lat;
+            //lr_lng -= difference_lng;
+
+            
             var ul_lat = boundingBox["ul"]["lat"].ToString();
             var ul_lng = boundingBox["ul"]["lng"].ToString();
             var lr_lat = boundingBox["lr"]["lat"].ToString();
             var lr_lng = boundingBox["lr"]["lng"].ToString();
 
 
-            url = $"http://www.mapquestapi.com/staticmap/v5/map?key={key}&session={sessionId}&boundingBox={ul_lat},{ul_lng},{lr_lat},{lr_lng}&size=800,600";
+            url = $"http://www.mapquestapi.com/staticmap/v5/map?key={key}&session={sessionId}&boundingBox={ul_lat},{ul_lng},{lr_lat},{lr_lng}&size=1920,600";
             var stream = await client.GetStreamAsync(url);
             await using var filestream = new FileStream($"{tour.Name}{tour.Id}.png", FileMode.Create, FileAccess.Write);
             stream.CopyTo(filestream);

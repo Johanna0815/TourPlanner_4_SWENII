@@ -6,7 +6,7 @@ namespace TourPlanner_4_SWENII.Models
 {
     public class TourLog
     {
-        public int Id { get; private set; } = 0;
+        public int Id { get; set; } = 0;
 
         //[ForeignKey("TourId")]
         // public int TourId { get; set; }

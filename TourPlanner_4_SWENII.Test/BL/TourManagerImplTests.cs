@@ -25,17 +25,25 @@ namespace TourPlanner_4_SWENII.Test.BL
 
 
             tourManager = new TourManagerImpl(dal.Object);
-            tours = new List<Tour>() { 
-                new Tour(){ 
-                    Id=1, 
-                    Name="TestTour1", 
-                    Description="this is a test", 
-                    From="Wien", 
-                    To="Graz", 
-                    TransportType=Models.HelperEnums.TransportType.Bike, 
+            tours = new List<Tour>() {
+                new Tour(){
+                    Id=1,
+                    Name="TestTour1",
+                    Description="this is a test",
+                    From="Wien",
+                    To="Graz",
+                    TransportType=Models.HelperEnums.TransportType.Bike,
                     Distance=200m,
                     EstimatedTime=TimeSpan.FromHours(2), //new TimeSpan(0, 30, 0),
-                    TourLogs=new List<TourLog>()},
+                    TourLogs=new List<TourLog>()
+                    {
+                        new TourLog
+                        {
+                            Id = 1,
+                            
+                        }
+                    }
+                },
                 new Tour(){ Id=2, Name="hello woowold" },
                 new Tour(){ Id=3, Name="TOUR 3"}
             };
@@ -80,5 +88,94 @@ namespace TourPlanner_4_SWENII.Test.BL
             // Assert
             dal.Verify(x => x.UpdateTour(It.IsAny<Tour>()), Times.Once);
         }
+
+        [Test]
+        public void DeleteTour_TourShouldCallDALDeleteTour()
+        {
+            //Arrange 
+            dal.Setup(x => x.DeleteTour(It.IsAny<Tour>()));
+
+            //Act
+            tourManager.DeleteTour(tours.First());
+
+            //Assert
+            dal.Verify(x => x.DeleteTour(It.IsAny<Tour>()), Times.Once);
+
+        }
+        [Test]
+        public void GetTours_ToursShouldCallGetTours()
+
+        {
+            //Arrange 
+            dal.Setup(x => x.GetTours());
+
+            //Act
+            tourManager.GetTours();
+
+            //Assert
+            dal.Verify(x => x.GetTours(), Times.Once);
+
+        }
+
+        [Test]
+        public void Search_ToursShouldBeSearched()
+        
+        {
+            //Arrange
+            dal.Setup(x => x.GetTours()).Returns(tours);
+
+            //Act 
+            IEnumerable<Tour> receivedTours = tourManager.Search("tour",false);
+
+
+            //Assert
+            Assert.That(receivedTours.Count(), Is.EqualTo(tours.Count - 1));
+
+
+        }
+
+        [Test]
+
+        public void GetTourLogs_ShouldCallDALGetTourLogs()
+        {
+
+
+            //Arrange 
+            dal.Setup(x => x.GetTourLogs(It.IsAny<int>())).Returns(tours[0].TourLogs);
+
+            //Act
+            tourManager.GetTourLogs(1);
+
+            //Assert
+            dal.Verify(x => x.GetTourLogs(It.IsAny<int>()), Times.Once);
+
+        }
+
+        [Test]
+
+        public void GenerateReport_ForSelectedToursReportCouldBeGenerated()
+        
+        {
+            //Arrange
+
+            var filename = "TestReport.pdf";
+
+            //Act
+
+            tourManager.GenerateReport(tours[0], filename);
+
+            //assert
+
+            Assert.IsTrue(File.Exists(filename));
+
+            // To Delete generated Report
+            File.Delete(filename);
+
+        }
+
+        
+
+            
+
     }
 }
