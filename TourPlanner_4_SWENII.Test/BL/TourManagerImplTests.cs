@@ -32,7 +32,7 @@ namespace TourPlanner_4_SWENII.Test.BL
                     Description="this is a test",
                     From="Wien",
                     To="Graz",
-                    TransportType=Models.HelperEnums.TransportType.Bike,
+                    TransportType=Models.HelperEnums.TransportType.Bicycle,
                     Distance=200m,
                     EstimatedTime=TimeSpan.FromHours(2), //new TimeSpan(0, 30, 0),
                     TourLogs=new List<TourLog>()
