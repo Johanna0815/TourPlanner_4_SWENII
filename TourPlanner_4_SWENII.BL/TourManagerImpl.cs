@@ -62,7 +62,7 @@ namespace TourPlanner_4_SWENII.BL
 
         public void DeleteTourLog(TourLog tourLog)
         {
-            throw new NotImplementedException();
+            dal.DeleteTourLog(tourLog);
         }
 
         public void GenerateReport(Tour tour, string filename)
@@ -116,8 +116,9 @@ namespace TourPlanner_4_SWENII.BL
 
 
         //  string tourName
-        public void UpdateTourLog(TourLog tourLog)
+        public TourLog UpdateTourLog(TourLog tourLog)
         {
+            return dal.UpdateTourLog(tourLog);
             // Find the tour in the list
             //var tour = tours.FirstOrDefault(t => t.Name == tourName);
             //if (tour != null)
@@ -131,12 +132,6 @@ namespace TourPlanner_4_SWENII.BL
             //        existingLog.Difficulty = log.Difficulty;
             //        existingLog.TotalTime = log.TotalTime;
             //        existingLog.Rating = log.Rating;
-
-
-
-            throw new NotImplementedException();
-
-
         }
 
 
@@ -159,12 +154,6 @@ namespace TourPlanner_4_SWENII.BL
         //        existingTour.RouteInformation = tour.RouteInformation;
         //    }
         //}
-
-
-
-
-
-
 
         public void GetMap(Tour tour)
         {

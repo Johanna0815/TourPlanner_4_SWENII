@@ -106,6 +106,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         private void EditTourLog(TourLog tourLog)
         {
             Debug.Print($"Editing tour log {tourLog.Id}");
+            tourLog.Comment = $"edited on {DateTime.UtcNow}";
             tourManager.UpdateTourLog(tourLog);
         }
 
