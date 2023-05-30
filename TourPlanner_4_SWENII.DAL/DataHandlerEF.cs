@@ -60,6 +60,7 @@ namespace TourPlanner_4_SWENII.DAL
         public void DeleteTourLog(TourLog tourLog)
         {
             context.TourLogs.Remove(tourLog);
+            context.SaveChanges();
         }
 
         public TourLog UpdateTourLog(TourLog tourlog)
