@@ -57,6 +57,24 @@ namespace TourPlanner_4_SWENII.DAL
             context.SaveChanges();
         }
 
+        public void DeleteTourLog(TourLog tourLog)
+        {
+            context.TourLogs.Remove(tourLog);
+        }
+
+        public TourLog UpdateTourLog(TourLog tourlog)
+        {
+            var entity = context.TourLogs.Find(tourlog.Id);
+            if (entity == null)
+            {
+                throw new Exception("TourLog could not be edited as DataHandlerEF.EditTourLogs() didn't find a valid TourLog with the same Id");
+            }
+
+            context.Entry(entity).CurrentValues.SetValues(tourlog);
+            context.SaveChanges();
+            return tourlog;
+        }
+
         public IEnumerable<TourLog> GetTourLogs(int tourId)
         {
             if (context.TourLogs.Where(t => t.TourId == tourId).Count() > 0)

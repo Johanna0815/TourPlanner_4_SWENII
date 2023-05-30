@@ -49,7 +49,7 @@ namespace TourPlanner_4_SWENII.BL
 
         public void DeleteTourLog(TourLog tourLog)
         {
-            throw new NotImplementedException();
+            dal.DeleteTourLog(tourLog);
         }
 
         public void GenerateReport(Tour tour, string filename)
@@ -103,9 +103,9 @@ namespace TourPlanner_4_SWENII.BL
 
         
 
-        public void UpdateTourLog(TourLog tourLog)
+        public TourLog UpdateTourLog(TourLog tourLog)
         {
-            throw new NotImplementedException();
+            return dal.UpdateTourLog(tourLog);
         }
 
         public void GetMap()
