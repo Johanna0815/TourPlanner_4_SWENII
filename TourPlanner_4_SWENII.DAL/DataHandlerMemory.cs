@@ -85,5 +85,15 @@ namespace TourPlanner_4_SWENII.DAL
             }
             return new TourLog();
         }
+
+        public TourLog UpdateTourLog(TourLog tourlog)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteTourLog(TourLog tourLog)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
