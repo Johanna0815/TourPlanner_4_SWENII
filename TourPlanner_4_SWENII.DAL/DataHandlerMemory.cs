@@ -13,17 +13,17 @@ namespace TourPlanner_4_SWENII.DAL
     public class DataHandlerMemory : IDataHandler
     {
         private IEnumerable<Tour> tours = new List<Tour>();
-        private DataHandlerEF dataHandlerEF = new();
+        // private DataHandlerEF dataHandlerEF = new();
 
         public DataHandlerMemory()
         {
-            //Debug.WriteLine($"data handler memory ctor called");
-            //tours.Add(new Tour() { name = "demo", ...});
-            //IEnumerable<TourLog> tourLogs =
-            dataHandlerEF.GetTourLogs(0);
-            tours = dataHandlerEF.GetTours();   //(List<Tour>)
+            // Debug.WriteLine($"data handler memory ctor called");
+            // tours.Add(new Tour() { name = "demo", ...});
+            // IEnumerable<TourLog> tourLogs =
+            // dataHandlerEF.GetTourLogs(0);
+            // tours = dataHandlerEF.GetTours();   //(List<Tour>)
 
-            //not neccessary :)
+            // not neccessary :)
             /*foreach(TourLog log in tourLogs)
             {
                 //tours.Where(t => t.Id == log.TourId);
@@ -32,21 +32,23 @@ namespace TourPlanner_4_SWENII.DAL
 
         public Tour AddTour(Tour newTour)
         {
-            //newTour = 
-            dataHandlerEF.AddTour(newTour);   // add to db and return because of id
-            //tours.Append(newTour);                      // add to memory
+            // newTour = 
+            // dataHandlerEF.AddTour(newTour);   // add to db and return because of id
+            tours.Append(newTour);                      // add to memory
             return newTour;                             // pass to bl->view
         }
 
-        public void EditTour(Tour tour)
+        public Tour  UpdateTour(Tour tour)
         {
-            //tours = tours.Where(t => t.Id == tour.Id).
+            tours = tours.Where(t => t.Id == tour.Id).ToList();
+
+            return tour;
         }
 
         public void DeleteTour(Tour tour)
         {
-            //tours = tours.Where(t => t.Id != tour.Id).ToList();
-            dataHandlerEF.DeleteTour(tour);
+            tours = tours.Where(t => t.Id != tour.Id).ToList();
+            // dataHandlerEF.DeleteTour(tour);
         }
 
         public IEnumerable<Tour> GetTours()
@@ -58,10 +60,6 @@ namespace TourPlanner_4_SWENII.DAL
         {
             if(tours.Where(t => t.Id == tourId).Count() > 0)
             {
-                //Debug.WriteLine($"GetTourLogs:");
-                //Debug.WriteLine($"Tours with right Id found: {tours.Where(t => t.Id == tourId).Count()} (should be 1)");
-                //Debug.WriteLine($"TourLogs in that Tour found: {tours.Where(t => t.Id == tourId).First().TourLogs.Count()}");
-
                 return tours.Where(t => t.Id == tourId).First().TourLogs;
             }
             else
@@ -76,8 +74,9 @@ namespace TourPlanner_4_SWENII.DAL
             try
             {
                 //newTourLog = 
-                dataHandlerEF.AddTourLog(newTourLog);          //get from EF because of Id
-                //tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Add(newTourLog);
+                //dataHandlerEF.AddTourLog(newTourLog);          //deprecated
+
+                tours.Where(t => t.Id == newTourLog.TourId).First().TourLogs.Add(newTourLog);
 
                 return newTourLog;
             }
@@ -88,5 +87,34 @@ namespace TourPlanner_4_SWENII.DAL
             }
             return new TourLog();
         }
+
+        public TourLog UpdateTourLog(TourLog tourlog)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteTourLog(TourLog tourLog)
+        {
+            throw new NotImplementedException();
+        }
     }
+
+    // Method to update an existing tour log for a tour
+    //public void UpdateTourLog(string tourName, TourLog log)
+    //{
+    //    // Find the tour in the list
+    //    var tour = tours.FirstOrDefault(t => t.Name == tourName);
+    //    if (tour != null)
+    //    {
+    //        // Find the tour log in the tour
+    //        var existingLog = tour.Logs.FirstOrDefault(l => l.DateTime == log.DateTime);
+    //        if (existingLog != null)
+    //        {
+    //            // Update the tour log properties
+    //            existingLog.Comment = log.Comment;
+    //            existingLog.Difficulty = log.Difficulty;
+    //            existingLog.TotalTime = log.TotalTime;
+    //            existingLog.Rating = log.Rating;
+    //        }
+    //    }
 }

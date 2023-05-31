@@ -12,27 +12,43 @@ using TourPlanner_4_SWENII.Views;
 
 namespace TourPlanner_4_SWENII
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public ITourManager? mediaItemFactory;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            var ioCConfig = (IoCContainerConfig)Application.Current.Resources["IoCConfig"];
+
+            var wnd = new MainWindow
+            {
+                DataContext = ioCConfig.MainViewModel,
+                NavBarView = { DataContext = ioCConfig.NavBarVM },
+                SearchBar = { DataContext = ioCConfig.SearchBarVM },
+                TourInfo = { DataContext = ioCConfig.TourInfoVM },
+                TourLogs = { DataContext = ioCConfig.TourLogsVM },
+                ToursListView = { DataContext = ioCConfig.ToursListViewModel }
+            };
+            wnd.Show();
+        }
+    }
+}
+
+
+/* All of this is now managed through services
+            
             // Create all Layers
 
             //SearchViewModel searchViewModel = new SearchViewModel(mediaItemFactory); // Erstellen Sie eine IMediaItemFactory-Instanz
 
 
             // create all VMs and inject them later
+            ITourManager tourManager = TourManagerFactory.GetInstance();
             NavBarVM navBarVM = new NavBarVM();
             SearchBarVM searchBarVM = new SearchBarVM();
             TourInfoVM tourInfoVM = new TourInfoVM();
             TourLogsVM tourLogsVM = new TourLogsVM();
-            ToursListViewModel tourListViewModel = new ToursListViewModel();
-            ITourManager tourManager = TourManagerFactory.GetInstance();
+            ToursListViewModel tourListViewModel = new ToursListViewModel(tourManager);
             //ClearCommandVM clearCommandVM = new ClearCommandVM();
 
             var wnd = new MainWindow()
@@ -46,7 +62,4 @@ namespace TourPlanner_4_SWENII
                 TourLogs = { DataContext = tourLogsVM },
                 ToursListView = { DataContext = tourListViewModel }
             };
-            wnd.Show();
-        }
-    }
-}
+            wnd.Show();*/

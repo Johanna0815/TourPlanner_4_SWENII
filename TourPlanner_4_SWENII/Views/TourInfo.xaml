@@ -3,26 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TourPlanner_4_SWENII.Views"
+             xmlns:local="clr-namespace:TourPlanner_4_SWENII.Views" xmlns:viewmodels="clr-namespace:TourPlanner_4_SWENII.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:TourInfoVM}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <TabControl >
         <TabItem Header="General">
-            <Grid Background="#FFE5E5E5">
-                <!--
-                <ListView x:Name="listItems" ItemsSource="{Binding Items}" VerticalAlignment="Stretch">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Listitems" DisplayMemberBinding="{Binding Path=Name}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>-->
-                <TextBlock>Tourinfo is empty</TextBlock>
+            
+            <Grid Background="LightSteelBlue">
+               
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width ="100*"/>
+                    <ColumnDefinition Width ="150*"/>
+                    <ColumnDefinition Width ="100*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+
+                </Grid.RowDefinitions>
+
+
+
+
+
+                <TextBlock Grid.Column="1" FontWeight="UltraBold"  TextAlignment="Center" FontSize="20" FontStyle="Italic" FontFamily="Arial"> Tours Information </TextBlock>
+               
+                <Label Grid.Column="0" Grid.Row="1" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >Tourname : </Label>
+                <TextBlock Grid.Column="1" Grid.Row=" 1" FontSize="13" Foreground="DarkGreen"  VerticalAlignment="Center" Text="{Binding SelectedTour.Name, Mode=TwoWay}"/>
+
+                <Label Grid.Column="0" Grid.Row="2" FontSize="13" FontWeight="UltraBold"  VerticalContentAlignment="Top" >From:</Label>
+                <TextBlock Grid.Column="1" Grid.Row=" 2" FontSize="13" Foreground="DarkGreen" VerticalAlignment="Center" Text="{Binding SelectedTour.From}"/>
+    
+                <Label Grid.Column="0" Grid.Row="3" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >To :</Label>
+                <TextBlock Grid.Column="1" Grid.Row=" 3" FontSize="13" Foreground="DarkGreen" VerticalAlignment="Center" Text="{Binding SelectedTour.To }"/>
+
+                <Label Grid.Column="0" Grid.Row="4" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >Transporttype :</Label>
+                <TextBlock Grid.Column="1" Grid.Row=" 4" FontSize="13" Foreground="DarkGreen" VerticalAlignment="Center" Text="{Binding SelectedTour.TransportType}"/>
+
+
+                <Label Grid.Column="0" Grid.Row="5" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >Description :</Label>
+                <TextBlock Grid.Column="1" Grid.Row=" 5" FontSize="13" Foreground="DarkGreen" VerticalAlignment="Center" Text="{Binding SelectedTour.Description}"/>
+
+
+                <Label Grid.Column="0" Grid.Row="6" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >Distance :</Label>
+                <TextBlock Grid.Column="1" Grid.Row=" 6" FontSize="13" Foreground="DarkGreen" VerticalAlignment="Center" Text="{Binding SelectedTour.Distance}"/>
+
+
+                
             </Grid>
 
         </TabItem>
         <TabItem Header="Route">
-            <Grid Background="#FFE5E5E5"/>
+            <Grid Background="#FFE5E5E5">
+                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" Source="{Binding Path=testImage.Source}"></Image>
+                <!--"/TourPlanner_4_SWENII;component/Capture (2).PNG"-->
+            </Grid>
         </TabItem>
         <TabItem Header="Misc">
             <Grid Background="#FFE5E5E5"/>

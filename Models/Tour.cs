@@ -22,10 +22,17 @@ namespace TourPlanner_4_SWENII.Models
         //virtual
         public long TourLogId { get; set; } = 0;*/
 
-        public Tour() { }  
+        public Tour() { }
+
+        // constructor for the ToOrderTour
+        public Tour(string tourOnDisplayOne, int id)
+        {
+            this.Name = tourOnDisplayOne;
+            this.Id = id;
+        }
 
         public int Id { get; set; } = 0;
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } //  = string.Empty;
 
         public string Description { get; set; } = string.Empty;
 
@@ -34,23 +41,31 @@ namespace TourPlanner_4_SWENII.Models
         //rename?
         public string To { get; set; } = string.Empty;
 
-        public TransportType TransportType { get; set; }
+        public TransportType TransportType { get; set; } = TransportType.None;
 
-        public decimal Distance { get; set; } = 0;
+        public decimal Distance { get; set; }  = 0;
 
-        public DateTime EstimatedTime { get; set; } = DateTime.UtcNow;
+        // vorher war DateTime
+        public TimeSpan EstimatedTime { get; set; } //= DateTime.UtcNow;
 
         //public AllowedMemberLocations AllowedMemberLocations { get; set; } = new AllowedMemberLocations();
         //abstract Lookup<Tour, TransportType> RestoreTransportType();
 
-        
+
         /// <summary>
         /// route information (an image with the tour map)
         /// </summary>
         //public List<MediaTypeNames.Image> RouteInformation { get; set; }
 
 
+
+
+        public void ProcessTour()
+        {
+            Console.WriteLine($"Tour {Name} processed."); // oder debug.print ?
+        }
+
     }
 
-  
+
 }

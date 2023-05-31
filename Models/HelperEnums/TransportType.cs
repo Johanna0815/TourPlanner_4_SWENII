@@ -18,15 +18,10 @@ namespace TourPlanner_4_SWENII.Models.HelperEnums
     [Flags]
     public enum TransportType //  : uint 
     {
-
-        None = 0,
-        Bike = 1,
-        Hike = 2,
-        Running = 4,
-        Vacation = 8,
-        MixedTransportType = Hike ^ Running,
-
-
-
+        None,
+        Pedestrian,
+        Bicycle,
+        Fastest,
+        Shortest
     }
 }

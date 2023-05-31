@@ -3,37 +3,56 @@ using iText.Layout;
 using iText.Layout.Element;
 using System;
 using System.Collections.Generic;
+using System.Net.Mime;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using TourPlanner_4_SWENII.Models.HelperEnums;
 //using System.Windows.Documents;
 using TourPlanner_4_SWENII.DAL;
 using TourPlanner_4_SWENII.Models;
+using TransportType = TourPlanner_4_SWENII.Models.HelperEnums.TransportType;
+using System.Windows.Input;
+using log4net;
 
 namespace TourPlanner_4_SWENII.BL
-
-
 {
     // Execution of the Methodes in IMediaItemFactory
 
-    internal class TourManagerImpl : ITourManager
+    public class TourManagerImpl : ITourManager
     {
-        private IDataHandler dal = new DataHandlerMemory();//remove instantiation
 
-        public TourManagerImpl() { //IDataHandler dal
-            //this.dal = dal;
-        }   
+        // get the logger from a factory so that the concrete implementation is hidden behind some interface
+        //private static ILoggerWrapper logger = LoggerFactory.GetLogger();
 
-        public Tour AddTour(string tourName)
+        private IDataHandler dal;
+        private MapQuest mapquest = new();
+
+        public TourManagerImpl(IDataHandler dal)
         {
-            return dal.AddTour(new Tour() { Name=tourName });
+            //dal = new DataHandlerEF();//remove instantiation
+            this.dal = dal;
+        }
+
+        public Tour AddTour(string tourName, string description, string from, string to, TransportType transportType)
+        {
+            if (tourName == null || tourName == "")
+            {
+                tourName = "New Tour";
+            }
+            Tour newTour = dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType });
+            GetMap(newTour);
+            return newTour;
+
         }
 
         public TourLog AddTourLog(int TourId)
         {
-            return dal.AddTourLog(new TourLog() { TourId=TourId });
+            return dal.AddTourLog(new TourLog() { TourId = TourId });
+            //delete !!
         }
 
         public void DeleteTour(Tour tour)
@@ -43,7 +62,7 @@ namespace TourPlanner_4_SWENII.BL
 
         public void DeleteTourLog(TourLog tourLog)
         {
-            throw new NotImplementedException();
+            dal.DeleteTourLog(tourLog);
         }
 
         public void GenerateReport(Tour tour, string filename)
@@ -52,7 +71,7 @@ namespace TourPlanner_4_SWENII.BL
             PdfDocument pdf = new PdfDocument(writer);
             var document = new iText.Layout.Document(pdf);
 
-            if(tour != null)
+            if (tour != null)
             {
                 document.Add(new Paragraph($"{tour.Name}"));
             }
@@ -95,9 +114,59 @@ namespace TourPlanner_4_SWENII.BL
             return items.Where(x => x.Name.ToLower().Contains(itemName.ToLower()));
         }
 
-        public void UpdateTourLog(TourLog tourLog)
+
+        //  string tourName
+        public TourLog UpdateTourLog(TourLog tourLog)
         {
-            throw new NotImplementedException();
+            return dal.UpdateTourLog(tourLog);
+            // Find the tour in the list
+            //var tour = tours.FirstOrDefault(t => t.Name == tourName);
+            //if (tour != null)
+            //{
+            //    // Find the tour log in the tour
+            //    var existingLog = tour.Logs.FirstOrDefault(l => l.DateTime == log.DateTime);
+            //    if (existingLog != null)
+            //    {
+            //        // Update the tour log properties
+            //        existingLog.Comment = log.Comment;
+            //        existingLog.Difficulty = log.Difficulty;
+            //        existingLog.TotalTime = log.TotalTime;
+            //        existingLog.Rating = log.Rating;
+        }
+
+
+        // Method to update an existing tour
+        //public void UpdateTour(Tour tour)
+        //{
+        //    // Find the tour in the list
+        //    var existingTour = tours.FirstOrDefault(t => t.Name == tour.Name);
+        //    if (existingTour != null)
+        //    {
+        //        PopulateTourData(tour);
+
+        //        // Update the tour properties
+        //        existingTour.Description = tour.Description;
+        //        existingTour.From = tour.From;
+        //        existingTour.To = tour.To;
+        //        existingTour.TransportType = tour.TransportType;
+        //        existingTour.Distance = tour.Distance;
+        //        existingTour.EstimatedTime = tour.EstimatedTime;
+        //        existingTour.RouteInformation = tour.RouteInformation;
+        //    }
+        //}
+
+        public void GetMap(Tour tour)
+        {
+            mapquest.GetMapQuest(tour);
+
+        }
+
+        public void UpdateTour(Tour selectedTour)
+
+        {
+            dal.UpdateTour(selectedTour);
+
         }
     }
 }
+            

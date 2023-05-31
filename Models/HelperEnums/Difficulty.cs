@@ -16,7 +16,7 @@ namespace TourPlanner_4_SWENII.Models.HelperEnums
         ABitConditionRequired = 4,
         BetterTrainHardBefore = 8
 
-
+       
 
 
     }

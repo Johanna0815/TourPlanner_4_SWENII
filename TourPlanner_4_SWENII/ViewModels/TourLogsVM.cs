@@ -34,8 +34,8 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        public TourLogsVM() {
-            tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
+        public TourLogsVM(ITourManager tourManager) {
+            this.tourManager = tourManager; //create and pass in app-startup
             // InitTourLogList();
 
             /*TourLogs = new ObservableCollection<TourLog>() { 
@@ -106,6 +106,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         private void EditTourLog(TourLog tourLog)
         {
             Debug.Print($"Editing tour log {tourLog.Id}");
+            tourLog.Comment = $"edited on {DateTime.UtcNow}";
             tourManager.UpdateTourLog(tourLog);
         }
 

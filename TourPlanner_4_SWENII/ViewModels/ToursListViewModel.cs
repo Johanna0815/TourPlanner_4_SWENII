@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -16,11 +17,12 @@ namespace TourPlanner_4_SWENII.ViewModels
 {
     public class ToursListViewModel : ViewModelBase
     {
-
-        private ITourManager tourManager;
+     
+        public  ITourManager tourManager;
         public ObservableCollection<Tour> Tours { get; set; } = new();
 
-        private string newTourName;
+
+        private string newTourName = string.Empty;
         public string NewTourName
         {
             get => newTourName;
@@ -32,20 +34,107 @@ namespace TourPlanner_4_SWENII.ViewModels
                     newTourName = value;
                     this.RaisePropertyChangedEvent();
                     this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
+        private string _description = string.Empty;
+        public string Description
+        {
+            get => _description;
+
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    this.RaisePropertyChangedEvent();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        private string from = string.Empty;
+        public string From
+        {
+            get => from;
+
+            set
+            {
+                if (from != value)
+                {
+                    from = value;
+                    this.RaisePropertyChangedEvent();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        private string to = string.Empty;
+        public string To
+        {
+            get => to;
+
+            set
+            {
+                if (to != value)
+                {
+                    to = value;
+                    this.RaisePropertyChangedEvent();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        private TransportType _transportType;
+        public TransportType TransportType
+        {
+            get => _transportType;
+
+            set
+            {
+                if (_transportType != value)
+                {
+                    _transportType = value;
+                    this.RaisePropertyChangedEvent();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+        /*
+        private decimal _distance;
+        public decimal Distance
+        {
+            get => _distance;
+
+            set
+            {
+                if (_distance != value)
+                {
+                    _distance = value;
+                    this.RaisePropertyChangedEvent();
+                    this.AddTourCommand.RaiseCanExecuteChanged();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }*/
+
         public RelayCommand AddTourCommand { get; set; }
         public RelayCommand DeleteTourCommand { get; set; }
 
+        public RelayCommand UpdateTourCommand { get; set; }
         //public event EventHandler<string> TourAdded;
 
-        public ToursListViewModel() //ITourManager tourmanager
+        public ToursListViewModel(ITourManager tourManager) //
         {
-            //this.tourmanager = tourmanager
-            tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
-            InitListBox();
+            this.tourManager = tourManager;
+            //tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
+            FillListBox();
 
             AddTourCommand = new RelayCommand(
                 (O) => !String.IsNullOrEmpty(NewTourName),
@@ -57,28 +146,51 @@ namespace TourPlanner_4_SWENII.ViewModels
                 (O) => { DeleteTour(SelectedItem); }
             );
 
+            UpdateTourCommand = new RelayCommand(
+               (O) => SelectedItem != null && !String.IsNullOrEmpty(SelectedItem.Name),
+               (O) => { UpdateTour(); }
+           );
+
             NewTourName = "";
         }
 
-        private void AddTour()
+
+        public void AddTour()
         {
             //Debug.Print($"Adding tour {NewTourName}");
 
-            var newTour = tourManager.AddTour(NewTourName);
+            var newTour = tourManager.AddTour(NewTourName,Description,From,To, (Models.HelperEnums.TransportType)TransportType);
             //Tours.Add(newTour);
             FillListBox();
+            SetFormEmpty();
 
-            NewTourName = "";
             //TourAdded?.Invoke(this, NewTourName);
         }
 
-        private void DeleteTour(Tour item)
+        public void UpdateTour()
+        {
+            SelectedItem.Name = newTourName;
+            SelectedItem.Description = _description;
+            SelectedItem.From = from;
+            SelectedItem.To = to;
+            SelectedItem.TransportType = (Models.HelperEnums.TransportType)_transportType;
+            //SelectedItem.Distance = _distance;
+
+            tourManager.UpdateTour(SelectedItem);
+            tourManager.GetMap(SelectedItem);
+            FillListBox();
+
+            SetFormEmpty();
+
+        }
+
+        public void DeleteTour(Tour tour)
         {
             //Debug.Print($"Deleting tour {item.Name}");
 
-            //Tours.Remove(item);
-            tourManager.DeleteTour(item);
-            FillListBox();
+            tourManager.DeleteTour(tour);
+            Tours.Remove(tour);
+           // FillListBox();
         }
 
         private Tour _selecteditem;
@@ -92,18 +204,12 @@ namespace TourPlanner_4_SWENII.ViewModels
                 {
                     _selecteditem = value;
 
-                    RaisePropertyChangedEvent();
+                   
+                    this.RaisePropertyChangedEvent();
+                    this.UpdateTourCommand.RaiseCanExecuteChanged();
+
                 }
             }
-        }
-
-        private void InitListBox()
-        {
-            //Tours = new ObservableCollection<Tour>();
-
-            // foreach (COLLECTION collection in COLLECTION)
-            FillListBox();
-            // SelectedItem = Tours.First();   
         }
 
         public void FillListBox()
@@ -134,6 +240,18 @@ namespace TourPlanner_4_SWENII.ViewModels
                 }*/
                 Tours.Add(tour);
             }
+        }
+
+        private void SetFormEmpty()
+        {
+            NewTourName = "";
+            Description = "";
+            From = "";
+            To = "";
+            TransportType = 0;
+            //Distance = 0;
+
+
         }
     }
 }
