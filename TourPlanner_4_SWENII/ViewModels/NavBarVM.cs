@@ -14,6 +14,9 @@ namespace TourPlanner_4_SWENII.ViewModels
         public event EventHandler GenerateReport;
         public event EventHandler GetMap;
 
+
+        public event EventHandler OnExportTour;
+
         public NavBarVM()
         {
 
@@ -21,6 +24,13 @@ namespace TourPlanner_4_SWENII.ViewModels
                 (O) => { return true; },
                 (O) => { GenerateReport?.Invoke(this, new EventArgs()); }
             );
+
+            this.ExportTourCommand = new RelayCommand(
+                (O) => { return true; },
+                (O) => { OnExportTour?.Invoke(this, new EventArgs()); }
+            );
+
+
 
             GetMapCommand = new RelayCommand(
 
@@ -32,6 +42,20 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         public RelayCommand GenerateReportCommand { get; set; }
         public RelayCommand GetMapCommand { get; set; }
+
+        public RelayCommand ExportTourCommand { get; set; }
+
+
+
+        //public void ExportTour()
+        //{
+
+        //    OnExportTour?.Invoke(this, new EventArgs());
+
+        //    //TourAdded?.Invoke(this, NewTourName);
+
+        //}
+
 
         /*
         private void GenerateReport()

@@ -15,7 +15,9 @@
             </Menu.ItemsPanel>
             <MenuItem Header="File">
                 <MenuItem Header="_Import" />
-                <MenuItem Header="_Export" />
+
+                <MenuItem Header="_Export" Command="{Binding Path=ExportTourCommand}"/>
+         
                 <MenuItem Command="{Binding Path=GenerateReportCommand}" Header="Generate Report" />
                 <MenuItem Command="{Binding Path=GetMapCommand}" Header="Maps" />
 

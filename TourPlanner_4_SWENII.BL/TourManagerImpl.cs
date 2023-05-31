@@ -17,6 +17,9 @@ using TourPlanner_4_SWENII.Models;
 using TransportType = TourPlanner_4_SWENII.Models.HelperEnums.TransportType;
 using System.Windows.Input;
 using log4net;
+using Microsoft.VisualBasic;
+using Org.BouncyCastle.Security;
+using TourPlanner_4_SWENII.Utils.FileAndFolderHandling;
 
 namespace TourPlanner_4_SWENII.BL
 {
@@ -177,6 +180,27 @@ namespace TourPlanner_4_SWENII.BL
         {
             dal.UpdateTour(selectedTour);
 
+        }
+
+        public void ExportTour(Tour tour)
+        {
+            string dateString = $"{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}";
+
+            string folderName = "Exports";
+
+            Debug.WriteLine("wir testen Den Export!!!!!!!!!!!!!!!!!!!!");
+          //  ExportFile.JsonToFile(tour, $"{tour.Name}_{DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
+         //   ExportFile.JsonToFile(tour, $"/exportFolder/{tour.Name}_{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
+
+
+
+            ExportFile.JsonToFile(tour, $"{folderName}", $"{tour.Name}_{dateString}.json");
+
+
+
+            //  {DateTime.UtcNow.ToString("ddMMyyyy")}
+
+            // throw new NotImplementedException();
         }
     }
 }
