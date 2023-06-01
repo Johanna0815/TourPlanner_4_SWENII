@@ -26,7 +26,7 @@ namespace TourPlanner_4_SWENII.BL
 
         void GenerateReport(Tour tour, string filename);
 
-        void GetMap(Tour tour);
+      //  void GetMap(Tour tour);
 
         void UpdateTour(Tour tour);
     }

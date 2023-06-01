@@ -21,6 +21,9 @@ namespace TourPlanner_4_SWENII
             // create all layers
             services.AddSingleton<IDataHandler, DataHandlerEF>();
             services.AddSingleton<ITourManager, TourManagerImpl>();
+           
+            // ConstructorInjection _________________________________________________TODO beschreiben. 
+            services.AddSingleton<IMapQuest, MapQuestImpl>(); // verwendung eines Generic 
 
             // create all viewmodels
             services.AddSingleton<NavBarVM>();
@@ -29,6 +32,8 @@ namespace TourPlanner_4_SWENII
             services.AddSingleton<TourLogsVM>();
             services.AddSingleton<ToursListViewModel>();
             services.AddSingleton<MainViewModel>();
+
+
 
             serviceProvider = services.BuildServiceProvider();
         }

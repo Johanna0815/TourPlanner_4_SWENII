@@ -32,7 +32,7 @@ namespace TourPlanner_4_SWENII.BL
         //private static ILoggerWrapper logger = LoggerFactory.GetLogger();
 
         private IDataHandler dal;
-        private MapQuest mapquest = new();
+        private MapQuestImpl mapquest = new();
 
         public TourManagerImpl(IDataHandler dal)
         {
@@ -47,7 +47,10 @@ namespace TourPlanner_4_SWENII.BL
                 tourName = "New Tour";
             }
             Tour newTour = dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType });
-            GetMap(newTour);
+           
+            
+           // GetMap(newTour);
+         
             return newTour;
 
         }
@@ -168,12 +171,29 @@ namespace TourPlanner_4_SWENII.BL
 
 
 
+        //TODO
+        //public  async Task<> GetMap(Tour tour, )
+        //{
+        //    mapquest.GetRoute(tour);
+        //   // erneut speichern.
+        //    dal.UpdateTour(tour);
+        //    mapquest.GetImage();
 
-        public void GetMap(Tour tour)
-        {
-            mapquest.GetMapQuest(tour);
 
-        }
+
+        //}
+
+        //public async Task FetchRoute()
+        //{
+
+        //    mapquest.GetRoute();
+
+
+        //}
+
+
+
+
 
         public void UpdateTour(Tour selectedTour)
 
