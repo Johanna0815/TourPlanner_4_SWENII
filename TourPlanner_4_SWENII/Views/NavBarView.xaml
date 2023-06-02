@@ -14,8 +14,7 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
             <MenuItem Header="File">
-                <MenuItem Header="_Import" />
-
+                <MenuItem Header="_Import" Command="{Binding Path=ImportTourCommand}"/>
                 <MenuItem Header="_Export" Command="{Binding Path=ExportTourCommand}"/>
          
                 <MenuItem Command="{Binding Path=GenerateReportCommand}" Header="Generate Report" />

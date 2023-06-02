@@ -260,6 +260,11 @@ namespace TourPlanner_4_SWENII.BL
 
             // throw new NotImplementedException();
         }
+
+        public void ImportTourFrom(string filePath)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

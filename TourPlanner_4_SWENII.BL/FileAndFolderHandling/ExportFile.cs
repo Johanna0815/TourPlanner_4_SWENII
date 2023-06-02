@@ -66,7 +66,7 @@ namespace TourPlanner_4_SWENII.Utils.FileAndFolderHandling
 
 
         //--------------------------- TO Deserialize again. // for the Import to the DB Button.
-        static Tour ToImportTourInDB(string path)
+        public static Tour ImportTourFromFile(string path)
         {
             // Auch ein interface wie für die error... 
             string json = File.ReadAllText(path);

@@ -25,7 +25,7 @@ namespace TourPlanner_4_SWENII
             // ConstructorInjection _________________________________________________TODO beschreiben. 
             services.AddSingleton<IMapQuest, MapQuestImpl>(); // verwendung eines Generic 
 
-            // TODO Vom windows error noch einfügen. 
+            services.AddSingleton<IWindowService, WindowServiceImpl>();
 
             // create all viewmodels
             services.AddSingleton<NavBarVM>();

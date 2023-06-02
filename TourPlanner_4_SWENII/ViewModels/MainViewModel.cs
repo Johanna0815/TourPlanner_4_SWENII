@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.logging;
+using TourPlanner_4_SWENII.Models;
+using TourPlanner_4_SWENII.Utils.FileAndFolderHandling;
 
 namespace TourPlanner_4_SWENII.ViewModels
 {
@@ -21,9 +23,10 @@ namespace TourPlanner_4_SWENII.ViewModels
         private TourLogsVM tourLogsVM;
         private ToursListViewModel toursListViewModel;
         private ITourManager tourManager;
+        private IWindowService windowService;
         private static ILoggerWrapper logger = LoggerFactory.GetLogger();
 
-        public MainViewModel(ITourManager tourManager, NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm) //SearchViewModel svm
+        public MainViewModel(ITourManager tourManager, NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm, IWindowService windowService) //SearchViewModel svm
         {
             navBarVM= nbVM;
             searchBarVM= sbVM;
@@ -31,6 +34,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             tourLogsVM= tlogVM;
             toursListViewModel = tlistvm;
             this.tourManager = tourManager;
+            this.windowService = windowService;
 
 
             searchBarVM.SearchForText += (_, searchText) =>
@@ -56,6 +60,21 @@ namespace TourPlanner_4_SWENII.ViewModels
                 tourManager.ExportTour(toursListViewModel.SelectedItem);
 
 
+            };
+
+            navBarVM.OnImportTour += (_, _) =>
+            {
+                string filePath = windowService.ShowSelectFileDialog();
+                if (filePath != null && filePath != string.Empty) 
+                {
+                    logger.Info_Notice($"Importing Tour from path {filePath}");
+                }
+                //Tour importedTour = ExportFile.ImportTourFromFile();
+                tourManager.ImportTourFrom(filePath);
+
+                //
+
+                //tourManager.ExportTour(toursListViewModel.SelectedItem);
             };
 
 

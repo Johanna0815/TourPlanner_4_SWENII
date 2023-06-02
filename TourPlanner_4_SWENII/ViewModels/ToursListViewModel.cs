@@ -23,6 +23,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         private ITourManager tourManager;
         private IMapQuest mapquest;
+        private IWindowService windowService;
         public ObservableCollection<Tour> Tours { get; set; } = new();
 
 
@@ -134,10 +135,11 @@ namespace TourPlanner_4_SWENII.ViewModels
         public RelayCommand UpdateTourCommand { get; set; }
         //public event EventHandler<string> TourAdded;
 
-        public ToursListViewModel(ITourManager tourManager, IMapQuest mapquest) //
+        public ToursListViewModel(ITourManager tourManager, IMapQuest mapquest, IWindowService windowService) //
         {
             this.tourManager = tourManager;
             this.mapquest = mapquest;
+            this.windowService = windowService;
             //tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
             FillListBox();
 
@@ -185,8 +187,9 @@ namespace TourPlanner_4_SWENII.ViewModels
 
              logger.Warn(" Could not AddTour, because of invalid user inputs!!!!");
 
-             // TODO in ein INterface - im gleiches Layer legen. bei views. ImplInterface. DI regel zu machen. 
-             MessageBox.Show("Info", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // TODO in ein INterface - im gleiches Layer legen. bei views. ImplInterface. DI regel zu machen. 
+                //MessageBox.Show("Info", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                windowService.ShowMessageBox("Invalid User Input: Did you fill all fields correctly?");
 
             }
             //TourAdded?.Invoke(this, NewTourName);

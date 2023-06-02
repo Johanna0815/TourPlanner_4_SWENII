@@ -25,6 +25,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 
         ObservableCollection<Tour> tours;
         Mock<ITourManager> tourManager;
+        Mock<IMapQuest> mapquest;
         ToursListViewModel tlvm;
 
         //ITourManager TourManager;
@@ -35,7 +36,8 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
             
 
             tourManager = new Mock<ITourManager>();
-            tlvm = new ToursListViewModel(tourManager.Object);
+            mapquest = new Mock<IMapQuest>();
+            tlvm = new ToursListViewModel(tourManager.Object, mapquest.Object);
 
             tours = new()
             {
@@ -121,7 +123,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
             tlvm.FillListBox();
 
             // Assert
-            Assert.That(tlvm.Tours.Count, Is.EqualTo(3));
+            Assert.That(tlvm.Tours, Has.Count.EqualTo(3));
 
         }
 
