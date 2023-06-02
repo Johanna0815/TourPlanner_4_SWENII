@@ -26,6 +26,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
         ObservableCollection<Tour> tours;
         Mock<ITourManager> tourManager;
         Mock<IMapQuest> mapquest;
+        IWindowService windowService;
         ToursListViewModel tlvm;
 
         //ITourManager TourManager;
@@ -37,7 +38,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 
             tourManager = new Mock<ITourManager>();
             mapquest = new Mock<IMapQuest>();
-            tlvm = new ToursListViewModel(tourManager.Object, mapquest.Object);
+            tlvm = new ToursListViewModel(tourManager.Object, mapquest.Object,windowService);
 
             tours = new()
             {
