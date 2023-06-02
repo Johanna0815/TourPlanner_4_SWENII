@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -23,12 +24,17 @@ namespace TourPlanner_4_SWENII.BL
 
         public async Task<Route> GetRoute(Tour tour)
         {
-            var key = "vp9wvjCQjHGcsdhQt6LZ1vqkgyZkOT5W";
+            //var key = "vp9wvjCQjHGcsdhQt6LZ1vqkgyZkOT5W";
+            string apiKey = ConfigurationManager.AppSettings["MapQuestAPIKey"];
             var from = tour.From;
             var to = tour.To;
 
+           // string url = ConfigurationManager.AppSettings["MapQuestAPIURL"];
 
-            var url = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={from}&to={to}&unit=%20k";
+            // TODO 2. zeile. 
+          //  url = url.Replace("{key}", key).Replace("{from}", from).Replace("{to}", to);
+
+               var url = $"https://www.mapquestapi.com/directions/v2/route?key={apiKey}&from={from}&to={to}&unit=k";
 
             using var client = new HttpClient();
             var response = await client.GetAsync(url);

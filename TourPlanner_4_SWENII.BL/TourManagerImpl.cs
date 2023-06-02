@@ -2,6 +2,7 @@
 using iText.Layout;
 using iText.Layout.Element;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Diagnostics;
@@ -20,6 +21,7 @@ using log4net;
 using Microsoft.VisualBasic;
 using Org.BouncyCastle.Security;
 using TourPlanner_4_SWENII.Utils.FileAndFolderHandling;
+using TourPlanner_4_SWENII.Utils.Validating;
 
 namespace TourPlanner_4_SWENII.BL
 {
@@ -42,15 +44,27 @@ namespace TourPlanner_4_SWENII.BL
 
         public Tour AddTour(string tourName, string description, string from, string to, TransportType transportType)
         {
-            if (tourName == null || tourName == "")
+            //if (tourName == null || tourName == "")
+            //{
+
+            //    tourName = "New Tour";
+            //}
+            if ( (ValidateUserInput.IsInputEmpty(tourName) || ValidateUserInput.IfInputIsTooLong(tourName)) ||
+                 ( ValidateUserInput.IfInputIsTooLong(description)))
             {
-                tourName = "New Tour";
+
+              //  throw new Exception();
+                throw new ArgumentException();
+
             }
-            Tour newTour = dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType });
-           
+
             
-           // GetMap(newTour);
-         
+
+            Tour newTour = dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType });
+
+
+            // GetMap(newTour);
+
             return newTour;
 
         }
@@ -98,13 +112,42 @@ namespace TourPlanner_4_SWENII.BL
             return dal.GetTourLogs(tourId);
         }
 
+
+
+
+
         //private MediaItemDAO mediaItemDao = new MediaItemDAO();
 
         public IEnumerable<Tour> GetTours()
         {
-            return dal.GetTours();
+
+            var savedTours = dal.GetTours();
+
+            foreach (var tour in savedTours)
+            {
+
+                // Childunfriendly 
+                var Distance = (double)tour.Distance; // to cast the decimal into the double. 
+
+                var result = ((Distance) * (tour.EstimatedTime.TotalMinutes)) / 0.5;
+
+                tour.Childfriendlyness = result;
+
+            }
+
+            return savedTours;
+           // return dal.GetTours();
             //return statement
+
+
+
+
+
         }
+
+
+
+
 
         public IEnumerable<Tour> Search(string itemName, bool caseSensitive = false)
         {
@@ -209,8 +252,8 @@ namespace TourPlanner_4_SWENII.BL
             string folderName = "Exports";
 
             Debug.WriteLine("wir testen Den Export!!!!!!!!!!!!!!!!!!!!");
-          //  ExportFile.JsonToFile(tour, $"{tour.Name}_{DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
-         //   ExportFile.JsonToFile(tour, $"/exportFolder/{tour.Name}_{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
+            //  ExportFile.JsonToFile(tour, $"{tour.Name}_{DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
+            //   ExportFile.JsonToFile(tour, $"/exportFolder/{tour.Name}_{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
 
 
 
@@ -224,4 +267,4 @@ namespace TourPlanner_4_SWENII.BL
         }
     }
 }
-            
+

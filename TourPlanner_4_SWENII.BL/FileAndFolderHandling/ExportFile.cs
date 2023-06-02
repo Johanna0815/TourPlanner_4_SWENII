@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
-
-
+using TourPlanner_4_SWENII.Models;
 
 
 namespace TourPlanner_4_SWENII.Utils.FileAndFolderHandling
@@ -56,24 +55,24 @@ namespace TourPlanner_4_SWENII.Utils.FileAndFolderHandling
 
 
         // generates json file in this project under the name tourTest.json
-   // ____________________    JsonToFile(tourTest, "config.json"); _______________________________________
+        // ____________________    JsonToFile(tourTest, "config.json"); _______________________________________
 
 
         //--------------------------- TO Deserialize again.
-            //Tour configFromFile = ConfigReader("tourTest.json");
-            //Console.WriteLine(configFromFile.Name);
+        //Tour configFromFile = ConfigReader("tourTest.json");
+        //Console.WriteLine(configFromFile.Name);
 
 
-        
 
-//--------------------------- TO Deserialize again.
-    //static Tour ConfigReader(string path)
-    //    {
 
-    //        string json = File.ReadAllText(path);
-    //        return JsonSerializer.Deserialize<Tour>(json);
+        //--------------------------- TO Deserialize again. // for the Import to the DB Button.
+        static Tour ToImportTourInDB(string path)
+        {
+            // Auch ein interface wie für die error... 
+            string json = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<Tour>(json);
 
-    //    }
+        }
 
 
 
