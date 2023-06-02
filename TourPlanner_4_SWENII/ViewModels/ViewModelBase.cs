@@ -28,7 +28,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         {
             if (TypeDescriptor.GetProperties(this)[propertyName] == null)
             {
-                throw new ArgumentException("Invalid propery name: " + propertyName);
+                throw new ArgumentException("Invalid property name: " + propertyName);
             }
         }
     }

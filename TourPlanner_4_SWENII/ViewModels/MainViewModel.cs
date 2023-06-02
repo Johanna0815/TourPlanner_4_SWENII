@@ -32,6 +32,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             toursListViewModel = tlistvm;
             this.tourManager = tourManager;
 
+
             searchBarVM.SearchForText += (_, searchText) =>
             {
                 //toursListViewModel.Items.Clear(); 
@@ -46,7 +47,17 @@ namespace TourPlanner_4_SWENII.ViewModels
                 toursListViewModel.FillListBox(); 
             };
 
-     
+            navBarVM.OnExportTour += (_, _) =>
+            {
+                //toursListViewModel.Items.Clear(); 
+                logger.Debug($"Exporting Tour {toursListViewModel.SelectedItem.Name }");
+
+
+                tourManager.ExportTour(toursListViewModel.SelectedItem);
+
+
+            };
+
 
 
             toursListViewModel.PropertyChanged += (_, SelectedItem) =>

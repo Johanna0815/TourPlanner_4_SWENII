@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Windows;
+using log4net.Repository.Hierarchy;
 using TourPlanner_4_SWENII.BL;
+using TourPlanner_4_SWENII.logging;
 using TourPlanner_4_SWENII.Models;
 using TourPlanner_4_SWENII.ViewModels;
 using TourPlanner_4_SWENII.Views;
@@ -17,8 +20,9 @@ namespace TourPlanner_4_SWENII.ViewModels
 {
     public class ToursListViewModel : ViewModelBase
     {
-     
-        public  ITourManager tourManager;
+
+        private ITourManager tourManager;
+        private IMapQuest mapquest;
         public ObservableCollection<Tour> Tours { get; set; } = new();
 
 
@@ -130,9 +134,10 @@ namespace TourPlanner_4_SWENII.ViewModels
         public RelayCommand UpdateTourCommand { get; set; }
         //public event EventHandler<string> TourAdded;
 
-        public ToursListViewModel(ITourManager tourManager) //
+        public ToursListViewModel(ITourManager tourManager, IMapQuest mapquest) //
         {
             this.tourManager = tourManager;
+            this.mapquest = mapquest;
             //tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
             FillListBox();
 
@@ -151,6 +156,12 @@ namespace TourPlanner_4_SWENII.ViewModels
                (O) => { UpdateTour(); }
            );
 
+
+
+
+
+
+
             NewTourName = "";
         }
 
@@ -158,12 +169,26 @@ namespace TourPlanner_4_SWENII.ViewModels
         public void AddTour()
         {
             //Debug.Print($"Adding tour {NewTourName}");
+            try
+            {
 
-            var newTour = tourManager.AddTour(NewTourName,Description,From,To, (Models.HelperEnums.TransportType)TransportType);
-            //Tours.Add(newTour);
-            FillListBox();
-            SetFormEmpty();
+                var newTour = tourManager.AddTour(NewTourName, Description, From, To,
+                    (Models.HelperEnums.TransportType)TransportType);
+                //Tours.Add(newTour);
+                FillListBox();
+                SetFormEmpty();
+                CallGetRouteAndGetImage(newTour);
+            }
+            catch (ArgumentException exception)
+            {
+                ILoggerWrapper logger = LoggerFactory.GetLogger();
 
+             logger.Warn(" Could not AddTour, because of invalid user inputs!!!!");
+
+             // TODO in ein INterface - im gleiches Layer legen. bei views. ImplInterface. DI regel zu machen. 
+             MessageBox.Show("Info", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
             //TourAdded?.Invoke(this, NewTourName);
         }
 
@@ -175,14 +200,43 @@ namespace TourPlanner_4_SWENII.ViewModels
             SelectedItem.To = to;
             SelectedItem.TransportType = (Models.HelperEnums.TransportType)_transportType;
             //SelectedItem.Distance = _distance;
-
+            // ----- COmment //   CallGetRouteAndGetImage();
             tourManager.UpdateTour(SelectedItem);
-            tourManager.GetMap(SelectedItem);
-            FillListBox();
 
+            // laufen ab bevor getourte shcon fertig ist. 
+            //(SelectedItem);
+            FillListBox();
+            //  mapquest.GetImage()
             SetFormEmpty();
 
         }
+
+        private async Task CallGetRouteAndGetImage(Tour tour)
+        {
+
+
+
+            Route route = await mapquest.GetRoute(tour);
+
+            // var route = task.Result;
+            tour.Distance = route.distance; // ObjectRefernce not setted to an inst of an obkj
+            tour.EstimatedTime = route.estimatedTime;
+            tourManager.UpdateTour(tour);
+
+            //
+            //  RaisePropertyChangedEvent(nameof(SelectedItem));
+
+            Stream awaitStream = await mapquest.GetImage(route);
+
+            await using var filestream = new FileStream($"{tour.Name}{tour.Id}.png", FileMode.Create, FileAccess.Write);
+            awaitStream.CopyTo(filestream);
+
+
+
+        }
+
+
+
 
         public void DeleteTour(Tour tour)
         {
@@ -190,7 +244,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             tourManager.DeleteTour(tour);
             Tours.Remove(tour);
-           // FillListBox();
+            // FillListBox();
         }
 
         private Tour _selecteditem;
@@ -204,7 +258,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                 {
                     _selecteditem = value;
 
-                   
+
                     this.RaisePropertyChangedEvent();
                     this.UpdateTourCommand.RaiseCanExecuteChanged();
 

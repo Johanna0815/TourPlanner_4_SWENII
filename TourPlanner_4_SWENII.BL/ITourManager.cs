@@ -19,11 +19,14 @@ namespace TourPlanner_4_SWENII.BL
         IEnumerable<TourLog> GetTourLogs(int tourId);
         TourLog AddTourLog(int TourId);
         TourLog UpdateTourLog(TourLog tourLog);
+
+        void ExportTour(Tour tour);
+
         void DeleteTourLog(TourLog tourLog);
 
         void GenerateReport(Tour tour, string filename);
 
-        void GetMap(Tour tour);
+      //  void GetMap(Tour tour);
 
         void UpdateTour(Tour tour);
     }

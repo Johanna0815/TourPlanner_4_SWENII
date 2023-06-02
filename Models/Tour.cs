@@ -48,6 +48,11 @@ namespace TourPlanner_4_SWENII.Models
         // vorher war DateTime
         public TimeSpan EstimatedTime { get; set; } //= DateTime.UtcNow;
 
+        // NotMapped Attribute, because we do not want to create a column in the db for that.
+        [NotMapped]
+        public double Childfriendlyness { get; set; } 
+
+
         //public AllowedMemberLocations AllowedMemberLocations { get; set; } = new AllowedMemberLocations();
         //abstract Lookup<Tour, TransportType> RestoreTransportType();
 

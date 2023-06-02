@@ -102,7 +102,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Unnkown error:");
+                Debug.WriteLine("Unknown error:");
                 Debug.WriteLine(ex.Message);
             }
         }
