@@ -5,6 +5,7 @@ using iText.Layout.Element;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,9 +25,10 @@ namespace TourPlanner_4_SWENII.ViewModels
         private ToursListViewModel toursListViewModel;
         private ITourManager tourManager;
         private IWindowService windowService;
+        private IMapQuest mapQuest;
         private static ILoggerWrapper logger = LoggerFactory.GetLogger();
 
-        public MainViewModel(ITourManager tourManager, NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm, IWindowService windowService) //SearchViewModel svm
+        public MainViewModel(ITourManager tourManager, NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm, IWindowService windowService, IMapQuest mapquest) //SearchViewModel svm
         {
             navBarVM= nbVM;
             searchBarVM= sbVM;
@@ -35,6 +37,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             toursListViewModel = tlistvm;
             this.tourManager = tourManager;
             this.windowService = windowService;
+            this.mapQuest = mapquest;
 
 
             searchBarVM.SearchForText += (_, searchText) =>
@@ -67,7 +70,8 @@ namespace TourPlanner_4_SWENII.ViewModels
                     logger.Info_Notice($"Importing Tour from path {filePath}");
                 }
                 //Tour importedTour = ExportFile.ImportTourFromFile();
-                tourManager.ImportTourFrom(filePath);
+                Tour tour = tourManager.ImportTourFrom(filePath);
+                CallGetRouteAndGetImage(tour);
                 toursListViewModel.FillListBox();
                 //tourManager.ExportTour(toursListViewModel.SelectedItem);
             };
@@ -100,14 +104,34 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             };
 
-            navBarVM.GetMap += (_, _) =>
+            navBarVM.GetMap += (_, tour) =>
             {
-
-
-                //tourManager.GetMap();
-
-
+                //CallGetRouteAndGetImage(tour);
             };
+
+            toursListViewModel.OnGetMap += (_, tour) =>
+            {
+                CallGetRouteAndGetImage(tour);
+            };
+        }
+
+        private async Task CallGetRouteAndGetImage(Tour tour)
+        {
+            Route route = await mapQuest.GetRoute(tour);
+
+            // var route = task.Result;
+            tour.Distance = route.distance; // ObjectRefernce not setted to an inst of an obkj
+            tour.EstimatedTime = route.estimatedTime;
+            tourManager.UpdateTour(tour);
+
+            //
+            //  RaisePropertyChangedEvent(nameof(SelectedItem));
+
+            Stream awaitStream = await mapQuest.GetImage(route);
+
+            await using var filestream = new FileStream($"{tour.Name}{tour.Id}.png", FileMode.Create, FileAccess.Write);
+            awaitStream.CopyTo(filestream);
+
         }
     }
 }

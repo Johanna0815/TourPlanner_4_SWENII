@@ -14,14 +14,13 @@ namespace TourPlanner_4_SWENII.Utils.FileAndFolderHandling
 
         public void ToCreateDirectory(string folderPath)
         {
-
-
             string currentDirectory = Directory.GetCurrentDirectory();
             Debug.WriteLine("Current Directory: " + currentDirectory);
 
             // Create a new directory
+            //string newDirectory = currentDirectory + folderPath;
             string newDirectory = Path.Combine(currentDirectory, folderPath);
-
+            Debug.WriteLine($"newDirectory: {newDirectory}");
             try
             {
 
