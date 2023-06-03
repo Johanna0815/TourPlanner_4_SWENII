@@ -142,31 +142,20 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        private DateTime _dateExecutedToEdit = DateTime.Now;
-        public DateTime DateExecutedToEdit
+        private DateTime _dateToEdit = DateTime.Now;
+        public DateTime DateToEdit
         {
-            get => _dateExecutedToEdit;
+            get => _dateToEdit;
             set
             {
-                if (_dateExecutedToEdit != value)
+                if (_dateToEdit != value)
                 {
-                    _dateExecutedToEdit = value;
+                    _dateToEdit = value;
                     RaisePropertyChangedEvent();
                 }
             }
         }
 
-        //public TourLog TourLogToEdit { get; set; } = new() { Comment = "new log" };
-
-
-
-        /*
-        private ExampleEnum example;
-        public ExampleEnum ExampleProperty
-        {
-            get { return example; }
-            set { // set and notify; }
-        }*/
 
 
         public TourLogsVM(ITourManager tourManager)
@@ -186,7 +175,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             FillFieldsCommand = new RelayCommand(
                 (O) => SelectedItem != null,
-                (O) => { CopyTourLogPropertiesFromTo(SelectedItem, NewTourLog); });
+                (O) => { FillFieldsToEdit(); });
 
             EmptyFieldsCommand = new RelayCommand(
                 (O) => { return true; },
@@ -194,7 +183,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             EditTourLogCommand = new RelayCommand(
                 (O) => SelectedItem != null,
-                (O) => { EditTourLog(SelectedItem); });
+                (O) => { EditTourLog(); });
 
             DeleteTourLogCommand = new RelayCommand(
                 (O) => SelectedItem != null,
@@ -236,22 +225,20 @@ namespace TourPlanner_4_SWENII.ViewModels
         private void AddTourLog()
         {
             EmptyFields();
-            //Debug.Print($"Adding new tour log");
-            //TourLogs.Add(new TourLog() { TourId = selectedTourId});
-
-            //notify mainVM to get tour id
             TourLogs.Add(tourManager.AddTourLog(selectedTourId));
-            //FillListBox();
-
-            //NewTourName = "";
-            //TourAdded?.Invoke(this, NewTourName);
         }
-        private void EditTourLog(TourLog tourLog)
+        private void EditTourLog()
         {
-            Debug.WriteLine($"3 {NewTourLog.Comment}");
-            Debug.Print($"Editing tour log {tourLog.Id}");
-            tourLog.Comment = NewTourLog.Comment; //NewTourLog.Comment;//$"edited on {DateTime.UtcNow}"
-            tourManager.UpdateTourLog(tourLog);
+            //Debug.WriteLine($"3 {NewTourLog.Comment}");
+            Debug.Print($"Editing tour log {SelectedItem.Id}");
+
+            SelectedItem.TimeNow = DateToEdit.ToUniversalTime();
+            SelectedItem.TotalTime = TotalTimeToEdit;
+            SelectedItem.Comment = CommentToEdit;
+            SelectedItem.Rating = RatingToEdit;
+            SelectedItem.Difficulty = DifficultyToEdit;
+            //tourLog.Comment = NewTourLog.Comment; //NewTourLog.Comment;//$"edited on {DateTime.UtcNow}"
+            tourManager.UpdateTourLog(SelectedItem);
             //CopyTourLogPropertiesFromTo(tourLog, TourLogs.Where(t => t.Id == tourLog.Id).First());
             //TourLogs.Where(t => t.Id== tourLog.Id).First().
 
@@ -266,7 +253,6 @@ namespace TourPlanner_4_SWENII.ViewModels
             Debug.Print($"Deleting tour log {tourLog.Id}");
             tourManager.DeleteTourLog(tourLog);
             TourLogs.Remove(tourLog);
-            //tourManager.GetTourLogs(selectedTourId);
         }
         private void FillFields()
         {
@@ -289,7 +275,15 @@ namespace TourPlanner_4_SWENII.ViewModels
             };
             
         }
-
+        private void FillFieldsToEdit()
+        {
+            DateToEdit = SelectedItem.TimeNow;
+            TotalTimeToEdit = SelectedItem.TotalTime;
+            CommentToEdit= SelectedItem.Comment;
+            DifficultyToEdit = SelectedItem.Difficulty;
+            RatingToEdit = SelectedItem.Rating;
+        }
+        /*
         private void CopyTourLogPropertiesFromTo(TourLog refTourLog, TourLog destTourLog)
         {
 
@@ -308,9 +302,9 @@ namespace TourPlanner_4_SWENII.ViewModels
             destTourLog.TimeNow = refTourLog.TimeNow;
             destTourLog.Comment = refTourLog.Comment;
             destTourLog.Difficulty = refTourLog.Difficulty;
-            */
+            
             Debug.WriteLine($"2 {destTourLog.Comment}");
-        }
+        }*/
 
     }
 }

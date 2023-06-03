@@ -33,7 +33,8 @@
 
                             <!--Date-->
                             <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Date of Tour:</Label>
-                            <DatePicker Grid.Row="0" Grid.Column="1"></DatePicker>
+                            <xctk:DateTimePicker Grid.Row="0" Grid.Column="1" Text="{Binding Path=DateToEdit, Mode=TwoWay}" ></xctk:DateTimePicker>
+                            <!--SelectedDate="{Binding Path=DateToEdit, Mode=TwoWay}"-->
                             
                             <!--Time-->
                             <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Total Time:</Label>
@@ -46,11 +47,11 @@
                                 </TextBlock.Text>
                             </TextBox>-->
 
-                                <xctk:TimeSpanUpDown Grid.Row="1" Grid.Column="1" Text="{Binding Path=TotalTimeToEdit, Mode=TwoWay}"></xctk:TimeSpanUpDown>
+                            <xctk:TimeSpanUpDown Grid.Row="1" Grid.Column="1" Text="{Binding Path=TotalTimeToEdit, Mode=TwoWay}">
 
-
-
-                                <!--Rating-->
+                            </xctk:TimeSpanUpDown>
+                            
+                            <!--Rating-->
                             <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Rating:</Label>
                             <ComboBox Name="RatingComboBox" 
                                 Grid.Row="2" Grid.Column="1"
@@ -73,7 +74,7 @@
                             <!--Comment-->
                             <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right">Comment:</Label>
                             <TextBox Grid.Row="4" Grid.Column="1" Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0" 
-                                Text="{Binding NewTourLog.Comment, Mode=TwoWay}"/>
+                                Text="{Binding CommentToEdit, Mode=TwoWay}"/>
 
                             <!--Button-->
                             <Button x:Name="EditTourLogButton"
