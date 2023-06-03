@@ -149,7 +149,7 @@ namespace TourPlanner_4_SWENII.BL
             HttpClient client = new HttpClient();
 
 
-            string url = $"http://www.mapquestapi.com/staticmap/v5/map?key={key}&session={route.sessionID}&boundingBox={route.ul_Latitude},{route.ul_Longitude},{route.lr_Latitude},{route.lr_Longitude}&size=800,600";
+            string url = $"http://www.mapquestapi.com/staticmap/v5/map?key={key}&session={route.sessionID}&boundingBox={route.ul_Latitude},{route.ul_Longitude},{route.lr_Latitude},{route.lr_Longitude}&size=1920,600";
             return await client.GetStreamAsync(url);
             //await using var filestream = new FileStream($"{tour.Name}{tour.Id}.png", FileMode.Create, FileAccess.Write);
             //stream.CopyTo(filestream);

@@ -22,6 +22,7 @@ using Microsoft.VisualBasic;
 using Org.BouncyCastle.Security;
 using TourPlanner_4_SWENII.Utils.FileAndFolderHandling;
 using TourPlanner_4_SWENII.Utils.Validating;
+using System.Configuration;
 
 namespace TourPlanner_4_SWENII.BL
 {
@@ -244,26 +245,23 @@ namespace TourPlanner_4_SWENII.BL
         {
             string dateString = $"{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}";
 
-            string folderName = "Exports";
+            //string folderName = "Exports";
 
             Debug.WriteLine("wir testen Den Export!!!!!!!!!!!!!!!!!!!!");
             //  ExportFile.JsonToFile(tour, $"{tour.Name}_{DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
             //   ExportFile.JsonToFile(tour, $"/exportFolder/{tour.Name}_{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
 
-
-
-            ExportFile.JsonToFile(tour, $"{folderName}", $"{tour.Name}_{dateString}.json");
-
-
+            ExportImportManager.JsonToFile(tour, ConfigurationManager.AppSettings["ExportImportSubdir"], $"{tour.Name}_{dateString}.json"); //$"{folderName}"
 
             //  {DateTime.UtcNow.ToString("ddMMyyyy")}
-
-            // throw new NotImplementedException();
         }
 
-        public void ImportTourFrom(string filePath)
+        public Tour ImportTourFrom(string filePath)
         {
-            throw new NotImplementedException();
+            Tour tourToImport = ExportImportManager.ImportTourFromFile(filePath);
+            //Id is reset to avoid potential clashing in the db with current tours
+            tourToImport.Id = 0;
+            return dal.AddTour(tourToImport);
         }
     }
 }

@@ -15,7 +15,7 @@ using TourPlanner_4_SWENII.Models;
 namespace TourPlanner_4_SWENII.Utils.FileAndFolderHandling
 
 {
-    public class ExportFile
+    public class ExportImportManager
     {
 
 
@@ -32,24 +32,17 @@ namespace TourPlanner_4_SWENII.Utils.FileAndFolderHandling
         //};
 
         //public
-        public static void JsonToFile(object Object, string path, string name)
+        public static void JsonToFile(object Object, string subPath, string name)
         {
-
             FolderCreator createDirectory = new FolderCreator();
-           
-            
-            
-            createDirectory.ToCreateDirectory(path);
-            
 
-            
+            createDirectory.ToCreateDirectory(subPath);
 
             JsonSerializerOptions options = new JsonSerializerOptions();
             // for pretty printing. 
             options.WriteIndented = true;
             string json = JsonSerializer.Serialize(Object, typeof(Object), options);
-            File.WriteAllText($"./{path}/{name}" , json);
-
+            File.WriteAllText($"./{subPath}/{name}" , json);
         }
 
 
