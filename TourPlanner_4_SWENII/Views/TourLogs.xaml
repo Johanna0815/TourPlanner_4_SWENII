@@ -16,7 +16,7 @@
                         <Button Command="{Binding AddTourLogCommand}" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
                     </WrapPanel>
                     <!--Visibility="Collapsed"-->
-                    <Border x:Name="EditTourLogPrompt" Background="#ffe5e5e5" MaxWidth="400" HorizontalAlignment="Right"  BorderThickness="2" BorderBrush="#ff808080" Margin="3">
+                    <Border x:Name="EditTourLogPrompt" Visibility="Collapsed" Background="#ffe5e5e5" MaxWidth="400" HorizontalAlignment="Right"  BorderThickness="2" BorderBrush="#ff808080" Margin="3">
                         <Grid  Margin="10,5,10,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>

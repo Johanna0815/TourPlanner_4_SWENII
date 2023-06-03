@@ -11,14 +11,14 @@
         <StackPanel Panel.ZIndex="1">
             <WrapPanel FlowDirection="RightToLeft">
                 <Button Click="Remove" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">-</Button>
-                <Button Click="Add" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
                 <Button Click="Update" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">
                     <StackPanel Orientation="Horizontal">
                         <Image Stretch="Fill" Source="pack://application:,,,/Icons/draw.png"/>
-                       
+
                     </StackPanel>
                 </Button>
-                <Button Height="20" Width="20" Margin="0,0,3,0" Content="{Binding Path = SelectedItem.Id}"></Button>
+                <Button Click="Add" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
+                <!--<Button Height="20" Width="20" Margin="0,0,3,0" Content="{Binding Path = SelectedItem.Id}"></Button>-->
             </WrapPanel>
          
                 <Border x:Name="TourNamePrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
