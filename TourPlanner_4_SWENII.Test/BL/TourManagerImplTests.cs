@@ -47,7 +47,7 @@ namespace TourPlanner_4_SWENII.Test.BL
                         }
                     }
                 },
-                new Tour(){ Id=2, Name="hello woowold" },
+                new Tour(){ Id=2, Name="tour" },
                 new Tour(){ Id=3, Name="TOUR 3"}
             };
         }
@@ -126,15 +126,39 @@ namespace TourPlanner_4_SWENII.Test.BL
         {
             //Arrange
             dal.Setup(x => x.GetTours()).Returns(tours);
+            //tourManager.SearchProperty(tours[0], "tour", false);
 
             //Act 
-            IEnumerable<Tour> receivedTours = tourManager.Search("tour", false);
+            IEnumerable<Tour> receivedTours = tourManager.Search("tour", true);
 
 
             //Assert
             Assert.That(receivedTours.Count(), Is.EqualTo(tours.Count - 1));
 
 
+        }
+
+        [Test]
+        public void  SearchProperty_ShouldReturnTrueIfCasesensitive()
+        
+        {
+            //Act
+
+           var result =  tourManager.SearchProperty(tours[0], "Tour", true);
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+
+        public void SearchProperty_ShouldReturnFalseIfIsCasesensitive()
+
+        {
+            //Act
+
+            var result = tourManager.SearchProperty(tours[1], "Tour", true);
+
+            Assert.That(result, Is.False);
         }
 
         [Test]
