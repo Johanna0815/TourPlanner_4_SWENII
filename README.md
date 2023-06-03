@@ -118,9 +118,9 @@ changed - as by the lecturer mentioned - the <TargetFramework>net7.0-windows</Ta
   </thead>
   <tbody>
     <tr>
-      <td>64 hours </td>
-      <td>47 hours </td>
-      <td>55 hours</td>
+      <td>80 hours </td>
+      <td>76 hours </td>
+      <td>72 hours</td>
     </tr>
     
   </tbody>
