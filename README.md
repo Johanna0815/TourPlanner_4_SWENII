@@ -11,7 +11,7 @@ We startet creating a WPF Application [using IDE Visual Studio 2022; .NET 7.0 Ve
 ## App architecture (layers and layer contents/functionality)
 - Uses markup-Based UI framework
 
- microsoft .NET Windows Presentation Foundation; on windows 
+ microsoft .NET Windows Presentation Foundation; on OperatingSystem: windows 
 - Uses MVVM for UI
 
 Model View ViewModel [Folders: ViewModels and Views in the BaseProject]
@@ -20,12 +20,26 @@ Model View ViewModel [Folders: ViewModels and Views in the BaseProject]
 
 ### Layered Architecture (in form of Subprojects [WPF Class Library] added)
 - BL
-- DAL
+
+- itext7  [included in the BL, for Creating pdf-Reports]
+<br>
+- DAL <br>
+- Npqsl [included in the DAL, for database access]
+
+_______________notes: 
+### Database PostgreSQL 
+
+- Database named: 
+- postgres image running on Docker
+- Docker compose .yml file included in the project
+- <br>
+
+
+
 - Models
 - Utils
 - Test
 - Implements at least one design pattern
-
 
 
 
@@ -37,12 +51,46 @@ Link to Use Case Diagram: <br>
 https://github.com/Johanna0815/TourPlanner_4_SWENII/wiki/TourPlanner_4_SWENII
 
 ## UX, library decisions (where applicable), lessons learned
+As an UserExpirience may count the advantage, that we had last semester learned about serializing and desirilizing Objects, which means, that Export and Import an JSON was quite fast done. <br>
+On the Other Hand to handle WPF correct and doing the Data Binding from the Models to the ViewModel and staying in the correct Layer and doing decisions which is best practice for this project often led to small discussions in our group. 
 
-## Description of the implemented design pattern
 
-## Unit Testing decisions. Why those tests was chosen:
 
-## Description of the unique Feature:
+<br>
+
+## Description of the implemented design pattern <br>
+<br>
+
+> Observer is a behavioral design pattern that lets you define a 
+> subscription mechanism to notify multiple objects about any 
+> events that happen to the object they’re observing. [Quelle: https://moodle.technikum-wien.at/pluginfile.php/1718086/mod_resource/content/6/BIF4-SWEN2_04_Observer.pdf ]
+
+<br>
+In our Project we use the Observable Design Pattern within MVVM architecture. To make the communication between the ViewModel and the View better. The design Pattern ensures for that changes in the ViewModel are reflected to the View. <br>
+Model: <br>
+the data and business logic will be represented <br>
+for example The Model Class 'Tour' provides properties that needs to be to for changes observed <br>
+
+ViewModel: <br>
+it acts as an commiter between the View and the Model. There are properties contained whose are bounded to the View. THe Observable pattern is included by using an implementation of the INotifyPropertyChanged Interface OR a base ViewModel class whcih provides the necessary Method. <br>
+View: <br>
+In the View the data will be displayed which interacts with the user. To update the UI it listens to the PropertyChaneged event of the ViewModel for each change of the property changes. 
+<br>
+Conclusion it is a powerful combination (MVVM within ObservablePattern) to build good UI; because maintaining is easier with separating of concerns and promoting tests.
+<br>
+
+
+## Unit Testing decisions. Why those tests was chosen: <br>
+We added an NUnit Testproject (called TourPlanner_4_SWENII.Test); <br>
+changed - as by the lecturer mentioned - the <TargetFramework>net7.0-windows</TargetFramework> . <br>
+- installed Microsoft.NET.Test.Sdk 
+- installed NUnit package
+
+
+
+
+
+## Description of the unique Feature: <br>
 
 
 ## Time Tracked: 
@@ -57,8 +105,8 @@ https://github.com/Johanna0815/TourPlanner_4_SWENII/wiki/TourPlanner_4_SWENII
   </thead>
   <tbody>
     <tr>
-      <td>x hours </td>
-      <td>x hours </td>
+      <td>64 hours </td>
+      <td>47 hours </td>
       <td>55 hours</td>
     </tr>
     
@@ -70,8 +118,6 @@ https://github.com/Johanna0815/TourPlanner_4_SWENII/wiki/TourPlanner_4_SWENII
 https://github.com/Johanna0815/TourPlanner_4_SWENII
 
 
-##____________________________________________________________
-_____________|||||||_________________________
 
 
 
@@ -85,28 +131,14 @@ _____________|||||||_________________________
 - Implements at least 20 Unit Tests
 
 
-We added an NUnit Testproject (called TourPlanner_4_SWENII.Test); changed - as by the lecturer mentioned -
-the     <TargetFramework>net7.0-windows</TargetFramework> .
-- installed Microsoft.NET.Test.Sdk 
-- installed NUnit package
 
-- Npqsl [included in the DAL, for database access]
 
-- itext7  [included in the BL, for Creating pdf-Reports]
-- 
+
 
 
 [MapQuest link0<----------------------]
 
-_______________notes: 
-### Database PostgreSQL 
 
-- Database named: 
-- postgres image running on Docker
-- Docker compose .yml file included in the project
-
-
-// TODO: include UML | https://drive.google.com/file/d/15EUxkCWOCbWE_4D4CVqPU1yTH-qm9TNI/view?ts=6411c8db
 
 
 
