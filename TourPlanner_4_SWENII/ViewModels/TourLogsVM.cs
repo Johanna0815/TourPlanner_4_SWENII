@@ -18,6 +18,28 @@ namespace TourPlanner_4_SWENII.ViewModels
         private ITourManager tourManager;
         public event EventHandler<string> TourLogAdded;
         public ObservableCollection<TourLog> TourLogs { get; set; } = new();
+
+        public Dictionary<Difficulty, string> DifficultyWithCaptions { get; } =
+        new Dictionary<Difficulty, string>()
+        {
+            {Difficulty.Easy, "Easy"},
+            {Difficulty.Medium, "Medium" },
+            {Difficulty.Hard, "Hard"},
+            {Difficulty.Expert, "Expert"},
+            {Difficulty.None, "keine Angabe"},
+        };
+
+        public Dictionary<Rating, string> RatingWithCaptions { get; } =
+        new Dictionary<Rating, string>()
+        {
+            {Rating.VeryGood, "Incredible"},
+            {Rating.Good, "Enjoyable"},
+            {Rating.Okay, "Okay"},
+            {Rating.Bad, "Not that good"},
+            {Rating.VeryBad, "Awful"},
+            {Rating.None, "keine Angabe"},
+        };
+
         private int selectedTourId = 0;
         public int SelectedTourId
         {
@@ -51,6 +73,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
+        //used to fill values for a new Tour
         private TourLog _newTourLog;
         public TourLog NewTourLog
         {
@@ -62,8 +85,88 @@ namespace TourPlanner_4_SWENII.ViewModels
                 RaisePropertyChangedEvent();
             }
         }
+
+        private Difficulty _difficultyToEdit = Difficulty.None;
+        public Difficulty DifficultyToEdit
+        {
+            get => _difficultyToEdit;
+            set
+            {
+                if(_difficultyToEdit != value)
+                {
+                    _difficultyToEdit = value;
+                    RaisePropertyChangedEvent();
+                }
+            }
+        }
+
+        private string _commentToEdit = "";
+        public string CommentToEdit
+        {
+            get => _commentToEdit;
+            set
+            {
+                if (_commentToEdit != value)
+                {
+                    _commentToEdit = value;
+                    RaisePropertyChangedEvent();
+                }
+            }
+        }
+
+        private Rating _ratingToEdit = Rating.None;
+        public Rating RatingToEdit
+        {
+            get => _ratingToEdit;
+            set
+            {
+                if (_ratingToEdit != value)
+                {
+                    _ratingToEdit = value;
+                    RaisePropertyChangedEvent();
+                }
+            }
+        }
+
+        private TimeSpan _totalTimeToEdit = TimeSpan.Zero;
+        public TimeSpan TotalTimeToEdit
+        {
+            get => _totalTimeToEdit;
+            set
+            {
+                if (_totalTimeToEdit != value)
+                {
+                    _totalTimeToEdit = value;
+                    RaisePropertyChangedEvent();
+                }
+            }
+        }
+
+        private DateTime _dateExecutedToEdit = DateTime.Now;
+        public DateTime DateExecutedToEdit
+        {
+            get => _dateExecutedToEdit;
+            set
+            {
+                if (_dateExecutedToEdit != value)
+                {
+                    _dateExecutedToEdit = value;
+                    RaisePropertyChangedEvent();
+                }
+            }
+        }
+
         //public TourLog TourLogToEdit { get; set; } = new() { Comment = "new log" };
 
+
+
+        /*
+        private ExampleEnum example;
+        public ExampleEnum ExampleProperty
+        {
+            get { return example; }
+            set { // set and notify; }
+        }*/
 
 
         public TourLogsVM(ITourManager tourManager)
@@ -177,22 +280,35 @@ namespace TourPlanner_4_SWENII.ViewModels
         private void EmptyFields()
         {
             Debug.WriteLine("empty fields was called");
-            NewTourLog.Rating = 0;
-            NewTourLog.TotalTime = 0;
-            NewTourLog.TimeNow = DateTime.Now;
-            NewTourLog.Comment = "";
-            NewTourLog.Difficulty = Difficulty.None;
+            NewTourLog = new TourLog() {
+                Rating = 0,
+                TotalTime = TimeSpan.Zero,
+                TimeNow = DateTime.Now,
+                Comment = "",
+                Difficulty = Difficulty.None
+            };
+            
         }
 
         private void CopyTourLogPropertiesFromTo(TourLog refTourLog, TourLog destTourLog)
         {
 
             Debug.WriteLine($"1 {destTourLog.Comment}");
+            NewTourLog = new TourLog()
+            {
+                Rating = refTourLog.Rating,
+                Comment = refTourLog.Comment,
+                Difficulty = refTourLog.Difficulty,
+                TimeNow = refTourLog.TimeNow,
+                TotalTime = refTourLog.TotalTime,
+            };
+            /*
             destTourLog.Rating = refTourLog.Rating;
             destTourLog.TotalTime = refTourLog.TotalTime;
             destTourLog.TimeNow = refTourLog.TimeNow;
             destTourLog.Comment = refTourLog.Comment;
             destTourLog.Difficulty = refTourLog.Difficulty;
+            */
             Debug.WriteLine($"2 {destTourLog.Comment}");
         }
 

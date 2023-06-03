@@ -18,7 +18,6 @@ namespace TourPlanner_4_SWENII.Models.HelperEnums
     [Flags]
     public enum TransportType //  : uint 
     {
-        None,
         Pedestrian,
         Bicycle,
         Fastest,
