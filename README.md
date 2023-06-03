@@ -33,7 +33,8 @@ Model View ViewModel [Folders: ViewModels and Views in the BaseProject]
 
 
 ## Use Case Diagram:
-
+Link to Use Case Diagram: <br>
+https://github.com/Johanna0815/TourPlanner_4_SWENII/wiki/TourPlanner_4_SWENII
 
 ## UX, library decisions (where applicable), lessons learned
 
