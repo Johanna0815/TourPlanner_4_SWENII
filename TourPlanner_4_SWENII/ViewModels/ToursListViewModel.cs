@@ -56,8 +56,8 @@ namespace TourPlanner_4_SWENII.ViewModels
                 {
                     _description = value;
                     this.RaisePropertyChangedEvent();
-                    this.AddTourCommand.RaiseCanExecuteChanged();
-                    this.UpdateTourCommand.RaiseCanExecuteChanged();
+                    //this.AddTourCommand.RaiseCanExecuteChanged();
+                    //this.UpdateTourCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -112,6 +112,24 @@ namespace TourPlanner_4_SWENII.ViewModels
                 }
             }
         }
+
+        private Tour _selecteditem;
+        public Tour SelectedItem
+        {
+            get => _selecteditem;
+
+            set
+            {
+                if (value != _selecteditem)
+                {
+                    _selecteditem = value;
+
+                    RaisePropertyChangedEvent();
+                    UpdateTourCommand.RaiseCanExecuteChanged();
+                    DeleteTourCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
         /*
         private decimal _distance;
         public decimal Distance
@@ -145,23 +163,21 @@ namespace TourPlanner_4_SWENII.ViewModels
             FillListBox();
 
             AddTourCommand = new RelayCommand(
-                (O) => !String.IsNullOrEmpty(NewTourName),
+                (O) => (!String.IsNullOrEmpty(NewTourName)) 
+                    && (!String.IsNullOrEmpty(From)) 
+                    && (!String.IsNullOrEmpty(To)),
                 (O) => { AddTour(); }
             );
 
             DeleteTourCommand = new RelayCommand(
-                (O) => SelectedItem != null && !String.IsNullOrEmpty(SelectedItem.Name),
+                (O) => SelectedItem != null, //&& !String.IsNullOrEmpty(SelectedItem.Name)
                 (O) => { DeleteTour(SelectedItem); }
             );
 
             UpdateTourCommand = new RelayCommand(
-               (O) => SelectedItem != null && !String.IsNullOrEmpty(SelectedItem.Name),
+               (O) => SelectedItem != null, // && !String.IsNullOrEmpty(SelectedItem.Name)
                (O) => { UpdateTour(); }
            );
-
-
-
-
 
 
 
@@ -248,24 +264,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             // FillListBox();
         }
 
-        private Tour _selecteditem;
-        public Tour SelectedItem
-        {
-            get => _selecteditem;
-
-            set
-            {
-                if (value != _selecteditem)
-                {
-                    _selecteditem = value;
-
-
-                    this.RaisePropertyChangedEvent();
-                    this.UpdateTourCommand.RaiseCanExecuteChanged();
-
-                }
-            }
-        }
+        
 
         public void FillListBox()
         {
