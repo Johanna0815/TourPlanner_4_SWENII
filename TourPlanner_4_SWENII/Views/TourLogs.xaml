@@ -12,7 +12,7 @@
                 <StackPanel Panel.ZIndex="1">
                     <WrapPanel FlowDirection="RightToLeft">
                         <Button Click="Remove" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">-</Button>
-                        <Button Click="Edit" Height="20" VerticalAlignment="Top" Margin="0,0,3,0">Edit</Button>
+                        <Button Command="{Binding FillFieldsCommand}" Click="Edit" Height="20" VerticalAlignment="Top" Margin="0,0,3,0">Edit</Button>
                         <Button Command="{Binding AddTourLogCommand}" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
                     </WrapPanel>
                     <!--Visibility="Collapsed"-->
@@ -31,7 +31,7 @@
                             </Grid.RowDefinitions>
                             <!--Rating-->
                             <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Rating:</Label>
-                            <ComboBox Grid.Row="0" Grid.Column="1" SelectedValue="{Binding dateTime.Min}" SelectedValuePath="Content">
+                            <ComboBox Grid.Row="0" Grid.Column="1" SelectedValue="{Binding NewTourLog.Rating}" SelectedValuePath="Content">
                                 <ComboBoxItem>00</ComboBoxItem>
                                 <ComboBoxItem>01</ComboBoxItem>
                                 <ComboBoxItem>59</ComboBoxItem>
@@ -39,7 +39,7 @@
 
                             <!--Difficulty-->
                             <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Difficulty:</Label>
-                            <ComboBox Grid.Row="1" Grid.Column="1" SelectedValue="{Binding dateTime.Min}" SelectedValuePath="Content">
+                            <ComboBox Grid.Row="1" Grid.Column="1" SelectedValue="{Binding NewTourLog.Difficulty}" SelectedValuePath="Content">
                                 <ComboBoxItem>00</ComboBoxItem>
                                 <ComboBoxItem>01</ComboBoxItem>
                                 <ComboBoxItem>59</ComboBoxItem>
@@ -56,7 +56,7 @@
 
                             <!--Comment-->
                             <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right">Comment:</Label>
-                            <TextBox Grid.Row="3" Grid.Column="1" Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0" Text="{Binding NewComment, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0" Text="{Binding NewTourLog.Comment, Mode=TwoWay}"/>
 
                             <!--Button-->
                             <Button Grid.Row="4" Grid.Column="1" Command="{Binding EditTourLogCommand}" Click="Edit" Height="20" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 5">Change</Button>
@@ -84,13 +84,13 @@
                     </Border>
                     <Border x:Name="RemoveTourPrompt" Visibility="Collapsed" MaxWidth="200" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
                         <StackPanel Background="#ffe5e5e5">
-                            <TextBlock Text="Are you sure you want to delete xyz?"></TextBlock>
+                            <TextBlock Text="{Binding SelectedItem.Id, StringFormat=Are you sure you want to delete TourLog {0}?}"></TextBlock>
                             <Button Click="Remove" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5, 5, 5, 5">No</Button>
                             <Button Command="{Binding DeleteTourLogCommand}" Click="Remove" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5, 5, 5, 5">Delete Selected Tour</Button>
                         </StackPanel>
                     </Border>
                 </StackPanel>
-                <ListView x:Name="listTours" ItemsSource="{Binding Path=TourLogs}" SelectedItem="{Binding Path=SelectedItem}" VerticalAlignment="Stretch">
+                <ListView x:Name="listTourLogs" ItemsSource="{Binding Path=TourLogs}" SelectedItem="{Binding Path=SelectedItem}" VerticalAlignment="Stretch">
                     <!--<ListView.Resources>
                         <Style TargetType="GridViewColumnHeader">
                             <Setter Property="Template" Value="{x:Null}" />
@@ -99,7 +99,7 @@
                     <!--<ListViewItem >Tour1</ListViewItem>-->
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>
+                            <GridViewColumn Header=" Id " DisplayMemberBinding="{Binding Path=Id}"/>
                             <GridViewColumn Header="TourId" DisplayMemberBinding="{Binding Path=TourId}"/>
                             <GridViewColumn Header="Time of Log" DisplayMemberBinding="{Binding Path=TimeNow}"/>
                             <GridViewColumn Header="Difficulty" DisplayMemberBinding="{Binding Path=Difficulty}"/>
@@ -111,15 +111,16 @@
                 </ListView>
             </Grid>
         </TabItem>
+        <!--
         <TabItem Header="Tour Logs 2">
             <DataGrid ItemsSource="{Binding Path=TourLogs}" SelectedItem="{Binding Path = SelectedItem }">
                 <DataGrid.Columns>
-                    <!--
+                    //those vvv are not necessary
                     <DataGridTextColumn Header="Id" Width="*"/>
                     <DataGridTextColumn Header="2" Width="20*"/>
-                    <DataGridTextColumn Header="3" Width="10*"/>-->
+                    <DataGridTextColumn Header="3" Width="10*"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </TabItem>
+        </TabItem>-->
     </TabControl>
 </UserControl>

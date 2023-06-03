@@ -71,9 +71,9 @@
                     <Label>TransportType</Label>
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
                      Text="{Binding TransportType, Mode=TwoWay}"/>
-                    <Label>Distance</Label>
+                    <!--<Label>Distance</Label>
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
-                     Text="{Binding Distance, Mode=TwoWay}"/>
+                     Text="{Binding Distance, Mode=TwoWay}"/>-->
 
                     <Button Command="{Binding UpdateTourCommand}" Click="Update" Height="20" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 5"> Update </Button>
                 </StackPanel>

@@ -3,20 +3,35 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.Models;
 using TourPlanner_4_SWENII.Models.HelperEnums;
+using TourPlanner_4_SWENII.Views;
 
 namespace TourPlanner_4_SWENII.ViewModels
 {
     public class TourLogsVM : ViewModelBase
     {
         private ITourManager tourManager;
-
-        private int selectedTourId = 0;
+        public event EventHandler<string> TourLogAdded;
         public ObservableCollection<TourLog> TourLogs { get; set; } = new();
+        private int selectedTourId = 0;
+        public int SelectedTourId
+        {
+            get => selectedTourId;
+            set
+            {
+                if (selectedTourId != value)
+                {
+                    selectedTourId= value;
+                    RaisePropertyChangedEvent();
+                    AddTourLogCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
 
         private TourLog _selecteditem;
         public TourLog SelectedItem
@@ -28,13 +43,31 @@ namespace TourPlanner_4_SWENII.ViewModels
                 if (value != _selecteditem)
                 {
                     _selecteditem = value;
-
                     RaisePropertyChangedEvent();
+                    FillFieldsCommand.RaiseCanExecuteChanged();
+                    EditTourLogCommand.RaiseCanExecuteChanged();
+                    DeleteTourLogCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
-        public TourLogsVM(ITourManager tourManager) {
+        private TourLog _newTourLog;
+        public TourLog NewTourLog
+        {
+            get => _newTourLog;
+            set
+            {
+                if (value != _newTourLog)
+                    _newTourLog = value;
+                RaisePropertyChangedEvent();
+            }
+        }
+        //public TourLog TourLogToEdit { get; set; } = new() { Comment = "new log" };
+
+
+
+        public TourLogsVM(ITourManager tourManager)
+        {
             this.tourManager = tourManager; //create and pass in app-startup
             // InitTourLogList();
 
@@ -45,53 +78,61 @@ namespace TourPlanner_4_SWENII.ViewModels
             };*/
 
             AddTourLogCommand = new RelayCommand(
+                (O) => selectedTourId != 0,
+                (O) => { AddTourLog(); });
+
+            FillFieldsCommand = new RelayCommand(
+                (O) => SelectedItem != null,
+                (O) => { CopyTourLogPropertiesFromTo(SelectedItem, NewTourLog); });
+
+            EmptyFieldsCommand = new RelayCommand(
                 (O) => { return true; },
-                (O) => { AddTourLog(); }
-            );
+                (O) => { EmptyFields(); });
 
             EditTourLogCommand = new RelayCommand(
                 (O) => SelectedItem != null,
-                (O) => { EditTourLog(SelectedItem); }
-            );
+                (O) => { EditTourLog(SelectedItem); });
 
             DeleteTourLogCommand = new RelayCommand(
                 (O) => SelectedItem != null,
-                (O) => { DeleteTourLog(SelectedItem); }
-            );
+                (O) => { DeleteTourLog(SelectedItem); });
 
             //NewTourName = "";
             selectedTourId = 0;
+            NewTourLog = new() { Comment = "new log" };
             GetTourLogs(selectedTourId);
         }
 
-        public event EventHandler<string> TourLogAdded;
+
 
         public RelayCommand AddTourLogCommand { get; set; }
+        public RelayCommand FillFieldsCommand { get; set; }
+        public RelayCommand EmptyFieldsCommand { get; set; }
         public RelayCommand EditTourLogCommand { get; set; }
         public RelayCommand DeleteTourLogCommand { get; set; }
 
+
+
         public void GetTourLogs(int tourId)
         {
-            //Debug.WriteLine($"getting new tour logs");
-            // tourLogs = 
-
-            // get tour logs from bl
             TourLogs.Clear();
-            var result = tourManager.GetTourLogs(tourId);
-            
-            //Debug.WriteLine($"tourid: {tourId}");
-            
-            foreach ( var item in result ) //debug: already doubled here
+            if (tourId > 0)
             {
-                Debug.WriteLine($"adding tour log {item}");
-                TourLogs.Add( item );
+                // get tour logs from bl
+                var result = tourManager.GetTourLogs(tourId);
+                foreach (var item in result)
+                {
+                    Debug.WriteLine($"adding tour log {item}");
+                    TourLogs.Add(item);
+                    //RaisePropertyChangedEvent("TourLogs");
+                }
             }
-            //Debug.WriteLine($"added new tour logs");
-
-            selectedTourId = tourId;
+            //todo
+            SelectedTourId = tourId;
         }
         private void AddTourLog()
         {
+            EmptyFields();
             //Debug.Print($"Adding new tour log");
             //TourLogs.Add(new TourLog() { TourId = selectedTourId});
 
@@ -102,24 +143,58 @@ namespace TourPlanner_4_SWENII.ViewModels
             //NewTourName = "";
             //TourAdded?.Invoke(this, NewTourName);
         }
-
         private void EditTourLog(TourLog tourLog)
         {
+            Debug.WriteLine($"3 {NewTourLog.Comment}");
             Debug.Print($"Editing tour log {tourLog.Id}");
-            tourLog.Comment = $"edited on {DateTime.UtcNow}";
+            tourLog.Comment = NewTourLog.Comment; //NewTourLog.Comment;//$"edited on {DateTime.UtcNow}"
             tourManager.UpdateTourLog(tourLog);
+            //CopyTourLogPropertiesFromTo(tourLog, TourLogs.Where(t => t.Id == tourLog.Id).First());
+            //TourLogs.Where(t => t.Id== tourLog.Id).First().
 
-
-
-
-
+            //Update View
+            GetTourLogs(selectedTourId);
+            //CopyTourLogPropertiesFromTo()
+            //SelectedItem = NewTourLog; //to hopefully update the view
 
         }
-
         private void DeleteTourLog(TourLog tourLog)
         {
             Debug.Print($"Deleting tour log {tourLog.Id}");
             tourManager.DeleteTourLog(tourLog);
+            TourLogs.Remove(tourLog);
+            //tourManager.GetTourLogs(selectedTourId);
         }
+        private void FillFields()
+        {
+            Debug.WriteLine("fill fields was called");
+            NewTourLog.Rating = SelectedItem.Rating;
+            NewTourLog.TotalTime = SelectedItem.TotalTime;
+            NewTourLog.TimeNow = SelectedItem.TimeNow;
+            NewTourLog.Comment = SelectedItem.Comment;
+            NewTourLog.Difficulty = SelectedItem.Difficulty;
+        }
+        private void EmptyFields()
+        {
+            Debug.WriteLine("empty fields was called");
+            NewTourLog.Rating = 0;
+            NewTourLog.TotalTime = 0;
+            NewTourLog.TimeNow = DateTime.Now;
+            NewTourLog.Comment = "";
+            NewTourLog.Difficulty = Difficulty.None;
+        }
+
+        private void CopyTourLogPropertiesFromTo(TourLog refTourLog, TourLog destTourLog)
+        {
+
+            Debug.WriteLine($"1 {destTourLog.Comment}");
+            destTourLog.Rating = refTourLog.Rating;
+            destTourLog.TotalTime = refTourLog.TotalTime;
+            destTourLog.TimeNow = refTourLog.TimeNow;
+            destTourLog.Comment = refTourLog.Comment;
+            destTourLog.Difficulty = refTourLog.Difficulty;
+            Debug.WriteLine($"2 {destTourLog.Comment}");
+        }
+
     }
 }
