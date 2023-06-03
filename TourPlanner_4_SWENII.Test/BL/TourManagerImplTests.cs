@@ -169,13 +169,94 @@ namespace TourPlanner_4_SWENII.Test.BL
             Assert.IsTrue(File.Exists(filename));
 
             // To Delete generated Report
-            File.Delete(filename);
+               File.Delete(filename);
 
         }
 
-        
+        [Test]
 
+        public void AddTourLogs_ShouldReturnNewTourFromDAL()
+        {
+            //Arrange
+            dal.Setup(x => x.AddTourLog(It.IsAny<TourLog>())).Returns(tours[0].TourLogs.First());
             
+            //Act
+            TourLog receivedTourlogs = tourManager.AddTourLog(tours[0].Id);
+
+
+            //Assert
+            Assert.That(receivedTourlogs, Is.EqualTo(tours[0].TourLogs.First()));
+            Assert.That(receivedTourlogs.Id, Is.EqualTo(tours[0].TourLogs.First().Id));
+
+        }
+
+        [Test]
+
+        public void DeleteTourLog_TourShouldCallDALDeleteTourLog()
+        {
+            //Arrange 
+            dal.Setup(x => x.DeleteTourLog(It.IsAny<TourLog>()));
+
+            //Act
+            tourManager.DeleteTourLog(tours[0].TourLogs.First());
+
+            //Assert
+            dal.Verify(x => x.DeleteTourLog(It.IsAny<TourLog>()), Times.Once);
+            var result = tourManager.GetTourLogs(tours[0].Id);
+            Assert.False(result.Contains(tours[0].TourLogs.First()));
+
+        }
+
+        [Test]
+        public void UpdateTourlog_ShouldCallDALUpdateTourLog()
+        {
+            // Arrange
+            var existingTourLog = new TourLog { Id = 1, Comment = "Old Comment" };
+            var updatedTourLog = new TourLog { Id = 1, Comment = "New Comment" };
+            dal.Setup(x => x.UpdateTourLog(It.IsAny<TourLog>())).Returns(updatedTourLog);
+
+            // Act
+            var result =  tourManager.UpdateTourLog(existingTourLog);
+
+            // Assert
+            dal.Verify(x => x.UpdateTourLog(existingTourLog), Times.Once);
+            Assert.AreEqual(updatedTourLog.Comment, result.Comment);
+        }
+        
+        [Test]
+        public void ExportTour_SelectedToursCouldBeExported()
+        {
+            //Arrange
+            Tour tour = new Tour()
+            {
+                Id = 1,
+                Name = "Test",
+
+
+            };
+
+            string dateString = $"{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}";
+
+            string folderPath = "Exports";
+            string fileName = $"{tour.Name}_{dateString}.json";
+            string filePath = Path.Combine(folderPath, fileName);
+
+
+            //Act
+
+            tourManager.ExportTour(tour);
+
+            //Assert
+
+            Assert.IsTrue(File.Exists(filePath));
+
+            File.Delete(filePath);
+
+        }
+
+
+
+
 
     }
 }
