@@ -23,6 +23,7 @@ using Org.BouncyCastle.Security;
 using TourPlanner_4_SWENII.Utils.FileAndFolderHandling;
 using TourPlanner_4_SWENII.Utils.Validating;
 using System.Configuration;
+using System.IO;
 
 namespace TourPlanner_4_SWENII.BL
 {
@@ -50,16 +51,16 @@ namespace TourPlanner_4_SWENII.BL
 
             //    tourName = "New Tour";
             //}
-            if ( (ValidateUserInput.IsInputEmpty(tourName) || ValidateUserInput.IfInputIsTooLong(tourName)) ||
-                 ( ValidateUserInput.IfInputIsTooLong(description)))
+            if ((ValidateUserInput.IsInputEmpty(tourName) || ValidateUserInput.IfInputIsTooLong(tourName)) ||
+                 (ValidateUserInput.IfInputIsTooLong(description)))
             {
 
-              //  throw new Exception();
+                //  throw new Exception();
                 throw new ArgumentException();
 
             }
 
-            
+
 
             Tour newTour = dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType });
 
@@ -128,16 +129,19 @@ namespace TourPlanner_4_SWENII.BL
             {
 
                 // Childunfriendly 
-                var Distance = (double)tour.Distance; // to cast the decimal into the double. 
+                /*var Distance = (double)tour.Distance; // to cast the decimal into the double. 
 
                 var result = ((Distance) * (tour.EstimatedTime.TotalMinutes)) / 0.5;
+                */
+                tour.Childfriendlyness = CaculateChildFriendlyness(tour);
 
-                tour.Childfriendlyness = result;
+
+
 
             }
 
             return savedTours;
-           // return dal.GetTours();
+            // return dal.GetTours();
             //return statement
 
 
@@ -145,6 +149,22 @@ namespace TourPlanner_4_SWENII.BL
 
 
         }
+
+
+        public double CaculateChildFriendlyness(Tour tour)
+        {
+
+            var Distance = (double)tour.Distance; // to cast the decimal into the double. 
+
+            var result = ((Distance) * (tour.EstimatedTime.TotalMinutes)) / 0.5;
+
+
+
+
+            return result;
+        }
+
+
 
 
 
@@ -262,6 +282,26 @@ namespace TourPlanner_4_SWENII.BL
             //Id is reset to avoid potential clashing in the db with current tours
             tourToImport.Id = 0;
             return dal.AddTour(tourToImport);
+        }
+
+
+        public async Task CallGetRouteAndGetImage(Tour tour)
+        {
+            Route route = await mapquest.GetRoute(tour);
+
+            // var route = task.Result;
+            tour.Distance = route.distance; // ObjectRefernce not setted to an inst of an obkj
+            tour.EstimatedTime = route.estimatedTime;
+            UpdateTour(tour);
+
+            //
+            //  RaisePropertyChangedEvent(nameof(SelectedItem));
+
+            Stream awaitStream = await mapquest.GetImage(route);
+
+            await using var filestream = new FileStream($"{tour.Name}{tour.Id}.png", FileMode.Create, FileAccess.Write);
+            awaitStream.CopyTo(filestream);
+
         }
     }
 }

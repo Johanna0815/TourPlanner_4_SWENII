@@ -1,14 +1,15 @@
-﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
+using Moq;
+
+using System.Configuration;
+
 using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.DAL;
 using TourPlanner_4_SWENII.Models;
-using TourPlanner_4_SWENII.Models.HelperEnums;
+
+using TourPlanner_4_SWENII.Utils.FileAndFolderHandling;
+
 
 namespace TourPlanner_4_SWENII.Test.BL
 {
@@ -18,11 +19,13 @@ namespace TourPlanner_4_SWENII.Test.BL
         ITourManager tourManager;
         List<Tour> tours;
 
-        [SetUp] 
-        public void SetUp() 
-        { 
-            dal = new Mock<IDataHandler>();
+        Mock<IMapQuest> mapquest;
 
+        [SetUp]
+        public void SetUp()
+        {
+            dal = new Mock<IDataHandler>();
+            mapquest = new Mock<IMapQuest>();
 
             tourManager = new TourManagerImpl(dal.Object);
             tours = new List<Tour>() {
@@ -40,7 +43,7 @@ namespace TourPlanner_4_SWENII.Test.BL
                         new TourLog
                         {
                             Id = 1,
-                            
+
                         }
                     }
                 },
@@ -79,7 +82,7 @@ namespace TourPlanner_4_SWENII.Test.BL
         }
 
         [Test]
-        public void UpdateTour_ShouldCallDALUpdateTour() 
+        public void UpdateTour_ShouldCallDALUpdateTour()
         {
             // Arrange
             dal.Setup(x => x.UpdateTour(It.IsAny<Tour>()));//.Returns((Tour mytour) => { return mytour; });
@@ -119,13 +122,13 @@ namespace TourPlanner_4_SWENII.Test.BL
 
         [Test]
         public void Search_ToursShouldBeSearched()
-        
+
         {
             //Arrange
             dal.Setup(x => x.GetTours()).Returns(tours);
 
             //Act 
-            IEnumerable<Tour> receivedTours = tourManager.Search("tour",false);
+            IEnumerable<Tour> receivedTours = tourManager.Search("tour", false);
 
 
             //Assert
@@ -154,7 +157,7 @@ namespace TourPlanner_4_SWENII.Test.BL
         [Test]
 
         public void GenerateReport_ForSelectedToursReportCouldBeGenerated()
-        
+
         {
             //Arrange
 
@@ -169,7 +172,7 @@ namespace TourPlanner_4_SWENII.Test.BL
             Assert.IsTrue(File.Exists(filename));
 
             // To Delete generated Report
-               File.Delete(filename);
+            File.Delete(filename);
 
         }
 
@@ -179,7 +182,7 @@ namespace TourPlanner_4_SWENII.Test.BL
         {
             //Arrange
             dal.Setup(x => x.AddTourLog(It.IsAny<TourLog>())).Returns(tours[0].TourLogs.First());
-            
+
             //Act
             TourLog receivedTourlogs = tourManager.AddTourLog(tours[0].Id);
 
@@ -216,13 +219,13 @@ namespace TourPlanner_4_SWENII.Test.BL
             dal.Setup(x => x.UpdateTourLog(It.IsAny<TourLog>())).Returns(updatedTourLog);
 
             // Act
-            var result =  tourManager.UpdateTourLog(existingTourLog);
+            var result = tourManager.UpdateTourLog(existingTourLog);
 
             // Assert
             dal.Verify(x => x.UpdateTourLog(existingTourLog), Times.Once);
             Assert.AreEqual(updatedTourLog.Comment, result.Comment);
         }
-        
+
         [Test]
         public void ExportTour_SelectedToursCouldBeExported()
         {
@@ -237,9 +240,11 @@ namespace TourPlanner_4_SWENII.Test.BL
 
             string dateString = $"{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}";
 
-            string folderPath = "Exports";
+            ConfigurationManager.AppSettings["ExportImportSubdir"] = "Exports";
+
+
             string fileName = $"{tour.Name}_{dateString}.json";
-            string filePath = Path.Combine(folderPath, fileName);
+            string filePath = Path.Combine(ConfigurationManager.AppSettings["ExportImportSubdir"], fileName);
 
 
             //Act
@@ -253,9 +258,147 @@ namespace TourPlanner_4_SWENII.Test.BL
             File.Delete(filePath);
 
         }
+        [Test]
+        public void ImportTour_ToursCouldBeImported()
+        {
+            //Arrange
+            Tour tour = new Tour()
+            {
+                Id = 1,
+                Name = "Test",
+            };
+
+            string dateString = $"{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}";
+
+            ConfigurationManager.AppSettings["ExportImportSubdir"] = "Exports";
+
+
+            string fileName = $"{tour.Name}_{dateString}.json";
+            string filePath = Path.Combine(ConfigurationManager.AppSettings["ExportImportSubdir"], fileName);
 
 
 
+            dal.Setup(x => x.AddTour(tour)).Returns(tour);
+            tourManager.ExportTour(tour);
+
+            //Act
+            Tour importedTour = ExportImportManager.ImportTourFromFile(filePath);
+
+
+            //Assert
+
+            Assert.IsTrue(File.Exists(filePath));
+            Assert.That(tour.Name, Is.EqualTo(importedTour.Name));
+            File.Delete(filePath);
+
+
+
+        }
+
+        [Test]
+
+        public void ChildFriendly_CouldBeBeReachedByLessDistance()
+
+        {
+            //Arrange
+
+            List<Tour> tours = new List<Tour>()
+            {
+              new Tour() { Id = 1, Name = "Test", Distance = 15 , EstimatedTime = TimeSpan.FromMinutes(25) },
+              new Tour() { Id = 2, Name = "Test", Distance = 45 , EstimatedTime = TimeSpan.FromMinutes(80) },
+
+
+
+            };
+
+
+            //Act
+
+            double result1 = tourManager.CaculateChildFriendlyness(tours[0]);
+            double result2 = tourManager.CaculateChildFriendlyness(tours[1]);
+
+
+
+            //Assert
+
+            Assert.Greater(result2, result1);
+
+
+        }
+
+        [Test]
+        public void ChildFriendly_CouldBeReachedByLowTime()
+
+        {
+            //Arrange
+
+            List<Tour> tours = new List<Tour>()
+            {
+
+
+              new Tour() { Id = 1, Name = "Test", Distance = 60 , EstimatedTime = TimeSpan.FromMinutes(50) },
+              new Tour() { Id = 2, Name = "Test", Distance = 60 , EstimatedTime = TimeSpan.FromMinutes(90)}
+
+            };
+
+
+            //Act
+
+            double result1 = tourManager.CaculateChildFriendlyness(tours[0]);
+            double result2 = tourManager.CaculateChildFriendlyness(tours[1]);
+
+
+
+            //Assert
+
+            Assert.Less(result1, result2);
+
+
+        }
+
+        [Test]
+
+        public  async Task CallGetRouteAndGetImage_ToursCouldBeAttachedWithMap()
+        
+        {
+            //Arrange 
+            Tour tour = new Tour()
+            {  Name = "TestTour", Id = 1, From = "Wien", To = "Graz", Description ="Description1 " };
+
+
+
+            Route route = new Route();
+            route.distance = 1000;
+            route.sessionID = "AKUA5wcAAIwAAAAAAAAAEwAAALQAAAB42mPYwsDGyMTAwMCekVqUapWcm1lynBXIZZASftnIJXVhWvd7lplJ8UBakHVmkggDJoBpPH-OB6zx86kbdQwXWzZ2rw_zT7oNpFcDaWwaQYCP8VdUPSOQcZ_BIYWBqaGhwaGJgYGFkaGFgUGFQUmAgYNBQIFDtFGBIYDDiWWhokeToILRBhcRAATBKV3lXspR:bicycle";
+            route.estimatedTime = TimeSpan.FromHours(60);
+            /*  route.ul_Latitude = ul_lat;
+              route.ul_Longitude = ul_lng;
+              route.lr_Latitude = lr_lat;
+              route.lr_Longitude = lr_lng;
+            */
+
+            var imageStream = new MemoryStream();
+
+            mapquest.Setup(x => x.GetRoute(tour)).ReturnsAsync(route);
+            mapquest.Setup(x => x.GetImage(route)).ReturnsAsync(imageStream);
+            //Route route =  await mapquest.GetRoute(tour);
+
+            //Act
+
+            await tourManager.CallGetRouteAndGetImage(tour);
+
+            //Assert
+
+            mapquest.Verify(x =>  x.GetRoute(tour), Times.Once());
+            
+            var filePath = $"{tour.Name}{tour.Id}.png";
+
+            //Assert.IsTrue(File.Exists(filePath));
+
+
+
+
+        }
 
 
     }

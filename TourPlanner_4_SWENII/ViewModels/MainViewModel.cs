@@ -71,7 +71,7 @@ namespace TourPlanner_4_SWENII.ViewModels
                 }
                 //Tour importedTour = ExportFile.ImportTourFromFile();
                 Tour tour = tourManager.ImportTourFrom(filePath);
-                CallGetRouteAndGetImage(tour);
+                tourManager.CallGetRouteAndGetImage(tour);
                 toursListViewModel.FillListBox();
                 //tourManager.ExportTour(toursListViewModel.SelectedItem);
             };
@@ -111,11 +111,11 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             toursListViewModel.OnGetMap += (_, tour) =>
             {
-                CallGetRouteAndGetImage(tour);
+                tourManager.CallGetRouteAndGetImage(tour);
             };
         }
 
-        private async Task CallGetRouteAndGetImage(Tour tour)
+       /* private async Task CallGetRouteAndGetImage(Tour tour)
         {
             Route route = await mapQuest.GetRoute(tour);
 
@@ -132,6 +132,6 @@ namespace TourPlanner_4_SWENII.ViewModels
             await using var filestream = new FileStream($"{tour.Name}{tour.Id}.png", FileMode.Create, FileAccess.Write);
             awaitStream.CopyTo(filestream);
 
-        }
+        }*/
     }
 }

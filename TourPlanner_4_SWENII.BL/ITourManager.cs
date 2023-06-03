@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,5 +31,7 @@ namespace TourPlanner_4_SWENII.BL
       //  void GetMap(Tour tour);
 
         void UpdateTour(Tour tour);
+        double CaculateChildFriendlyness(Tour tour);
+        Task CallGetRouteAndGetImage(Tour tour);
     }
 }
