@@ -15,31 +15,39 @@ We startet creating a WPF Application [using IDE Visual Studio 2022; .NET 7.0 Ve
 - Uses MVVM for UI
 
 Model View ViewModel [Folders: ViewModels and Views in the BaseProject]
-- Implements a layer-based architecture (UI/BL/DAL)
-
-
-### Layered Architecture (in form of Subprojects [WPF Class Library] added)
-- BL
-
+- Implements a layer-based architecture (UI/BL/DAL) <br>
+## Layered Architecture (in form of Subprojects [WPF Class Library] added)
+- BL <br>
 - itext7  [included in the BL, for Creating pdf-Reports]
 <br>
 - DAL <br>
 - Npqsl [included in the DAL, for database access]
-
-_______________notes: 
-### Database PostgreSQL 
-
-- Database named: 
 - postgres image running on Docker
 - Docker compose .yml file included in the project
 - <br>
 
 
 
-- Models
-- Utils
-- Test
-- Implements at least one design pattern
+- Models <br>
+- Utils <br>
+- Test <br>
+
+
+
+
+
+
+// TODO 
+
+
+
+- Uses a config file that stores at minimum the DB connection string
+- Integrates the MapQuest API
+- Integrates log4j/log4net or similar Log Libraries
+- Integrates a report-generation library
+- Implements at least 20 Unit Tests
+
+MAPQUEST Link include???? 
 
 
 
@@ -52,13 +60,18 @@ https://github.com/Johanna0815/TourPlanner_4_SWENII/wiki/TourPlanner_4_SWENII
 
 ## UX, library decisions (where applicable), lessons learned
 As an UserExpirience may count the advantage, that we had last semester learned about serializing and desirilizing Objects, which means, that Export and Import an JSON was quite fast done. <br>
-On the Other Hand to handle WPF correct and doing the Data Binding from the Models to the ViewModel and staying in the correct Layer and doing decisions which is best practice for this project often led to small discussions in our group. 
-
-
+On the Other Hand to handle WPF correct and doing the Data Binding from the View to the Model and vice versa and staying in the correct Layer and doing decisions which is best practice for this project often led to small discussions in our group. 
+For a Practically manner we decided to use the picture from the requirement as a template, that each GroupMember has an valid comparison to see if what has been done fits. Lessions also was learned during the hours in class, where we was including some Nuget Packages together, so it was easier for us to notice where they need to be included and also how to use. MapQuest was also a little bit tricky, because it was not that clear for us in the beginning, where the first Task starts. But then we tried out a few things to pass some values in the DB and to extract the JSON (some attrributes of a Route) and gone further with trying out the secound Task, becuase for us itw was a concern, that the project has async Tasks, beacuse we wanted this for our personal lession learned goals; to improve async programmming. 
+<br>
+- Uses an OR-Mapping Library: <br>
+Entity Framework Core 6 (O/R Mapping)
 
 <br>
 
 ## Description of the implemented design pattern <br>
+- Implements at least one design pattern
+
+
 <br>
 
 > Observer is a behavioral design pattern that lets you define a 
@@ -116,29 +129,3 @@ changed - as by the lecturer mentioned - the <TargetFramework>net7.0-windows</Ta
 ## Link to GIT
 
 https://github.com/Johanna0815/TourPlanner_4_SWENII
-
-
-
-
-
-- Uses a Postgres Database for storing Tour Data
-- Does not allow for SQL injection
-- Uses an OR-Mapping Library
-- Uses a config file that stores at minimum the DB connection string
-- Integrates the MapQuest API
-- Integrates log4j/log4net or similar Log Libraries
-- Integrates a report-generation library
-- Implements at least 20 Unit Tests
-
-
-
-
-
-
-
-[MapQuest link0<----------------------]
-
-
-
-
-
