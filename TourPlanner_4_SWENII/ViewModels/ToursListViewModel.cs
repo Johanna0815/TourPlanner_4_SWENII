@@ -181,11 +181,11 @@ namespace TourPlanner_4_SWENII.ViewModels
                 SetFormEmpty();
                 CallGetRouteAndGetImage(newTour);
             }
-            catch (ArgumentException exception)
+            catch (ArgumentException ex)
             {
                 ILoggerWrapper logger = LoggerFactory.GetLogger();
 
-             logger.Warn(" Could not AddTour, because of invalid user inputs!!!!");
+                logger.Warn(" Could not AddTour, because of invalid user inputs!!!!");
 
                 // TODO in ein INterface - im gleiches Layer legen. bei views. ImplInterface. DI regel zu machen. 
                 //MessageBox.Show("Info", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -56,24 +56,19 @@ namespace TourPlanner_4_SWENII.ViewModels
                 //toursListViewModel.Items.Clear(); 
                 logger.Debug($"Exporting Tour {toursListViewModel.SelectedItem.Name }");
 
-
                 tourManager.ExportTour(toursListViewModel.SelectedItem);
-
-
             };
 
             navBarVM.OnImportTour += (_, _) =>
             {
                 string filePath = windowService.ShowSelectFileDialog();
-                if (filePath != null && filePath != string.Empty) 
+                if (filePath != null && filePath != string.Empty)
                 {
                     logger.Info_Notice($"Importing Tour from path {filePath}");
                 }
                 //Tour importedTour = ExportFile.ImportTourFromFile();
                 tourManager.ImportTourFrom(filePath);
-
-                //
-
+                toursListViewModel.FillListBox();
                 //tourManager.ExportTour(toursListViewModel.SelectedItem);
             };
 

@@ -250,20 +250,17 @@ namespace TourPlanner_4_SWENII.BL
             //  ExportFile.JsonToFile(tour, $"{tour.Name}_{DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
             //   ExportFile.JsonToFile(tour, $"/exportFolder/{tour.Name}_{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
 
-
-
-            ExportFile.JsonToFile(tour, $"{folderName}", $"{tour.Name}_{dateString}.json");
-
-
+            ExportImportManager.JsonToFile(tour, $"{folderName}", $"{tour.Name}_{dateString}.json");
 
             //  {DateTime.UtcNow.ToString("ddMMyyyy")}
-
-            // throw new NotImplementedException();
         }
 
         public void ImportTourFrom(string filePath)
         {
-            throw new NotImplementedException();
+            Tour tourToImport = ExportImportManager.ImportTourFromFile(filePath);
+            //Id is reset to avoid potential clashing in the db with current tours
+            tourToImport.Id = 0;
+            dal.AddTour(tourToImport);
         }
     }
 }

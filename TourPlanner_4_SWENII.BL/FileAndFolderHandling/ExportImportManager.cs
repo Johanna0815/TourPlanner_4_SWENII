@@ -15,7 +15,7 @@ using TourPlanner_4_SWENII.Models;
 namespace TourPlanner_4_SWENII.Utils.FileAndFolderHandling
 
 {
-    public class ExportFile
+    public class ExportImportManager
     {
 
 
