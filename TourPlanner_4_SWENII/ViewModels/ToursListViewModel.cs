@@ -24,6 +24,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         private ITourManager tourManager;
         private IMapQuest mapquest;
         private IWindowService windowService;
+        public event EventHandler<Tour> OnGetMap;
         public ObservableCollection<Tour> Tours { get; set; } = new();
 
 
@@ -179,13 +180,14 @@ namespace TourPlanner_4_SWENII.ViewModels
                 //Tours.Add(newTour);
                 FillListBox();
                 SetFormEmpty();
-                CallGetRouteAndGetImage(newTour);
+                OnGetMap?.Invoke(this, newTour);
+                //CallGetRouteAndGetImage(newTour);
             }
-            catch (ArgumentException exception)
+            catch (ArgumentException ex)
             {
                 ILoggerWrapper logger = LoggerFactory.GetLogger();
 
-             logger.Warn(" Could not AddTour, because of invalid user inputs!!!!");
+                logger.Warn(" Could not AddTour, because of invalid user inputs!!!!");
 
                 // TODO in ein INterface - im gleiches Layer legen. bei views. ImplInterface. DI regel zu machen. 
                 //MessageBox.Show("Info", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -214,11 +216,9 @@ namespace TourPlanner_4_SWENII.ViewModels
 
         }
 
+        /*
         private async Task CallGetRouteAndGetImage(Tour tour)
         {
-
-
-
             Route route = await mapquest.GetRoute(tour);
 
             // var route = task.Result;
@@ -234,9 +234,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             await using var filestream = new FileStream($"{tour.Name}{tour.Id}.png", FileMode.Create, FileAccess.Write);
             awaitStream.CopyTo(filestream);
 
-
-
-        }
+        }*/
 
 
 
