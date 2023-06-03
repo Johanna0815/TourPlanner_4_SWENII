@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using iText.StyledXmlParser.Jsoup.Select;
 //using TourPlanner_4_SWENII.Models;
 
 using System.Text.Json;
@@ -17,21 +16,6 @@ namespace TourPlanner_4_SWENII.Utils.FileAndFolderHandling
 {
     public class ExportFile
     {
-
-
-
-        //Tour tourTest = new Tour()
-        //{
-        //    Id = 1,
-
-        //    Name = "DummyDaten 1",
-        //    //TimeSpan = DateTime.Now,
-        //    // Tags = new List<string>() { "MeetingBoard", "MeetingBoard II", "MeetingBoard anotherOne", "Project Stardust Team Meeting", "Meeting Board III" },
-        //    From = "Here",
-        //    To = "There"
-        //};
-
-        //public
         public static void JsonToFile(object Object, string path, string name)
         {
 
