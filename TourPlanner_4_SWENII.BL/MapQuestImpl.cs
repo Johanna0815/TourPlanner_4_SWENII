@@ -24,46 +24,29 @@ namespace TourPlanner_4_SWENII.BL
 
         public async Task<Route> GetRoute(Tour tour)
         {
-            //var key = "vp9wvjCQjHGcsdhQt6LZ1vqkgyZkOT5W";
             string apiKey = ConfigurationManager.AppSettings["MapQuestAPIKey"];
             var from = tour.From;
             var to = tour.To;
             var TransportType = tour.TransportType;
-           // string url = ConfigurationManager.AppSettings["MapQuestAPIURL"];
 
-            // TODO 2. zeile. 
-          //  url = url.Replace("{key}", key).Replace("{from}", from).Replace("{to}", to);
-
-               var url = $"https://www.mapquestapi.com/directions/v2/route?key={apiKey}&from={from}&to={to}&routeType={TransportType}&unit=k";
+            var url = $"https://www.mapquestapi.com/directions/v2/route?key={apiKey}&from={from}&to={to}&routeType={TransportType}&unit=k";
 
             using var client = new HttpClient();
             var response = await client.GetAsync(url);
             var content = await response.Content.ReadAsStringAsync();
 
-            //Console.WriteLine(content);
-
-
+            //Parse Content
             var rootNode = JsonNode.Parse(content);
-            //  var rootNode = JsonDocument.Parse(content).RootElement;
-            // Console.WriteLine(rootNode?.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
-
 
             if (rootNode["info"]["statuscode"].ToString() != "0")
             {
                 Debug.WriteLine($"Error {rootNode["info"]["statuscode"]}: getting map failed");
-                throw new Exception();
-                // TODO Mapquestexception. 
 
+                throw new Exception();  // TODO Mapquestexception
 
             }
             var sessionId = rootNode["route"]["sessionId"].ToString();
             var boundingBox = rootNode["route"]["boundingBox"];
-            // tour.Distance = rootNode["route"]["distance"].GetDecimal();
-
-            //  tour.Distance = rootNode["route"]["distance"].GetValue<decimal>();
-
-            //try
-            //{
 
             var routeNode = rootNode["route"];
             var distanceNode = routeNode?["distance"];
@@ -72,56 +55,15 @@ namespace TourPlanner_4_SWENII.BL
             if (routeNode != null && distanceNode != null)
             {
                 distance = distanceNode.GetValue<decimal>();
-                // tour.Distance = distanceNode.GetValue<decimal>();
             }
 
+            TimeSpan estimatedTime = rootNode["route"]["formattedTime"].Deserialize<TimeSpan>();
 
-
-
-
-            //   else
-            //  {
-
-            //  Debug.Print($"The Distance is {tour.Distance} long.");
-
-
-            //  tour.Distance = 0; // Setting a default value for Distance
-            //  }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine($" In {} occured the following exception: {ex}");
-            //}
-
-
-
-
-
-
-
-
-
-
-            //  tour.Distance = rootNode["route"]["distance"].Deserialize<Decimal>();
-
-
-            TimeSpan estimatedTime = rootNode["route"]["formattedTime"].Deserialize<TimeSpan>(); // datemnTyp DateTime ?
             
-            //   Debug.Print($"hier ist die distance.{Distance}");
-
-
-
-            // tour.EstimatedTime = .logging{""} // 
-            //var ul_lng = boundingBox["ul"]["lng"].ToString();
-
-
             var ul_lat = boundingBox["ul"]["lat"].ToString();
             var ul_lng = boundingBox["ul"]["lng"].ToString();
             var lr_lat = boundingBox["lr"]["lat"].ToString();
             var lr_lng = boundingBox["lr"]["lng"].ToString();
-
-
 
 
             Route route = new Route();
@@ -134,8 +76,6 @@ namespace TourPlanner_4_SWENII.BL
             route.lr_Longitude = lr_lng;
 
             return route;
-
-            // return tour;
         }
 
         public async Task<Stream> GetImage(Route route)
@@ -144,21 +84,10 @@ namespace TourPlanner_4_SWENII.BL
 
             HttpClient client = new HttpClient();
 
-
             string url = $"http://www.mapquestapi.com/staticmap/v5/map?key={key}&session={route.sessionID}&boundingBox={route.ul_Latitude},{route.ul_Longitude},{route.lr_Latitude},{route.lr_Longitude}&size=1920,600";
             return await client.GetStreamAsync(url);
-            //await using var filestream = new FileStream($"{tour.Name}{tour.Id}.png", FileMode.Create, FileAccess.Write);
-            //stream.CopyTo(filestream);
-
-            // info vom viewmodel 
-
-
-
 
         }
-
-
-
 
     }
 }

@@ -9,9 +9,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <TabControl >
         <TabItem Header="General">
-            
+
             <Grid Background="LightSteelBlue">
-               
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width ="100*"/>
                     <ColumnDefinition Width ="150*"/>
@@ -19,7 +19,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    
+
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="30*"/>
@@ -30,18 +30,14 @@
                     <RowDefinition Height="30*"/>
                 </Grid.RowDefinitions>
 
+                <TextBlock Grid.Column="1" FontWeight="UltraBold"  TextAlignment="Center" FontSize="20" FontStyle="Italic" FontFamily="Arial"> Tours Information</TextBlock>
 
-
-
-
-                <TextBlock Grid.Column="1" FontWeight="UltraBold"  TextAlignment="Center" FontSize="20" FontStyle="Italic" FontFamily="Arial"> Tours Information </TextBlock>
-               
-                <Label Grid.Column="0" Grid.Row="1" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >Tourname : </Label>
+                <Label Grid.Column="0" Grid.Row="1" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >Tourname :</Label>
                 <TextBlock Grid.Column="1" Grid.Row=" 1" FontSize="13" Foreground="DarkGreen"  VerticalAlignment="Center" Text="{Binding SelectedTour.Name, Mode=TwoWay}"/>
 
                 <Label Grid.Column="0" Grid.Row="2" FontSize="13" FontWeight="UltraBold"  VerticalContentAlignment="Top" >From:</Label>
                 <TextBlock Grid.Column="1" Grid.Row=" 2" FontSize="13" Foreground="DarkGreen" VerticalAlignment="Center" Text="{Binding SelectedTour.From}"/>
-    
+
                 <Label Grid.Column="0" Grid.Row="3" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >To :</Label>
                 <TextBlock Grid.Column="1" Grid.Row=" 3" FontSize="13" Foreground="DarkGreen" VerticalAlignment="Center" Text="{Binding SelectedTour.To }"/>
 
@@ -56,19 +52,13 @@
                 <Label Grid.Column="0" Grid.Row="6" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >Distance :</Label>
                 <TextBlock Grid.Column="1" Grid.Row=" 6" FontSize="13" Foreground="DarkGreen" VerticalAlignment="Center" Text="{Binding SelectedTour.Distance}"/>
 
-                <Label Grid.Column="0" Grid.Row="7" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >Childfriendlyness : </Label>
+                <Label Grid.Column="0" Grid.Row="7" FontSize="13" FontWeight="UltraBold" VerticalContentAlignment="Top" >Childfriendlyness :</Label>
                 <TextBlock Grid.Column="1" Grid.Row=" 7" FontSize="13" Foreground="DarkGreen" VerticalAlignment="Center" Text="{Binding SelectedTour.Childfriendlyness, StringFormat=The lower the value the better :{0}}" />
-
-
-
-
-</Grid>
-
+            </Grid>
         </TabItem>
         <TabItem Header="Route">
             <Grid Background="#FFE5E5E5">
                 <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" Source="{Binding Path=testImage.Source}"></Image>
-                <!--"/TourPlanner_4_SWENII;component/Capture (2).PNG"-->
             </Grid>
         </TabItem>
         <TabItem Header="Misc">

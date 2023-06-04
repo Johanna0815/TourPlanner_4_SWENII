@@ -15,7 +15,6 @@
                         <Button Command="{Binding FillFieldsCommand}" Click="Edit" Height="20" VerticalAlignment="Top" Margin="0,0,3,0">Edit</Button>
                         <Button Command="{Binding AddTourLogCommand}" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
                     </WrapPanel>
-                    <!--Visibility="Collapsed"-->
                     <Border x:Name="EditTourLogPrompt" Visibility="Collapsed" Background="#ffe5e5e5" MaxWidth="400" HorizontalAlignment="Right"  BorderThickness="2" BorderBrush="#ff808080" Margin="3">
                         <Grid  Margin="10,5,10,5">
                             <Grid.ColumnDefinitions>
@@ -34,22 +33,10 @@
                             <!--Date-->
                             <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Date of Tour:</Label>
                             <xctk:DateTimePicker Grid.Row="0" Grid.Column="1" Text="{Binding Path=DateToEdit, Mode=TwoWay}" ></xctk:DateTimePicker>
-                            <!--SelectedDate="{Binding Path=DateToEdit, Mode=TwoWay}"-->
-                            
+
                             <!--Time-->
                             <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Total Time:</Label>
-                            <!--<TextBox Grid.Row="1" Grid.Column="1">
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0:00}:{1:00;00}">
-                                        <Binding Path="MyTime.Hours" />
-                                        <Binding Path="MyTime.Minutes" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBox>-->
-
-                            <xctk:TimeSpanUpDown Grid.Row="1" Grid.Column="1" Text="{Binding Path=TotalTimeToEdit, Mode=TwoWay}">
-
-                            </xctk:TimeSpanUpDown>
+                            <xctk:TimeSpanUpDown Grid.Row="1" Grid.Column="1" Text="{Binding Path=TotalTimeToEdit, Mode=TwoWay}"></xctk:TimeSpanUpDown>
                             
                             <!--Rating-->
                             <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Rating:</Label>
@@ -82,35 +69,8 @@
                                 Command="{Binding EditTourLogCommand}" Click="Edit" >
                                 Change
                             </Button>
-
-                            <!--Radio Buttons
-                            <StackPanel Grid.Row="1" Grid.Column="1">
-                                <RadioButton Content="Easy"></RadioButton>
-                                <RadioButton Content="OkayForKids"></RadioButton>
-                                <RadioButton Content="Medium"></RadioButton>
-                                <RadioButton Content="Hard"></RadioButton>
-                            </StackPanel>-->
-                            <!--Radio Buttons
-                            <WrapPanel Grid.Row="3" VerticalAlignment="Center" Grid.Column="1">
-                                <RadioButton Content="1" Margin="0,0,10,0"></RadioButton>
-                                <RadioButton Content="2" Margin="0,0,10,0"></RadioButton>
-                                <RadioButton Content="3" Margin="0,0,10,0"></RadioButton>
-                                <RadioButton Content="4" Margin="0,0,10,0"></RadioButton>
-                                <RadioButton Content="5" Margin="0,0,10,0"></RadioButton>
-                            </WrapPanel>-->
                         </Grid>
-                        <!--
-                        <StackPanel Background="#ffe5e5e5">
-                            <WrapPanel>
-                                <Label>Name:</Label>
-                                <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0" Text="{Binding NewTourName, Mode=TwoWay}"/>
-                            </WrapPanel>
-                            <WrapPanel>
-                                <Label>Name:</Label>
-                                <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0" Text="{Binding NewTourName, Mode=TwoWay}"/>
-                            </WrapPanel>
-                            <Button Command="{Binding EditTourLogCommand}" Click="Edit" Height="20" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 5">Change</Button>
-                        </StackPanel>-->
+                        
                     </Border>
                     <Border x:Name="RemoveTourPrompt" Visibility="Collapsed" MaxWidth="200" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
                         <StackPanel Background="#ffe5e5e5">

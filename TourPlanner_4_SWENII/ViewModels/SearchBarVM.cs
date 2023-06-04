@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.Models;
 
 namespace TourPlanner_4_SWENII.ViewModels
@@ -16,8 +9,8 @@ namespace TourPlanner_4_SWENII.ViewModels
         public SearchBarVM()
         {
             this.ClearCommand = new RelayCommand(
-                (O) => { return true; }, //1.Paramater canexecute //!String.IsNullOrEmpty(SearchText)
-                (O) => { Clear(); }//2.p execute
+                (O) => { return true; },    //1.Paramater canexecute
+                (O) => { Clear(); }         //2.p execute
             );
 
             this.SearchCommand = new RelayCommand(
@@ -88,7 +81,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             SearchForText?.Invoke(this, searchParams);
         }
 
-        private void Clear()    //object commandParameter
+        private void Clear()
         {
             Debug.Print("Text Cleared");
             SearchText = "";

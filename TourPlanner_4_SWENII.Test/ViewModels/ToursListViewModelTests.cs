@@ -19,17 +19,12 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 {
     public class ToursListViewModelTest
     {
-        // nsjkdf wher T : Tour();
-        //IEnumerable<Tour> Tours;
-        //Tour tour;
 
         ObservableCollection<Tour> tours;
         Mock<ITourManager> tourManager;
         Mock<IMapQuest> mapquest;
         IWindowService windowService;
         ToursListViewModel tlvm;
-
-        //ITourManager TourManager;
 
         [SetUp]
         public void SetUp()
@@ -46,29 +41,7 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 
             };
 
-            //TourManager = new MoqTourManager(Tours);
         }
-
-       /* [Test]
-        public void Tours_ShouldContain()
-        {
-            var mockTourManager = new Mock<ITourManager>();
-            mockTourManager.Setup(m => m.GetTours()).Returns(Tours); //m.GetTours(It.IsAny<Product>())
-
-            //Arrange
-            ToursListViewModel tlvm;
-
-            //Act
-            tlvm = new ToursListViewModel(mockTourManager.Object);
-
-            //Assert
-            Assert.IsNotNull(tlvm);
-            Assert.IsNotNull(tlvm.Tours);
-            Assert.That(tlvm.Tours, Has.Exactly(1).Items);
-            Assert.That(tlvm.Tours[0].Name, Is.EqualTo(tour.Name));
-            //Assert.Contains("");
-
-        }*/
 
 
         [Test]
@@ -76,24 +49,20 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
         public void Tours_ShouldBeAdded()
         {
             //Arrange
-
             tourManager.Setup(x => x.GetTours()).Returns(tours);
 
             //Act
             tlvm.AddTour();
 
             //Assert
-
             Assert.That(tlvm.Tours.First().Name, Is.EqualTo(tours.First().Name));
-
         }
-
 
 
         [Test]
         public void ToursForm_ShouldBeEmptyAfterAdding()
         {
-            // Arrange // by Setup()
+            // Arrange // in Setup()
           
             // Act 
             tlvm.NewTourName = "MyTour";
@@ -120,7 +89,6 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
             tourManager.Setup(x => x.GetTours()).Returns(expectedTours);
           
             // Act
-
             tlvm.FillListBox();
 
             // Assert
@@ -131,10 +99,8 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
         [Test]
 
         public void Tours_CouldBeSearched()
-
         {
             //Arrange
-
 
             SearchParameters sParams1 = new()
             {
@@ -226,65 +192,5 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
         }
 
     }
-    /*
-    public class MoqTourManager : ITourManager
-    {
-        IEnumerable<Tour> Tours;
 
-        public MoqTourManager(IEnumerable<Tour> Tours)
-        {
-            this.Tours = Tours;
-        }
-
-        public Tour AddTour(string tourName, string description, string from, string to, TransportType transportType, decimal distance)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TourLog AddTourLog(int TourId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteTour(Tour item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteTourLog(TourLog tourLog)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GenerateReport(Tour tour, string filename)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetMap(Tour tour)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TourLog> GetTourLogs(int tourId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Tour> GetTours()
-        {
-            return Tours;
-            
-        }
-
-        public IEnumerable<Tour> Search(string itemName, bool caseSensitive = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateTourLog(TourLog tourLog)
-        {
-            throw new NotImplementedException();
-        }
-    }*/
 }

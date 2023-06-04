@@ -343,22 +343,14 @@ namespace TourPlanner_4_SWENII.Test.BL
               new Tour() { Id = 1, Name = "Test", Distance = 15 , EstimatedTime = TimeSpan.FromMinutes(25) },
               new Tour() { Id = 2, Name = "Test", Distance = 45 , EstimatedTime = TimeSpan.FromMinutes(80) },
 
-
-
             };
 
-
             //Act
-
             double result1 = tourManager.CaculateChildFriendlyness(tours[0]);
             double result2 = tourManager.CaculateChildFriendlyness(tours[1]);
 
-
-
             //Assert
-
             Assert.Greater(result2, result1);
-
 
         }
 
@@ -445,68 +437,44 @@ namespace TourPlanner_4_SWENII.Test.BL
             List<TourLog> tourlogs = new List<TourLog>
             {
 
-           
                 new TourLog() { Rating = Rating.VeryGood},
                 new TourLog() { Rating = Rating.Good},
                 new TourLog() { Rating = Rating.Okay},
                 new TourLog() { Rating = Rating.Bad},
                 new TourLog() { Rating = Rating.VeryBad}
-
-
             };
 
 
             //Act
-
             var AverageResult = tourManager.AverageRating(tourlogs);
 
             //Assert
-
             Assert.That(AverageResult, Is.EqualTo(3));
-
-
-
-
-
 
         }
 
 
         [Test]
         public void AverageTime_ShouldReturnTotalTimeAverage()
-
         {
 
-
             //Arrange
-
             ICollection<TourLog> tourlogs = new List<TourLog>
             {
-
-
                 new TourLog() { TotalTime = TimeSpan.FromMinutes(0) },
                 new TourLog() { TotalTime = TimeSpan.FromMinutes(10) },
                 new TourLog() { TotalTime = TimeSpan.FromMinutes(30) },
                 new TourLog() { TotalTime = TimeSpan.FromMinutes(50) },
                 new TourLog() { TotalTime = TimeSpan.FromMinutes(50) }
-
-
             };
 
 
             //Act
-
             var AverageResult = tourManager.AverageTime(tourlogs);
 
             //Assert
-
             Assert.That(AverageResult, Is.EqualTo(TimeSpan.FromSeconds(2100)));
 
-
-
         }
-
-
-
     }
 }

@@ -4,38 +4,23 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Net.Mime;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Reflection.Metadata;
-using System.Text;
 using System.Threading.Tasks;
 using TourPlanner_4_SWENII.Models.HelperEnums;
-//using System.Windows.Documents;
 using TourPlanner_4_SWENII.DAL;
 using TourPlanner_4_SWENII.Models;
 using TransportType = TourPlanner_4_SWENII.Models.HelperEnums.TransportType;
-using System.Windows.Input;
-using log4net;
-using Microsoft.VisualBasic;
-using Org.BouncyCastle.Security;
 using TourPlanner_4_SWENII.Utils.FileAndFolderHandling;
 using TourPlanner_4_SWENII.Utils.Validating;
 using System.Configuration;
 using System.IO;
-using iText.Kernel.Colors;
 using iText.Kernel.Font;
 using iText.IO.Image;
-using iText.StyledXmlParser.Jsoup.Nodes;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace TourPlanner_4_SWENII.BL
 {
-    // Execution of the Methodes in IMediaItemFactory
-
     public class TourManagerImpl : ITourManager
     {
 
@@ -47,32 +32,18 @@ namespace TourPlanner_4_SWENII.BL
 
         public TourManagerImpl(IDataHandler dal)
         {
-            //dal = new DataHandlerEF();//remove instantiation
             this.dal = dal;
         }
 
         public Tour AddTour(string tourName, string description, string from, string to, TransportType transportType)
         {
-            //if (tourName == null || tourName == "")
-            //{
-
-            //    tourName = "New Tour";
-            //}
             if ((ValidateUserInput.IsInputEmpty(tourName) || ValidateUserInput.IfInputIsTooLong(tourName)) ||
                  (ValidateUserInput.IfInputIsTooLong(description)))
             {
-
-                //  throw new Exception();
                 throw new ArgumentException();
-
             }
 
-
-
             Tour newTour = dal.AddTour(new Tour() { Name = tourName, Description = description, From = from, To = to, TransportType = transportType });
-
-
-            // GetMap(newTour);
 
             return newTour;
 
@@ -81,7 +52,6 @@ namespace TourPlanner_4_SWENII.BL
         public TourLog AddTourLog(int TourId)
         {
             return dal.AddTourLog(new TourLog() { TourId = TourId });
-            //delete !!
         }
 
         public void DeleteTour(Tour tour)
@@ -124,10 +94,7 @@ namespace TourPlanner_4_SWENII.BL
             if (tour != null)
             {
 
-
                 document.SetMargins(50, 50, 50, 50);
-
-
 
                 // Add tour information and map image
                 document.Add(new Paragraph("Tour Report").AddStyle(titleStyle).SetTextAlignment(TextAlignment.CENTER).SetMarginBottom(20)).SetTopMargin(20);
@@ -137,8 +104,6 @@ namespace TourPlanner_4_SWENII.BL
                 document.Add(new Paragraph().Add(new Text("TransportType: ").AddStyle(headingStyle)).Add(new Text(tour.TransportType.ToString()).AddStyle(infoStyle)));
                 document.Add(new Paragraph().Add(new Text("Distance: ").AddStyle(headingStyle)).Add(new Text(tour.Distance + " km").AddStyle(infoStyle)));
                 document.Add(new Paragraph().Add(new Text("Estimated Time: ").AddStyle(headingStyle)).Add(new Text(tour.EstimatedTime.Hours + " hours").AddStyle(infoStyle)));
-
-
 
             }
             else
@@ -170,11 +135,11 @@ namespace TourPlanner_4_SWENII.BL
             }
 
 
-            if (tour.TourLogs != null && tour.TourLogs.Count > 0 )
+            if (tour.TourLogs != null && tour.TourLogs.Count > 0)
             {
                 document.Add(new Paragraph("Tour Logs").AddStyle(headingStyle));
 
-                foreach(var  tourlog  in  tour.TourLogs)
+                foreach (var tourlog in tour.TourLogs)
                 {
 
                     document.Add(new Paragraph().Add(new Text("TourLog_ID:").AddStyle(infoStyle)).Add(tourlog.Id.ToString()));
@@ -200,12 +165,8 @@ namespace TourPlanner_4_SWENII.BL
 
 
         public void Summarize_TourLogs(string filename)
-
         {
-
             var tours = GetTours();
-
-
 
             string currentDirectory = Directory.GetCurrentDirectory();
             string parentDirectory = Directory.GetParent(currentDirectory)?.Parent?.FullName;
@@ -228,27 +189,20 @@ namespace TourPlanner_4_SWENII.BL
             var titleStyle = new Style().SetFont(titleFont).SetFontColor(ColorConstants.LIGHT_GRAY).SetFontSize(24);
             var headingStyle = new Style().SetFont(headingFont).SetFontColor(ColorConstants.BLACK).SetFontSize(16).SetBold();
             var infoStyle = new Style().SetFont(textFont).SetFontColor(ColorConstants.BLUE).SetFontSize(12).SetTextAlignment(TextAlignment.CENTER);
-                document.SetMargins(50, 50, 50, 50);
+            document.SetMargins(50, 50, 50, 50);
 
             foreach (var tour in tours)
             {
 
-                if(tour != null)
+                if (tour != null)
                 {
-                        document.Add(new Paragraph().Add(new Text("Tour: ").AddStyle(headingStyle)).Add(new Text(tour.Name).AddStyle(infoStyle)));
+                    document.Add(new Paragraph().Add(new Text("Tour: ").AddStyle(headingStyle)).Add(new Text(tour.Name).AddStyle(infoStyle)));
 
 
-                        TimeSpan AT = AverageTime(tour.TourLogs);
+                    TimeSpan AT = AverageTime(tour.TourLogs);
 
-                        document.Add(new Paragraph().Add(new Text("Average Time: ").AddStyle(headingStyle)).Add(new Text(AT.Hours.ToString() + " hours").AddStyle(infoStyle)));
-                        document.Add(new Paragraph().Add(new Text("Average Rating: ").AddStyle(headingStyle)).Add(new Text(AverageRating(tour.TourLogs).ToString()).AddStyle(infoStyle)));
-
-                       // document.Add(new Paragraph().Add(new Text("Tour: ").AddStyle(headingStyle)).Add(new Text(tour.TourLogs.).AddStyle(infoStyle)));
-
-
-
-               
-
+                    document.Add(new Paragraph().Add(new Text("Average Time: ").AddStyle(headingStyle)).Add(new Text(AT.Hours.ToString() + " hours").AddStyle(infoStyle)));
+                    document.Add(new Paragraph().Add(new Text("Average Rating: ").AddStyle(headingStyle)).Add(new Text(AverageRating(tour.TourLogs).ToString()).AddStyle(infoStyle)));
 
                 }
 
@@ -257,7 +211,6 @@ namespace TourPlanner_4_SWENII.BL
                     Debug.WriteLine("no tour was selected when creating a TourLogs report");
                     document.Add(new Paragraph($"No tour was selected"));
                 }
-
 
 
                 string imagePath = $"{tour.Name}{tour.Id}.png";
@@ -288,34 +241,6 @@ namespace TourPlanner_4_SWENII.BL
             }
 
 
-
-          
-
-
-
-            /*if (tour != null)
-            {
-
-
-
-
-                // Add tour information and map image
-                document.Add(new Paragraph("Tour Report").AddStyle(titleStyle).SetTextAlignment(TextAlignment.CENTER).SetMarginBottom(20)).SetTopMargin(20);
-                document.Add(new Paragraph().Add(new Text("Tour Name: ").AddStyle(headingStyle)).Add(new Text(tour.Name).AddStyle(infoStyle)));
-                document.Add(new Paragraph().Add(new Text("Average Time: ").AddStyle(headingStyle)).Add(new Text(AverageTime(tour.TourLogs).Hours.ToString() + "hours" ).AddStyle(infoStyle)));
-                document.Add(new Paragraph().Add(new Text("Average Rating: ").AddStyle(headingStyle)).Add(new Text(AverageRating(tour.TourLogs).ToString()).AddStyle(infoStyle)));
-
-
-
-            }*/
-
-          
-
-
-
-
-
-
             document.Close();
         }
 
@@ -329,22 +254,18 @@ namespace TourPlanner_4_SWENII.BL
 
             foreach (var tourlog in tourlogs)
             {
-                if(tourlog.TotalTime != TimeSpan.Zero)
+                if (tourlog.TotalTime != TimeSpan.Zero)
                 {
                     counter++;
 
                     averageTime += tourlog.TotalTime;
 
-
-
                 }
-             
-
             }
 
             if (counter != 0)
             {
-            averageTime = averageTime / counter;
+                averageTime = averageTime / counter;
 
             }
 
@@ -360,29 +281,23 @@ namespace TourPlanner_4_SWENII.BL
             foreach (var tourlog in tourlogs)
             {
 
-                if(tourlog.Rating != Rating.None)
+                if (tourlog.Rating != Rating.None)
                 {
                     counter++;
 
                     averageRating += ((double)tourlog.Rating);
 
-                  
                 }
-                    
-
             }
 
             if (counter != 0)
             {
-                
-            averageRating = averageRating / counter;
+                averageRating = averageRating / counter;
 
             }
 
-
             return averageRating;
         }
-
 
 
 
@@ -395,11 +310,6 @@ namespace TourPlanner_4_SWENII.BL
             return dal.GetTourLogs(tourId);
         }
 
-
-
-
-
-        //private MediaItemDAO mediaItemDao = new MediaItemDAO();
 
         public IEnumerable<Tour> GetTours()
         {
@@ -416,17 +326,9 @@ namespace TourPlanner_4_SWENII.BL
                 */
                 tour.Childfriendlyness = CaculateChildFriendlyness(tour);
 
-
-
-
             }
 
             return savedTours;
-            // return dal.GetTours();
-            //return statement
-
-
-
         }
 
 
@@ -437,41 +339,10 @@ namespace TourPlanner_4_SWENII.BL
 
             var result = ((Distance) * (tour.EstimatedTime.TotalMinutes)) / 0.5;
 
-
-
-
             return result;
         }
 
 
-
-
-
-
-
-        /* public IEnumerable<Tour> Search(string itemName, bool caseSensitive = false)
-         {
-             IEnumerable<Tour> items = GetTours();
-             // throw new NotImplementedException();
-             if (caseSensitive)
-             {
-
-                 return items.Where(x => x.Name.Contains(itemName));
-
-             }
-
-             return items.Where(x => x.Name.ToLower().Contains(itemName.ToLower()));
-         }*/
-
-        /*public IEnumerable<Tour> Search(string searchItem, bool caseSensitive = false)
-        {
-            IEnumerable<Tour> items = GetTours();
-            if (caseSensitive)
-            {
-                return items.Where(x => SearchProperty(x, searchItem, caseSensitive));
-            }
-            return items.Where(x => SearchProperty(x, searchItem.ToLower(), caseSensitive));
-        }*/
         public IEnumerable<Tour> Search(SearchParameters searchParams)
         {
             IEnumerable<Tour> tours = GetTours();
@@ -479,7 +350,7 @@ namespace TourPlanner_4_SWENII.BL
             if (searchParams.searchInTourLogs)
             {
                 List<Tour> foundTours = new List<Tour>();
-                bool tourLogFound = false; 
+                bool tourLogFound = false;
 
                 foreach (Tour tour in tours)
                 {
@@ -545,7 +416,9 @@ namespace TourPlanner_4_SWENII.BL
                         || (tour.From.Contains(searchItem))
                         || (tour.To.Contains(searchItem))
                         || (tour.Distance.ToString().Contains(searchItem))
-                        || (tour.EstimatedTime.Hours.ToString().Contains(searchItem)))
+                        || (tour.EstimatedTime.Hours.ToString().Contains(searchItem))
+                        || (tour.Childfriendlyness.ToString().Contains(searchItem))
+                        )
                 {
                     return true;
                 }
@@ -558,7 +431,9 @@ namespace TourPlanner_4_SWENII.BL
                        || (tour.From.ToLower().Contains(searchItem))
                        || (tour.To.ToLower().Contains(searchItem))
                        || (tour.Distance.ToString().Contains(searchItem))
-                       || (tour.EstimatedTime.Hours.ToString().Contains(searchItem)))
+                       || (tour.EstimatedTime.Hours.ToString().Contains(searchItem))
+                       || (tour.Childfriendlyness.ToString().Contains(searchItem))
+                       )
                 {
                     return true;
                 }
@@ -567,128 +442,16 @@ namespace TourPlanner_4_SWENII.BL
             return false;
 
         }
-
-        /*public bool SearchProperty(Tour tour, string searchItem, bool caseSensitive)
-        {
-            if (caseSensitive)
-            {
-                if (tour.Name.Contains(searchItem)
-                        || (tour.From.Contains(searchItem))
-                        || (tour.To.Contains(searchItem))
-                        || (tour.Distance.ToString().Contains(searchItem))
-                        || (tour.EstimatedTime.Hours.ToString().Contains(searchItem)))
-                {
-                    return true;
-                }
-
-
-
-            }
-
-            else // if not casesensitive;
-            {
-                searchItem = searchItem.ToLower();
-                if (tour.Name.Contains(searchItem)
-                       || (tour.From.ToLower().Contains(searchItem))
-                       || (tour.To.ToLower().Contains(searchItem))
-                       || (tour.Distance.ToString().Contains(searchItem))
-                       || (tour.EstimatedTime.Hours.ToString().Contains(searchItem)))
-
-                {
-
-                    return true;
-                }
-
-
-            }
-
-            return false;
-
-        }*/
-
-
-        //return tour.Name.Contains(searchItem)
-
-        //    || (!caseSensitive && tour.From.ToLower().Contains(searchItem))
-        //    || (!caseSensitive && tour.To.ToLower().Contains(searchItem))
-        //    || (!caseSensitive && tour.Distance.ToString().Contains(searchItem))
-        //    || (!caseSensitive && tour.EstimatedTime.Hours.ToString().Contains(searchItem));
-
-
-
 
 
         //  string tourName
         public TourLog UpdateTourLog(TourLog tourLog)
         {
             return dal.UpdateTourLog(tourLog);
-            // Find the tour in the list
-            //var tour = tours.FirstOrDefault(t => t.Name == tourName);
-            //if (tour != null)
-            //{
-            //    // Find the tour log in the tour
-            //    var existingLog = tour.Logs.FirstOrDefault(l => l.DateTime == log.DateTime);
-            //    if (existingLog != null)
-            //    {
-            //        // Update the tour log properties
-            //        existingLog.Comment = log.Comment;
-            //        existingLog.Difficulty = log.Difficulty;
-            //        existingLog.TotalTime = log.TotalTime;
-            //        existingLog.Rating = log.Rating;
         }
 
 
-        // Method to update an existing tour
-        //public void UpdateTour(Tour tour)
-        //{
-        //    // Find the tour in the list
-        //    var existingTour = tours.FirstOrDefault(t => t.Name == tour.Name);
-        //    if (existingTour != null)
-        //    {
-        //        PopulateTourData(tour);
-
-        //        // Update the tour properties
-        //        existingTour.Description = tour.Description;
-        //        existingTour.From = tour.From;
-        //        existingTour.To = tour.To;
-        //        existingTour.TransportType = tour.TransportType;
-        //        existingTour.Distance = tour.Distance;
-        //        existingTour.EstimatedTime = tour.EstimatedTime;
-        //        existingTour.RouteInformation = tour.RouteInformation;
-        //    }
-        //}
-
-
-
-
-
-
-        //TODO
-        //public  async Task<> GetMap(Tour tour, )
-        //{
-        //    mapquest.GetRoute(tour);
-        //   // erneut speichern.
-        //    dal.UpdateTour(tour);
-        //    mapquest.GetImage();
-
-
-
-        //}
-
-        //public async Task FetchRoute()
-        //{
-
-        //    mapquest.GetRoute();
-
-
-        //}
-
-
-
-
-
         public void UpdateTour(Tour selectedTour)
-
         {
             dal.UpdateTour(selectedTour);
 
@@ -698,13 +461,9 @@ namespace TourPlanner_4_SWENII.BL
         {
             string dateString = $"{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}";
 
-            //string folderName = "Exports";
-
             Debug.WriteLine("wir testen Den Export!!!!!!!!!!!!!!!!!!!!");
-            //  ExportFile.JsonToFile(tour, $"{tour.Name}_{DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
-            //   ExportFile.JsonToFile(tour, $"/exportFolder/{tour.Name}_{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.json");
 
-            ExportImportManager.JsonToFile(tour, ConfigurationManager.AppSettings["ExportImportSubdir"], $"{tour.Name}_{dateString}.json"); //$"{folderName}"
+            ExportImportManager.JsonToFile(tour, ConfigurationManager.AppSettings["ExportImportSubdir"], $"{tour.Name}_{dateString}.json");
 
             //  {DateTime.UtcNow.ToString("ddMMyyyy")}
         }
@@ -712,6 +471,7 @@ namespace TourPlanner_4_SWENII.BL
         public Tour ImportTourFrom(string filePath)
         {
             Tour tourToImport = ExportImportManager.ImportTourFromFile(filePath);
+
             //Id is reset to avoid potential clashing in the db with current tours
             tourToImport.Id = 0;
             return dal.AddTour(tourToImport);
@@ -722,13 +482,10 @@ namespace TourPlanner_4_SWENII.BL
         {
             Route route = await mapquest.GetRoute(tour);
 
-            // var route = task.Result;
-            tour.Distance = route.distance; // ObjectRefernce not setted to an inst of an obkj
+            tour.Distance = route.distance;
             tour.EstimatedTime = route.estimatedTime;
             UpdateTour(tour);
 
-            //
-            //  RaisePropertyChangedEvent(nameof(SelectedItem));
 
             Stream awaitStream = await mapquest.GetImage(route);
 

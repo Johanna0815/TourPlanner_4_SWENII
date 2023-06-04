@@ -23,14 +23,21 @@ namespace TourPlanner_4_SWENII
         {
             OpenFileDialog openFileDialog = new();
             FolderCreator folderCreator = new();
+
             folderCreator.ToCreateDirectory(ConfigurationManager.AppSettings["ExportImportSubdir"]);
             openFileDialog.InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), ConfigurationManager.AppSettings["ExportImportSubdir"]);
+
             Debug.WriteLine("currentDirectory: " + openFileDialog.InitialDirectory);
             openFileDialog.Filter = "JSON Files (*.json)|*.json|All files (*.*)|*.*";
+
             if (openFileDialog.ShowDialog() == true)
+            {
                 return openFileDialog.FileName;
+            }
             else
+            {
                 return "";
+            }  
         }
     }
 }

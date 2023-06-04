@@ -9,7 +9,6 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width ="Auto"/>
-            
             <ColumnDefinition Width ="Auto"/>
             <ColumnDefinition Width ="Auto"/>
             <ColumnDefinition Width ="*"/>
@@ -17,19 +16,13 @@
             <ColumnDefinition Width ="Auto"/>
         </Grid.ColumnDefinitions>
         
-
-        <!--<TextBlock Grid.Row="1" Text="Media Item List:" Margin="5"/>-->
         <!--<TextBlock Grid.Column="0" Text="Search" Margin="10,0,5,0" VerticalAlignment="Center"></TextBlock>-->
         <TextBox Grid.Column="3" Name="txtSearchName" VerticalAlignment="Center"
                      Text="{Binding SearchText, Mode=TwoWay}"/>
         <Button Grid.Column="4" Width="25" Margin="5,5,0,5" Command="{Binding SearchCommand}">
-
             <StackPanel Orientation="Horizontal">
-
                 <Image Stretch="Fill" Source="pack://application:,,,/Icons/1944491.png" />
-
             </StackPanel>
-           
         </Button>
 
         <CheckBox IsChecked="{Binding Path=CaseSensitive, Mode=TwoWay}" Grid.Column="2" Width="100" Margin="5,7,10,5">caseSensitive</CheckBox>

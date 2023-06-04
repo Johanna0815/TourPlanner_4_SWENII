@@ -21,4 +21,8 @@
     <ProjectReference Include="..\TourPlanner_4_SWENII\TourPlanner_4_SWENII.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DAL\" />
+  </ItemGroup>
+
 </Project>

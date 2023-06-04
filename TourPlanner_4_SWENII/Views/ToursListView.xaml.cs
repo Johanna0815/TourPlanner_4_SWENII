@@ -37,8 +37,6 @@ namespace TourPlanner_4_SWENII.Views
                 RemoveTourPrompt.Visibility = Visibility.Collapsed;
                 UpdateTourPrompt.Visibility = Visibility.Collapsed;
             }
-
-            
         }
 
         public void Remove(object sender, RoutedEventArgs e)
@@ -53,8 +51,6 @@ namespace TourPlanner_4_SWENII.Views
                 TourNamePrompt.Visibility = Visibility.Collapsed;
                 UpdateTourPrompt.Visibility = Visibility.Collapsed;
             }
-
-            
         }
 
         public void Update(object sender, RoutedEventArgs e)
@@ -69,8 +65,6 @@ namespace TourPlanner_4_SWENII.Views
                 TourNamePrompt.Visibility = Visibility.Collapsed;
                 RemoveTourPrompt.Visibility = Visibility.Collapsed;
             }
-
-           // TourNamePrompt.Visibility = Visibility.Collapsed;
         }
     }
 }

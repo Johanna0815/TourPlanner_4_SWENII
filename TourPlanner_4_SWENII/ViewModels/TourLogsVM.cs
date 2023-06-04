@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
 using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.Models;
 using TourPlanner_4_SWENII.Models.HelperEnums;
-using TourPlanner_4_SWENII.Views;
 
 namespace TourPlanner_4_SWENII.ViewModels
 {
@@ -73,7 +68,6 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        //used to fill values for a new Tour
         private TourLog _newTourLog;
         public TourLog NewTourLog
         {
@@ -156,18 +150,9 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-
-
         public TourLogsVM(ITourManager tourManager)
         {
             this.tourManager = tourManager; //create and pass in app-startup
-            // InitTourLogList();
-
-            /*TourLogs = new ObservableCollection<TourLog>() { 
-                new TourLog(){timeNow=new DateTime(), Comment="Hello my good sir", Rating=4, TotalTime=1.5, Difficulty=Difficulty.Easy},
-                new TourLog(){timeNow=new DateTime(), Comment="Hello", Rating=4, TotalTime=1.5, Difficulty=Difficulty.CanDoKidsToo},
-                new TourLog(){timeNow=new DateTime(), Comment=":)", Rating=4, TotalTime=1.2, Difficulty=Difficulty.BetterTrainHardBefore}
-            };*/
 
             AddTourLogCommand = new RelayCommand(
                 (O) => selectedTourId != 0,
@@ -189,7 +174,6 @@ namespace TourPlanner_4_SWENII.ViewModels
                 (O) => SelectedItem != null,
                 (O) => { DeleteTourLog(SelectedItem); });
 
-            //NewTourName = "";
             selectedTourId = 0;
             NewTourLog = new() { Comment = "new log" };
             GetTourLogs(selectedTourId);
@@ -216,10 +200,8 @@ namespace TourPlanner_4_SWENII.ViewModels
                 {
                     Debug.WriteLine($"adding tour log {item}");
                     TourLogs.Add(item);
-                    //RaisePropertyChangedEvent("TourLogs");
                 }
             }
-            //todo
             SelectedTourId = tourId;
         }
         private void AddTourLog()
@@ -229,7 +211,6 @@ namespace TourPlanner_4_SWENII.ViewModels
         }
         private void EditTourLog()
         {
-            //Debug.WriteLine($"3 {NewTourLog.Comment}");
             Debug.Print($"Editing tour log {SelectedItem.Id}");
 
             SelectedItem.TimeNow = DateToEdit.ToUniversalTime();
@@ -237,15 +218,10 @@ namespace TourPlanner_4_SWENII.ViewModels
             SelectedItem.Comment = CommentToEdit;
             SelectedItem.Rating = RatingToEdit;
             SelectedItem.Difficulty = DifficultyToEdit;
-            //tourLog.Comment = NewTourLog.Comment; //NewTourLog.Comment;//$"edited on {DateTime.UtcNow}"
             tourManager.UpdateTourLog(SelectedItem);
-            //CopyTourLogPropertiesFromTo(tourLog, TourLogs.Where(t => t.Id == tourLog.Id).First());
-            //TourLogs.Where(t => t.Id== tourLog.Id).First().
 
             //Update View
             GetTourLogs(selectedTourId);
-            //CopyTourLogPropertiesFromTo()
-            //SelectedItem = NewTourLog; //to hopefully update the view
 
         }
         private void DeleteTourLog(TourLog tourLog)
@@ -263,6 +239,8 @@ namespace TourPlanner_4_SWENII.ViewModels
             NewTourLog.Comment = SelectedItem.Comment;
             NewTourLog.Difficulty = SelectedItem.Difficulty;
         }
+
+        //used to fill values for a new Tour
         private void EmptyFields()
         {
             Debug.WriteLine("empty fields was called");
@@ -283,28 +261,5 @@ namespace TourPlanner_4_SWENII.ViewModels
             DifficultyToEdit = SelectedItem.Difficulty;
             RatingToEdit = SelectedItem.Rating;
         }
-        /*
-        private void CopyTourLogPropertiesFromTo(TourLog refTourLog, TourLog destTourLog)
-        {
-
-            Debug.WriteLine($"1 {destTourLog.Comment}");
-            NewTourLog = new TourLog()
-            {
-                Rating = refTourLog.Rating,
-                Comment = refTourLog.Comment,
-                Difficulty = refTourLog.Difficulty,
-                TimeNow = refTourLog.TimeNow,
-                TotalTime = refTourLog.TotalTime,
-            };
-            /*
-            destTourLog.Rating = refTourLog.Rating;
-            destTourLog.TotalTime = refTourLog.TotalTime;
-            destTourLog.TimeNow = refTourLog.TimeNow;
-            destTourLog.Comment = refTourLog.Comment;
-            destTourLog.Difficulty = refTourLog.Difficulty;
-            
-            Debug.WriteLine($"2 {destTourLog.Comment}");
-        }*/
-
     }
 }

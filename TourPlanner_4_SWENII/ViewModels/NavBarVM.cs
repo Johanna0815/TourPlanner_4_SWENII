@@ -54,29 +54,5 @@ namespace TourPlanner_4_SWENII.ViewModels
         public RelayCommand ExportTourCommand { get; set; }
         public RelayCommand ImportTourCommand { get; set; }
 
-
-
-        //public void ExportTour()
-        //{
-
-        //    OnExportTour?.Invoke(this, new EventArgs());
-
-        //    //TourAdded?.Invoke(this, NewTourName);
-
-        //}
-
-
-        /*
-        private void GenerateReport()
-        {
-            
-
-            var writer = new PdfWriter("report.pdf");
-            PdfDocument pdf = new PdfDocument(writer);
-            var document = new Document(pdf);
-
-            document.Add(new Paragraph("Tour Report"));
-            document.Close();
-        }*/
     }
 }

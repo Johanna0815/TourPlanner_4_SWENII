@@ -1,18 +1,7 @@
-﻿using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-//using log4net.Core;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.logging;
 using TourPlanner_4_SWENII.Models;
-using TourPlanner_4_SWENII.Utils.FileAndFolderHandling;
 
 namespace TourPlanner_4_SWENII.ViewModels
 {
@@ -42,8 +31,6 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             searchBarVM.SearchForText += (_, searchParams) =>
             {
-
-                //toursListViewModel.Items.Clear(); 
                 logger.Debug($"Searching for text {searchParams}");
 
                 toursListViewModel.SearchFor(searchParams); 
@@ -57,7 +44,6 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             navBarVM.OnExportTour += (_, _) =>
             {
-                //toursListViewModel.Items.Clear(); 
                 logger.Debug($"Exporting Tour {toursListViewModel.SelectedItem.Name }");
 
                 tourManager.ExportTour(toursListViewModel.SelectedItem);
@@ -70,13 +56,11 @@ namespace TourPlanner_4_SWENII.ViewModels
                 {
                     logger.Info_Notice($"Importing Tour from path {filePath}");
                 }
-                //Tour importedTour = ExportFile.ImportTourFromFile();
+
                 Tour tour = tourManager.ImportTourFrom(filePath);
                 tourManager.CallGetRouteAndGetImage(tour);
                 toursListViewModel.FillListBox();
-                //tourManager.ExportTour(toursListViewModel.SelectedItem);
             };
-
 
 
             toursListViewModel.PropertyChanged += (_, SelectedItem) =>
@@ -100,20 +84,13 @@ namespace TourPlanner_4_SWENII.ViewModels
 
                 tourManager.GenerateReport(tour,tour.Name + "_Report.pdf");
 
-
-
             };
 
             navBarVM.GenerateTourLogsReport += (_, _) =>
             {
-                //var tour = toursListViewModel.SelectedItem;
-
                 var tours = toursListViewModel.Tours; // Get the list of all tours
 
-
                 tourManager.Summarize_TourLogs ("Summarize_Report.pdf");
-
-
 
             };
 
