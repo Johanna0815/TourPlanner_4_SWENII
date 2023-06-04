@@ -22,7 +22,6 @@
             <RowDefinition Height ="25*"/>
         </Grid.RowDefinitions>
 
-
         <local:NavBarView  Grid.Row="0" Grid.ColumnSpan="5" x:Name="NavBarView" />
         <local:SearchBar  Grid.Row="1" Grid.ColumnSpan="5" x:Name="SearchBar" />
         <local:ToursListView Grid.Row="2" Grid.RowSpan="3" x:Name="ToursListView" />
@@ -30,11 +29,6 @@
         <local:TourInfo Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" x:Name="TourInfo"/>
         <GridSplitter Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch" />
         <local:TourLogs Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" x:Name="TourLogs"/>
-
-
-
-
-        
 
     </Grid>
 

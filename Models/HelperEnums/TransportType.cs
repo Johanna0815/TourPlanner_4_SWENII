@@ -6,19 +6,9 @@ using System.Threading.Tasks;
 
 namespace TourPlanner_4_SWENII.Models.HelperEnums
 {
-
-    /// <summary>
-    ///
-    /// NOTE: default value (0) must be valid
-    /// for instance: if ((flag & TransportType.Bike) != 0)
-    ///
-    /// var usedTransportType = MixedTransportType.Hike ^ MixedTransportType.Running; // ==  Hike XOR Running.  
-    /// </summary>
-
-    [Flags]
-    public enum TransportType //  : uint 
+    // [Flags]
+    public enum TransportType
     {
-        None,
         Pedestrian,
         Bicycle,
         Fastest,

@@ -14,9 +14,11 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
             <MenuItem Header="File">
-                <MenuItem Header="_Import" />
-                <MenuItem Header="_Export" />
+                <MenuItem Header="_Import" Command="{Binding Path=ImportTourCommand}"/>
+                <MenuItem Header="_Export" Command="{Binding Path=ExportTourCommand}"/>
+         
                 <MenuItem Command="{Binding Path=GenerateReportCommand}" Header="Generate Report" />
+                <MenuItem Command="{Binding Path=GenerateTourLogsReportCommand}" Header="Summary_Report" />
                 <MenuItem Command="{Binding Path=GetMapCommand}" Header="Maps" />
 
                 <Separator />

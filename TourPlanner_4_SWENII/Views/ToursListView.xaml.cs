@@ -34,9 +34,9 @@ namespace TourPlanner_4_SWENII.Views
             else
             {
                 TourNamePrompt.Visibility = Visibility.Visible;
+                RemoveTourPrompt.Visibility = Visibility.Collapsed;
+                UpdateTourPrompt.Visibility = Visibility.Collapsed;
             }
-
-            RemoveTourPrompt.Visibility = Visibility.Collapsed;
         }
 
         public void Remove(object sender, RoutedEventArgs e)
@@ -48,9 +48,9 @@ namespace TourPlanner_4_SWENII.Views
             else
             {
                 RemoveTourPrompt.Visibility = Visibility.Visible;
+                TourNamePrompt.Visibility = Visibility.Collapsed;
+                UpdateTourPrompt.Visibility = Visibility.Collapsed;
             }
-
-            TourNamePrompt.Visibility = Visibility.Collapsed;
         }
 
         public void Update(object sender, RoutedEventArgs e)
@@ -62,9 +62,9 @@ namespace TourPlanner_4_SWENII.Views
             else
             {
                 UpdateTourPrompt.Visibility = Visibility.Visible;
+                TourNamePrompt.Visibility = Visibility.Collapsed;
+                RemoveTourPrompt.Visibility = Visibility.Collapsed;
             }
-
-           // TourNamePrompt.Visibility = Visibility.Collapsed;
         }
     }
 }

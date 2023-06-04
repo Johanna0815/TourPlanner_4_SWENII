@@ -1,26 +1,32 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using TourPlanner_4_SWENII.BL;
+using TourPlanner_4_SWENII.logging;
 using TourPlanner_4_SWENII.Models;
-using TourPlanner_4_SWENII.ViewModels;
-using TourPlanner_4_SWENII.Views;
+using TourPlanner_4_SWENII.Models.HelperEnums;
 
 namespace TourPlanner_4_SWENII.ViewModels
 {
     public class ToursListViewModel : ViewModelBase
     {
-     
-        public  ITourManager tourManager;
-        public ObservableCollection<Tour> Tours { get; set; } = new();
 
+        private ITourManager tourManager;
+        private IMapQuest mapquest;
+        private IWindowService windowService;
+
+        private bool currentlyEditing = false;
+
+        public event EventHandler<Tour> OnGetMap;
+        public ObservableCollection<Tour> Tours { get; set; } = new();
+        public Dictionary<TransportType, string> TransportTypeWithCaptions { get; } =
+        new Dictionary<TransportType, string>()
+        {
+            {TransportType.Pedestrian, "walking"},
+            {TransportType.Bicycle, "cycling" },
+            {TransportType.Fastest, "by car (fastest)"},
+            {TransportType.Shortest, "by car (shortest)"},
+        };
 
         private string newTourName = string.Empty;
         public string NewTourName
@@ -50,8 +56,6 @@ namespace TourPlanner_4_SWENII.ViewModels
                 {
                     _description = value;
                     this.RaisePropertyChangedEvent();
-                    this.AddTourCommand.RaiseCanExecuteChanged();
-                    this.UpdateTourCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -90,8 +94,8 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        private TransportType _transportType;
-        public TransportType TransportType
+        private Models.HelperEnums.TransportType _transportType;
+        public Models.HelperEnums.TransportType TransportType
         {
             get => _transportType;
 
@@ -106,92 +110,6 @@ namespace TourPlanner_4_SWENII.ViewModels
                 }
             }
         }
-        /*
-        private decimal _distance;
-        public decimal Distance
-        {
-            get => _distance;
-
-            set
-            {
-                if (_distance != value)
-                {
-                    _distance = value;
-                    this.RaisePropertyChangedEvent();
-                    this.AddTourCommand.RaiseCanExecuteChanged();
-                    this.UpdateTourCommand.RaiseCanExecuteChanged();
-                }
-            }
-        }*/
-
-        public RelayCommand AddTourCommand { get; set; }
-        public RelayCommand DeleteTourCommand { get; set; }
-
-        public RelayCommand UpdateTourCommand { get; set; }
-        //public event EventHandler<string> TourAdded;
-
-        public ToursListViewModel(ITourManager tourManager) //
-        {
-            this.tourManager = tourManager;
-            //tourManager = TourManagerFactory.GetInstance(); //create and pass in app-startup instead
-            FillListBox();
-
-            AddTourCommand = new RelayCommand(
-                (O) => !String.IsNullOrEmpty(NewTourName),
-                (O) => { AddTour(); }
-            );
-
-            DeleteTourCommand = new RelayCommand(
-                (O) => SelectedItem != null && !String.IsNullOrEmpty(SelectedItem.Name),
-                (O) => { DeleteTour(SelectedItem); }
-            );
-
-            UpdateTourCommand = new RelayCommand(
-               (O) => SelectedItem != null && !String.IsNullOrEmpty(SelectedItem.Name),
-               (O) => { UpdateTour(); }
-           );
-
-            NewTourName = "";
-        }
-
-
-        public void AddTour()
-        {
-            //Debug.Print($"Adding tour {NewTourName}");
-
-            var newTour = tourManager.AddTour(NewTourName,Description,From,To, (Models.HelperEnums.TransportType)TransportType);
-            //Tours.Add(newTour);
-            FillListBox();
-            SetFormEmpty();
-
-            //TourAdded?.Invoke(this, NewTourName);
-        }
-
-        public void UpdateTour()
-        {
-            SelectedItem.Name = newTourName;
-            SelectedItem.Description = _description;
-            SelectedItem.From = from;
-            SelectedItem.To = to;
-            SelectedItem.TransportType = (Models.HelperEnums.TransportType)_transportType;
-            //SelectedItem.Distance = _distance;
-
-            tourManager.UpdateTour(SelectedItem);
-            tourManager.GetMap(SelectedItem);
-            FillListBox();
-
-            SetFormEmpty();
-
-        }
-
-        public void DeleteTour(Tour tour)
-        {
-            //Debug.Print($"Deleting tour {item.Name}");
-
-            tourManager.DeleteTour(tour);
-            Tours.Remove(tour);
-           // FillListBox();
-        }
 
         private Tour _selecteditem;
         public Tour SelectedItem
@@ -204,42 +122,157 @@ namespace TourPlanner_4_SWENII.ViewModels
                 {
                     _selecteditem = value;
 
-                   
-                    this.RaisePropertyChangedEvent();
-                    this.UpdateTourCommand.RaiseCanExecuteChanged();
-
+                    RaisePropertyChangedEvent();
+                    UpdateTourCommand.RaiseCanExecuteChanged();
+                    DeleteTourCommand.RaiseCanExecuteChanged();
+                    FillFormCommand.RaiseCanExecuteChanged();
+                    if (currentlyEditing)
+                    {
+                        FillForm();
+                    }
                 }
             }
         }
 
+        public RelayCommand AddTourCommand { get; set; }
+        public RelayCommand DeleteTourCommand { get; set; }
+        public RelayCommand UpdateTourCommand { get; set; }
+        public RelayCommand FillFormCommand { get; set; }
+        public RelayCommand EmptyFormCommand { get; set; }
+
+        public ToursListViewModel(ITourManager tourManager, IMapQuest mapquest, IWindowService windowService) 
+        {
+            this.tourManager = tourManager;
+            this.mapquest = mapquest;
+            this.windowService = windowService;
+            FillListBox();
+
+            AddTourCommand = new RelayCommand(
+                (O) => (!String.IsNullOrEmpty(NewTourName)) 
+                    && (!String.IsNullOrEmpty(From)) 
+                    && (!String.IsNullOrEmpty(To)),
+                (O) => { AddTour(); }
+            );
+
+            DeleteTourCommand = new RelayCommand(
+                (O) => SelectedItem != null,
+                (O) => { DeleteTour(SelectedItem); }
+            );
+
+            UpdateTourCommand = new RelayCommand(
+               (O) => SelectedItem != null,
+               (O) => { UpdateTour(); }
+            );
+
+            FillFormCommand = new RelayCommand(
+                (O) => SelectedItem != null,
+                (O) => { FillForm(); currentlyEditing = true; }
+            );
+
+            EmptyFormCommand = new RelayCommand(
+               (O) => { return true; },
+               (O) => { SetFormEmpty(); currentlyEditing = false; }
+            );
+
+
+            NewTourName = "";
+        }
+
+
+        public void AddTour()
+        {
+            //Debug.Print($"Adding tour {NewTourName}");
+            try
+            {
+
+                var newTour = tourManager.AddTour(NewTourName, Description, From, To,
+                    (Models.HelperEnums.TransportType)TransportType);
+                //Tours.Add(newTour);
+                FillListBox();
+                SetFormEmpty();
+                OnGetMap?.Invoke(this, newTour);
+            }
+            catch (ArgumentException ex)
+            {
+                ILoggerWrapper logger = LoggerFactory.GetLogger();
+
+                logger.Warn(" Could not AddTour, because of invalid user inputs!!!!");
+
+                //MessageBox.Show("Info", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                windowService.ShowMessageBox("Invalid User Input: Did you fill all fields correctly?");
+
+            }
+        }
+
+        public void UpdateTour()
+        {
+            try
+            {
+                currentlyEditing = false;
+                SelectedItem.Name = newTourName;
+                SelectedItem.Description = _description;
+                SelectedItem.From = from;
+                SelectedItem.To = to;
+                SelectedItem.TransportType = (Models.HelperEnums.TransportType)_transportType;
+
+                tourManager.UpdateTour(SelectedItem);
+                OnGetMap?.Invoke(this, SelectedItem);   //CallGetRouteAndGetImage();
+
+                FillListBox();
+                //SetFormEmpty();
+            }
+            catch (ArgumentException ex)
+            {
+                ILoggerWrapper logger = LoggerFactory.GetLogger();
+
+                logger.Warn(" Could not EditTour, because of invalid user inputs!!!!");
+                windowService.ShowMessageBox("Invalid User Input: Did you fill all fields correctly?");
+            }
+        }
+
+        public void DeleteTour(Tour tour)
+        {
+            //Debug.Print($"Deleting tour {item.Name}");
+
+            tourManager.DeleteTour(tour);
+            Tours.Remove(tour);
+        }
+
+        
+
         public void FillListBox()
         {
-            //todo?: remove clear
-            //this is here right now to allow reading the whole list from the db after every change
-            Tours.Clear();
+            Tours.Clear();  // TODO: change to sth less extreme ?
             foreach (Tour tour in tourManager.GetTours())
             {
                 Tours.Add(tour);
             }
         }
 
-        public void SearchFor(string query)
+        public void SearchFor(SearchParameters searchParams)
         {
-            IEnumerable foundItems = tourManager.Search(query);
+            var result = tourManager.Search(searchParams);
+            List<Tour> foundItems = new List<Tour>();
+            foreach (Tour tour in result)
+            {
+                foundItems.Add(tour);
+            }
 
             Tours.Clear();
 
             foreach (Tour tour in foundItems)
             {
-                /*
-                if (tour == null)
-                {
-
-                    throw new ArgumentNullException(nameof(tour));
-
-                }*/
                 Tours.Add(tour);
             }
+        }
+
+        private void FillForm()
+        {
+            NewTourName = SelectedItem.Name;
+            Description= SelectedItem.Description;
+            From = SelectedItem.From;
+            To = SelectedItem.To;
+            TransportType = SelectedItem.TransportType;
         }
 
         private void SetFormEmpty()
@@ -248,10 +281,7 @@ namespace TourPlanner_4_SWENII.ViewModels
             Description = "";
             From = "";
             To = "";
-            TransportType = 0;
-            //Distance = 0;
-
-
+            TransportType = TransportType.Pedestrian;
         }
     }
 }

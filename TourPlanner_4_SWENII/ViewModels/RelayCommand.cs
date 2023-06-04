@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace TourPlanner_4_SWENII.ViewModels
@@ -31,9 +27,8 @@ namespace TourPlanner_4_SWENII.ViewModels
         // liefert uns ob das command bereit ausgeführt zuwerden wenn z.b false dann ist der button deactiviert
         public bool CanExecute(object? parameter)
         {
-            _canExecute.Invoke(parameter);
-            return true;
-
+            return _canExecute.Invoke(parameter);
+            //return true;
         }
 
         // wird ausgeführt sobald der button geklickt wurde,

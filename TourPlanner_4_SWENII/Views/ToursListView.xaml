@@ -7,45 +7,49 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <!--Command="{Binding AddTourCommand}"-->
         <StackPanel Panel.ZIndex="1">
             <WrapPanel FlowDirection="RightToLeft">
                 <Button Click="Remove" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">-</Button>
-                <Button Click="Add" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
-                <Button Click="Update" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">
+                <Button Click="Update" Command="{Binding FillFormCommand}" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">
                     <StackPanel Orientation="Horizontal">
                         <Image Stretch="Fill" Source="pack://application:,,,/Icons/draw.png"/>
-                       
+
                     </StackPanel>
                 </Button>
+                <Button Click="Add" Command="{Binding EmptyFormCommand}" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
                 <Button Height="20" Width="20" Margin="0,0,3,0" Content="{Binding Path = SelectedItem.Id}"></Button>
             </WrapPanel>
-         
-                <Border x:Name="TourNamePrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
-                   
-                        <StackPanel Background="#ffe5e5e5">
-                    <Label> Tourname</Label>
+
+            <Border x:Name="TourNamePrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
+                <StackPanel Background="#ffe5e5e5">
+                    
+                    <Label>Tourname</Label>
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
                      Text="{Binding NewTourName, Mode=TwoWay}"/>
+                    
                     <Label>Description</Label>
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
                      Text="{Binding Description, Mode=TwoWay}"/>
+                    
                     <Label>From</Label>
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
                      Text="{Binding From, Mode=TwoWay}"/>
+                    
                     <Label>To</Label>
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
                      Text="{Binding To, Mode=TwoWay}"/>
+                    
                     <Label>TransportType</Label>
-                    <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
-                     Text="{Binding TransportType, Mode=TwoWay}"/>
-                    <!--<Label>Distance</Label>
-                    <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
-                     Text="{Binding Distance, Mode=TwoWay}"/>-->
+                    <ComboBox Name="TransportTypeComboBox" 
+                        Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
+                        ItemsSource="{Binding Path=TransportTypeWithCaptions}" 
+                        DisplayMemberPath="Value" 
+                        SelectedValuePath="Key"
+                        SelectedValue="{Binding Path=TransportType, Mode=TwoWay}" >
+                    </ComboBox>
                     
                     <Button Command="{Binding AddTourCommand}" Click="Add" Height="20" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 5">Add Tour</Button>
                 </StackPanel>
-                   
             </Border>
           
             <Border x:Name="RemoveTourPrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
@@ -69,11 +73,13 @@
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
                      Text="{Binding To, Mode=TwoWay}"/>
                     <Label>TransportType</Label>
-                    <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
-                     Text="{Binding TransportType, Mode=TwoWay}"/>
-                    <Label>Distance</Label>
-                    <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
-                     Text="{Binding Distance, Mode=TwoWay}"/>
+                    <ComboBox Name="TransportTypeComboBox2" 
+                        Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
+                        ItemsSource="{Binding Path=TransportTypeWithCaptions}" 
+                        DisplayMemberPath="Value" 
+                        SelectedValuePath="Key"
+                        SelectedValue="{Binding Path=TransportType, Mode=TwoWay}" >
+                    </ComboBox>
 
                     <Button Command="{Binding UpdateTourCommand}" Click="Update" Height="20" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 5"> Update </Button>
                 </StackPanel>

@@ -10,7 +10,7 @@ namespace TourPlanner_4_SWENII.logging
     {
         public static ILoggerWrapper GetLogger()
         {
-            return Log4NetWrapper.CreateLogger("./log4net.config"); //"./log4net.config"
+            return Log4NetWrapper.CreateLogger("./log4net.config");
         }
     }
 }

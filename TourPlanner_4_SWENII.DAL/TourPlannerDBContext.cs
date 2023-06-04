@@ -18,8 +18,6 @@ namespace TourPlanner_4_SWENII.DAL
         {
             string connectionString = ConfigurationManager.ConnectionStrings["PostgreSQLConnectionString"].ConnectionString;
             optionsBuilder.UseNpgsql(connectionString);
-
-            //optionsBuilder.UseNpgsql("Include Error Detail=True;Host=localhost;Database=test;Username=postgres;Password=changeme");
         }
     }
 }

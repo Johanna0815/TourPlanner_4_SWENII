@@ -35,6 +35,9 @@ namespace TourPlanner_4_SWENII
 }
 
 
+
+
+
 /* All of this is now managed through services
             
             // Create all Layers

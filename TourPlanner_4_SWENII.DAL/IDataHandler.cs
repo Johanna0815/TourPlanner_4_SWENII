@@ -9,16 +9,15 @@ namespace TourPlanner_4_SWENII.DAL
 {
     public interface IDataHandler
     {
-        public IEnumerable<Tour> GetTours();    //only for inMemory
-        //public IEnumerable<Tour> LoadTours();   //for loading from db
+        // Tours
+        public IEnumerable<Tour> GetTours();
         public Tour AddTour(Tour newTour);
         public Tour UpdateTour(Tour newTour);
-        //public void EditTour(Tour tour);
         public void DeleteTour(Tour tour);
 
+        // TourLogs
         public IEnumerable<TourLog> GetTourLogs(int tourId);
         public TourLog AddTourLog(TourLog newTourLog);
-
         public TourLog UpdateTourLog(TourLog tourlog);
         public void DeleteTourLog(TourLog tourLog);
     }

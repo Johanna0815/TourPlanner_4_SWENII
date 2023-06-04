@@ -4,10 +4,6 @@ using System.IO;
 
 namespace TourPlanner_4_SWENII.logging
 {
-    /// <summary>
-    /// Wraps the log4j2 logger instances by realizing interface ILoggerWrapper.
-    /// This avoids direct dependencies to log4j2 package.
-    /// </summary>
     public class Log4NetWrapper : ILoggerWrapper
     {
         private log4net.ILog logger;
