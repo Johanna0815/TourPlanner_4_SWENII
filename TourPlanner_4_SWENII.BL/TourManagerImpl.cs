@@ -199,10 +199,13 @@ namespace TourPlanner_4_SWENII.BL
         }
 
 
-        public void Summarize_TourLogs(Tour tour, string filename)
+        public void Summarize_TourLogs(string filename)
 
         {
-           
+
+            var tours = GetTours();
+
+
 
             string currentDirectory = Directory.GetCurrentDirectory();
             string parentDirectory = Directory.GetParent(currentDirectory)?.Parent?.FullName;
@@ -225,27 +228,89 @@ namespace TourPlanner_4_SWENII.BL
             var titleStyle = new Style().SetFont(titleFont).SetFontColor(ColorConstants.LIGHT_GRAY).SetFontSize(24);
             var headingStyle = new Style().SetFont(headingFont).SetFontColor(ColorConstants.BLACK).SetFontSize(16).SetBold();
             var infoStyle = new Style().SetFont(textFont).SetFontColor(ColorConstants.BLUE).SetFontSize(12).SetTextAlignment(TextAlignment.CENTER);
+                document.SetMargins(50, 50, 50, 50);
+
+            foreach (var tour in tours)
+            {
+
+                if(tour != null)
+                {
+                        document.Add(new Paragraph().Add(new Text("Tour: ").AddStyle(headingStyle)).Add(new Text(tour.Name).AddStyle(infoStyle)));
 
 
-            if (tour != null)
+                        TimeSpan AT = AverageTime(tour.TourLogs);
+
+                        document.Add(new Paragraph().Add(new Text("Average Time: ").AddStyle(headingStyle)).Add(new Text(AT.Hours.ToString() + " hours").AddStyle(infoStyle)));
+                        document.Add(new Paragraph().Add(new Text("Average Rating: ").AddStyle(headingStyle)).Add(new Text(AverageRating(tour.TourLogs).ToString()).AddStyle(infoStyle)));
+
+                       // document.Add(new Paragraph().Add(new Text("Tour: ").AddStyle(headingStyle)).Add(new Text(tour.TourLogs.).AddStyle(infoStyle)));
+
+
+
+               
+
+
+                }
+
+                else
+                {
+                    Debug.WriteLine("no tour was selected when creating a TourLogs report");
+                    document.Add(new Paragraph($"No tour was selected"));
+                }
+
+
+
+                string imagePath = $"{tour.Name}{tour.Id}.png";
+
+                float maxWidth = 200;
+                float maxHeight = 200;
+
+                if (File.Exists(imagePath))
+
+                {
+                    Image tourImage = new Image(ImageDataFactory.Create(imagePath));
+                    tourImage.SetMaxWidth(maxWidth);
+                    tourImage.SetMaxHeight(maxHeight);
+                    tourImage.SetAutoScaleWidth(true);
+                    tourImage.SetAutoScaleHeight(true);
+
+                    document.Add(new Paragraph().Add(tourImage));
+
+                    document.Add(new Paragraph("---------------------------------------------------------"));
+                }
+
+                else
+                {
+                    document.Add(new Paragraph("---------------------------------------------------------"));
+                    Debug.WriteLine("Image doesn't Exist");
+                }
+
+            }
+
+
+
+          
+
+
+
+            /*if (tour != null)
             {
 
 
-                document.SetMargins(50, 50, 50, 50);
 
 
                 // Add tour information and map image
-                document.Add(new Paragraph("TourLogs Report").AddStyle(titleStyle).SetTextAlignment(TextAlignment.CENTER).SetMarginBottom(20)).SetTopMargin(20);
-                document.Add(new Paragraph().Add(new Text("Tour Name: ").AddStyle(headingStyle)).Add(new Text(tour.TourLogs.First().Comment).AddStyle(infoStyle)));
+                document.Add(new Paragraph("Tour Report").AddStyle(titleStyle).SetTextAlignment(TextAlignment.CENTER).SetMarginBottom(20)).SetTopMargin(20);
+                document.Add(new Paragraph().Add(new Text("Tour Name: ").AddStyle(headingStyle)).Add(new Text(tour.Name).AddStyle(infoStyle)));
+                document.Add(new Paragraph().Add(new Text("Average Time: ").AddStyle(headingStyle)).Add(new Text(AverageTime(tour.TourLogs).Hours.ToString() + "hours" ).AddStyle(infoStyle)));
+                document.Add(new Paragraph().Add(new Text("Average Rating: ").AddStyle(headingStyle)).Add(new Text(AverageRating(tour.TourLogs).ToString()).AddStyle(infoStyle)));
 
 
 
-            }
-            else
-            {
-                Debug.WriteLine("no tour was selected when creating a TourLogs report");
-                document.Add(new Paragraph($"No tour was selected"));
-            }
+            }*/
+
+          
+
 
 
 
@@ -255,7 +320,7 @@ namespace TourPlanner_4_SWENII.BL
         }
 
 
-        public TimeSpan AverageTime(List<TourLog> tourlogs)
+        public TimeSpan AverageTime(ICollection<TourLog> tourlogs)
         {
 
             TimeSpan averageTime = TimeSpan.Zero;
@@ -287,7 +352,7 @@ namespace TourPlanner_4_SWENII.BL
         }
 
 
-        public double AverageRating(List<TourLog> tourlogs)
+        public double AverageRating(ICollection<TourLog> tourlogs)
         {
             double averageRating = 0;
             int counter = 0;
@@ -399,6 +464,16 @@ namespace TourPlanner_4_SWENII.BL
          }*/
 
 
+        /*public IEnumerable<Tour> Search(string searchItem, bool caseSensitive = false)
+        {
+            IEnumerable<Tour> items = GetTours();
+            if (caseSensitive)
+            {
+                return items.Where(x => SearchProperty(x, searchItem, caseSensitive));
+            }
+            return items.Where(x => SearchProperty(x, searchItem.ToLower(), caseSensitive));
+        }*/
+
         public IEnumerable<Tour> Search(string searchItem, bool caseSensitive = false)
         {
             IEnumerable<Tour> items = GetTours();
@@ -408,6 +483,48 @@ namespace TourPlanner_4_SWENII.BL
             }
             return items.Where(x => SearchProperty(x, searchItem.ToLower(), caseSensitive));
         }
+
+        /*  public bool SearchProperty(Tour tour, string searchItem, bool caseSensitive)
+          {
+              if (caseSensitive)
+              {
+                  if (tour.Name.Contains(searchItem)
+                          || (tour.From.Contains(searchItem))
+                          || (tour.To.Contains(searchItem))
+                          || (tour.Distance.ToString().Contains(searchItem))
+                          || (tour.EstimatedTime.Hours.ToString().Contains(searchItem)))
+                  {
+                      return true;
+                  }
+
+
+
+              }
+
+
+
+
+              else // if not casesensitive;
+              {
+                  searchItem = searchItem.ToLower();
+                  if (tour.Name.Contains(searchItem)
+                         || (tour.From.ToLower().Contains(searchItem))
+                         || (tour.To.ToLower().Contains(searchItem))
+                         || (tour.Distance.ToString().Contains(searchItem))
+                         || (tour.EstimatedTime.Hours.ToString().Contains(searchItem)))
+
+                  {
+
+                      return true;
+                  }
+
+
+              }
+
+              return false;
+
+          }*/
+
 
         public bool SearchProperty(Tour tour, string searchItem, bool caseSensitive)
         {

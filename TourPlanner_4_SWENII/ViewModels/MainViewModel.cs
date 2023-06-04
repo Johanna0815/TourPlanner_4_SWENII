@@ -105,9 +105,12 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             navBarVM.GenerateTourLogsReport += (_, _) =>
             {
-                var tour = toursListViewModel.SelectedItem;
+                //var tour = toursListViewModel.SelectedItem;
 
-                tourManager.Summarize_TourLogs(tour, tour.Name + "Summarize_Report.pdf");
+                var tours = toursListViewModel.Tours; // Get the list of all tours
+
+
+                tourManager.Summarize_TourLogs ("Summarize_Report.pdf");
 
 
 

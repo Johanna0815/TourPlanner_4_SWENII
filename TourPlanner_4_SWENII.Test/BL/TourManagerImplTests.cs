@@ -473,7 +473,7 @@ namespace TourPlanner_4_SWENII.Test.BL
 
             //Arrange
 
-            List<TourLog> tourlogs = new List<TourLog>
+            ICollection<TourLog> tourlogs = new List<TourLog>
             {
 
 

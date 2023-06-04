@@ -30,11 +30,11 @@ namespace TourPlanner_4_SWENII.BL
 
         void GenerateReport(Tour tour, string filename);
 
-        void Summarize_TourLogs(Tour tour, string filename);
+        void Summarize_TourLogs(string filename);
 
-        TimeSpan AverageTime(List<TourLog> tourlogs);
+        TimeSpan AverageTime(ICollection<TourLog> tourlogs);
 
-        double AverageRating(List<TourLog> tourlogs);
+        double AverageRating(ICollection<TourLog> tourlogs);
 
       //  void GetMap(Tour tour);
 
