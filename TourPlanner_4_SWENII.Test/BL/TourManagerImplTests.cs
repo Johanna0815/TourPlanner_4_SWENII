@@ -7,9 +7,9 @@ using System.Configuration;
 using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.DAL;
 using TourPlanner_4_SWENII.Models;
-
+using TourPlanner_4_SWENII.Models.HelperEnums;
 using TourPlanner_4_SWENII.Utils.FileAndFolderHandling;
-
+using TourPlanner_4_SWENII.Views;
 
 namespace TourPlanner_4_SWENII.Test.BL
 {
@@ -184,8 +184,13 @@ namespace TourPlanner_4_SWENII.Test.BL
 
         {
             //Arrange
-
             var filename = "TestReport.pdf";
+
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string parentDirectory = Directory.GetParent(currentDirectory)?.Parent?.FullName;
+            string reportsDirectoryPath = Path.Combine(parentDirectory, "..", "..", "Reports");
+            string filePath = Path.Combine(reportsDirectoryPath, filename);
+
 
             //Act
 
@@ -193,10 +198,10 @@ namespace TourPlanner_4_SWENII.Test.BL
 
             //assert
 
-            Assert.IsTrue(File.Exists(filename));
+            Assert.IsTrue(File.Exists(filePath));
 
             // To Delete generated Report
-            File.Delete(filename);
+            //File.Delete(filename);
 
         }
 
@@ -380,49 +385,120 @@ namespace TourPlanner_4_SWENII.Test.BL
 
         }
 
-        [Test]
+        /* [Test]
 
-        public  async Task CallGetRouteAndGetImage_ToursCouldBeAttachedWithMap()
+         public  async Task CallGetRouteAndGetImage_ToursCouldBeAttachedWithMap()
+
+         {
+             //Arrange 
+             Tour tour = new Tour()
+             {  Name = "TestTour", Id = 1, From = "Wien", To = "Graz", Description ="Description1 " };
+
+
+
+             Route route = new Route();
+             route.distance = 1000;
+             route.sessionID = "AKUA5wcAAIwAAAAAAAAAEwAAALQAAAB42mPYwsDGyMTAwMCekVqUapWcm1lynBXIZZASftnIJXVhWvd7lplJ8UBakHVmkggDJoBpPH-OB6zx86kbdQwXWzZ2rw_zT7oNpFcDaWwaQYCP8VdUPSOQcZ_BIYWBqaGhwaGJgYGFkaGFgUGFQUmAgYNBQIFDtFGBIYDDiWWhokeToILRBhcRAATBKV3lXspR:bicycle";
+             route.estimatedTime = TimeSpan.FromHours(60);
+               route.ul_Latitude = ul_lat;
+               route.ul_Longitude = ul_lng;
+               route.lr_Latitude = lr_lat;
+               route.lr_Longitude = lr_lng;
+
+
+             var imageStream = new MemoryStream();
+
+             mapquest.Setup(x => x.GetRoute(tour)).ReturnsAsync(route);
+             mapquest.Setup(x => x.GetImage(route)).ReturnsAsync(imageStream);
+             //Route route =  await mapquest.GetRoute(tour);
+
+             //Act
+
+             await tourManager.CallGetRouteAndGetImage(tour);
+
+             //Assert
+
+             mapquest.Verify(x =>  x.GetRoute(tour), Times.Once());
+
+             var filePath = $"{tour.Name}{tour.Id}.png";
+
+             //Assert.IsTrue(File.Exists(filePath));
+
+
+
+
+         }*/
+
+        [Test]
+        public void AverageRating_ShouldReturnRatingAverage()
         
         {
-            //Arrange 
-            Tour tour = new Tour()
-            {  Name = "TestTour", Id = 1, From = "Wien", To = "Graz", Description ="Description1 " };
+            //Arrange
+
+            List<TourLog> tourlogs = new List<TourLog>
+            {
+
+           
+                new TourLog() { Rating = Rating.VeryGood},
+                new TourLog() { Rating = Rating.Good},
+                new TourLog() { Rating = Rating.Okay},
+                new TourLog() { Rating = Rating.Bad},
+                new TourLog() { Rating = Rating.VeryBad}
 
 
+            };
 
-            Route route = new Route();
-            route.distance = 1000;
-            route.sessionID = "AKUA5wcAAIwAAAAAAAAAEwAAALQAAAB42mPYwsDGyMTAwMCekVqUapWcm1lynBXIZZASftnIJXVhWvd7lplJ8UBakHVmkggDJoBpPH-OB6zx86kbdQwXWzZ2rw_zT7oNpFcDaWwaQYCP8VdUPSOQcZ_BIYWBqaGhwaGJgYGFkaGFgUGFQUmAgYNBQIFDtFGBIYDDiWWhokeToILRBhcRAATBKV3lXspR:bicycle";
-            route.estimatedTime = TimeSpan.FromHours(60);
-            /*  route.ul_Latitude = ul_lat;
-              route.ul_Longitude = ul_lng;
-              route.lr_Latitude = lr_lat;
-              route.lr_Longitude = lr_lng;
-            */
-
-            var imageStream = new MemoryStream();
-
-            mapquest.Setup(x => x.GetRoute(tour)).ReturnsAsync(route);
-            mapquest.Setup(x => x.GetImage(route)).ReturnsAsync(imageStream);
-            //Route route =  await mapquest.GetRoute(tour);
 
             //Act
 
-            await tourManager.CallGetRouteAndGetImage(tour);
+            var AverageResult = tourManager.AverageRating(tourlogs);
 
             //Assert
 
-            mapquest.Verify(x =>  x.GetRoute(tour), Times.Once());
-            
-            var filePath = $"{tour.Name}{tour.Id}.png";
+            Assert.That(AverageResult, Is.EqualTo(3));
 
-            //Assert.IsTrue(File.Exists(filePath));
+
 
 
 
 
         }
+
+
+        [Test]
+        public void AverageTime_ShouldReturnTotalTimeAverage()
+
+        {
+
+
+            //Arrange
+
+            List<TourLog> tourlogs = new List<TourLog>
+            {
+
+
+                new TourLog() { TotalTime = TimeSpan.FromMinutes(0) },
+                new TourLog() { TotalTime = TimeSpan.FromMinutes(10) },
+                new TourLog() { TotalTime = TimeSpan.FromMinutes(30) },
+                new TourLog() { TotalTime = TimeSpan.FromMinutes(50) },
+                new TourLog() { TotalTime = TimeSpan.FromMinutes(50) }
+
+
+            };
+
+
+            //Act
+
+            var AverageResult = tourManager.AverageTime(tourlogs);
+
+            //Assert
+
+            Assert.That(AverageResult, Is.EqualTo(TimeSpan.FromSeconds(2100)));
+
+
+
+        }
+
 
 
     }

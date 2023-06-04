@@ -28,13 +28,13 @@ namespace TourPlanner_4_SWENII.BL
             string apiKey = ConfigurationManager.AppSettings["MapQuestAPIKey"];
             var from = tour.From;
             var to = tour.To;
-
+            var TransportType = tour.TransportType;
            // string url = ConfigurationManager.AppSettings["MapQuestAPIURL"];
 
             // TODO 2. zeile. 
           //  url = url.Replace("{key}", key).Replace("{from}", from).Replace("{to}", to);
 
-               var url = $"https://www.mapquestapi.com/directions/v2/route?key={apiKey}&from={from}&to={to}&unit=k";
+               var url = $"https://www.mapquestapi.com/directions/v2/route?key={apiKey}&from={from}&to={to}&routeType={TransportType}&unit=k";
 
             using var client = new HttpClient();
             var response = await client.GetAsync(url);

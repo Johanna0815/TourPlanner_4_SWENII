@@ -15,7 +15,7 @@ namespace TourPlanner_4_SWENII.Models.HelperEnums
     /// var usedTransportType = MixedTransportType.Hike ^ MixedTransportType.Running; // ==  Hike XOR Running.  
     /// </summary>
 
-    [Flags]
+    // [Flags]
     public enum TransportType //  : uint 
     {
         Pedestrian,

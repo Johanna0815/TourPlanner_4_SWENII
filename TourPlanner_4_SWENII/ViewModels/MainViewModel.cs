@@ -104,6 +104,17 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             };
 
+            navBarVM.GenerateTourLogsReport += (_, _) =>
+            {
+                var tour = toursListViewModel.SelectedItem;
+
+                tourManager.Summarize_TourLogs(tour, tour.Name + "Summarize_Report.pdf");
+
+
+
+            };
+
+
             navBarVM.GetMap += (_, tour) =>
             {
                 //CallGetRouteAndGetImage(tour);
