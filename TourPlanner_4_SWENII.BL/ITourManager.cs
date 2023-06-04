@@ -12,8 +12,8 @@ namespace TourPlanner_4_SWENII.BL
     public interface ITourManager
     {
         IEnumerable<Tour> GetTours();
-        IEnumerable<Tour> Search(string searchItem, bool caseSensitive = false);
-        bool SearchProperty(Tour tour, string searchItem, bool caseSensitive);
+        IEnumerable<Tour> Search(SearchParameters searchParameters);
+        bool SearchTourProperties(Tour tour, string searchItem, bool caseSensitive);
 
 
         Tour AddTour(string tourName, string description, string from, string to, TransportType transportType);

@@ -330,21 +330,19 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        public void SearchFor(string query)
+        public void SearchFor(SearchParameters searchParams)
         {
-            IEnumerable foundItems = tourManager.Search(query);
+            var result = tourManager.Search(searchParams);
+            List<Tour> foundItems = new List<Tour>();
+            foreach (Tour tour in result)
+            {
+                foundItems.Add(tour);
+            }
 
             Tours.Clear();
 
             foreach (Tour tour in foundItems)
             {
-                /*
-                if (tour == null)
-                {
-
-                    throw new ArgumentNullException(nameof(tour));
-
-                }*/
                 Tours.Add(tour);
             }
         }

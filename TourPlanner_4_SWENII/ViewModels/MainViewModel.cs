@@ -40,12 +40,13 @@ namespace TourPlanner_4_SWENII.ViewModels
             this.mapQuest = mapquest;
 
 
-            searchBarVM.SearchForText += (_, searchText) =>
+            searchBarVM.SearchForText += (_, searchParams) =>
             {
-                //toursListViewModel.Items.Clear(); 
-                logger.Debug($"Searching for text {searchText}");
 
-                toursListViewModel.SearchFor(searchText); 
+                //toursListViewModel.Items.Clear(); 
+                logger.Debug($"Searching for text {searchParams}");
+
+                toursListViewModel.SearchFor(searchParams); 
             };
 
             searchBarVM.SearchCleared += (_, searchText) =>
