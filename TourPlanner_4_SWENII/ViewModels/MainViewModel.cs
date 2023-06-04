@@ -84,13 +84,12 @@ namespace TourPlanner_4_SWENII.ViewModels
                 if(toursListViewModel.SelectedItem != null)
                 {
                     tourLogsVM.GetTourLogs(toursListViewModel.SelectedItem.Id);
-                    tourInfoVM.GetTour(toursListViewModel.SelectedItem.Id);
-                   
-                    
+                    tourInfoVM.GetTour(toursListViewModel.SelectedItem.Id); 
                 }
                 else
                 {
                     tourLogsVM.GetTourLogs(0);
+                    tourInfoVM.GetTour(0);
                 }
             };
 
@@ -111,6 +110,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             toursListViewModel.OnGetMap += (_, tour) =>
             {
+                if(tiVM.SelectedTour.Id == tour.Id)
                 tourManager.CallGetRouteAndGetImage(tour);
             };
         }

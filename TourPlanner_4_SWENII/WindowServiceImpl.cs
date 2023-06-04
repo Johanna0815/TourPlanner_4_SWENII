@@ -21,8 +21,8 @@ namespace TourPlanner_4_SWENII
 
         public string ShowSelectFileDialog()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            FolderCreator folderCreator = new FolderCreator();
+            OpenFileDialog openFileDialog = new();
+            FolderCreator folderCreator = new();
             folderCreator.ToCreateDirectory(ConfigurationManager.AppSettings["ExportImportSubdir"]);
             openFileDialog.InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), ConfigurationManager.AppSettings["ExportImportSubdir"]);
             Debug.WriteLine("currentDirectory: " + openFileDialog.InitialDirectory);

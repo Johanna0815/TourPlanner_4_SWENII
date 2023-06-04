@@ -193,7 +193,7 @@ namespace TourPlanner_4_SWENII.Test.BL
 
             //assert
 
-            Assert.IsTrue(File.Exists(filename));
+            Assert.That(File.Exists(filename));
 
             // To Delete generated Report
             File.Delete(filename);
@@ -230,7 +230,7 @@ namespace TourPlanner_4_SWENII.Test.BL
             //Assert
             dal.Verify(x => x.DeleteTourLog(It.IsAny<TourLog>()), Times.Once);
             var result = tourManager.GetTourLogs(tours[0].Id);
-            Assert.False(result.Contains(tours[0].TourLogs.First()));
+            Assert.That(result.Contains(tours[0].TourLogs.First()), Is.False);
 
         }
 
@@ -277,7 +277,7 @@ namespace TourPlanner_4_SWENII.Test.BL
 
             //Assert
 
-            Assert.IsTrue(File.Exists(filePath));
+            Assert.That(File.Exists(filePath));
 
             File.Delete(filePath);
 
@@ -326,7 +326,7 @@ namespace TourPlanner_4_SWENII.Test.BL
         {
             //Arrange
 
-            List<Tour> tours = new List<Tour>()
+            List<Tour> tours = new()
             {
               new Tour() { Id = 1, Name = "Test", Distance = 15 , EstimatedTime = TimeSpan.FromMinutes(25) },
               new Tour() { Id = 2, Name = "Test", Distance = 45 , EstimatedTime = TimeSpan.FromMinutes(80) },

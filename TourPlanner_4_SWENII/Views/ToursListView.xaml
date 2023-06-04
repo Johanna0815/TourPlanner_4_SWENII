@@ -18,7 +18,7 @@
                     </StackPanel>
                 </Button>
                 <Button Click="Add" Command="{Binding EmptyFormCommand}" Height="20" Width="20" VerticalAlignment="Top" Margin="0,0,3,0">+</Button>
-                <!--<Button Height="20" Width="20" Margin="0,0,3,0" Content="{Binding Path = SelectedItem.Id}"></Button>-->
+                <Button Height="20" Width="20" Margin="0,0,3,0" Content="{Binding Path = SelectedItem.Id}"></Button>
             </WrapPanel>
 
             <Border x:Name="TourNamePrompt" Visibility="Collapsed" BorderThickness="2" BorderBrush="#ff808080" Margin="3">
@@ -36,7 +36,7 @@
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
                      Text="{Binding To, Mode=TwoWay}"/>
                     <Label>TransportType</Label>
-                    <ComboBox Name="RatingComboBox" 
+                    <ComboBox Name="TransportTypeComboBox" 
                         Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
                         ItemsSource="{Binding Path=TransportTypeWithCaptions}" 
                         DisplayMemberPath="Value" 
@@ -73,8 +73,16 @@
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
                      Text="{Binding To, Mode=TwoWay}"/>
                     <Label>TransportType</Label>
+                    <ComboBox Name="TransportTypeComboBox2" 
+                        Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
+                        ItemsSource="{Binding Path=TransportTypeWithCaptions}" 
+                        DisplayMemberPath="Value" 
+                        SelectedValuePath="Key"
+                        SelectedValue="{Binding Path=TransportType, Mode=TwoWay}" >
+                    </ComboBox>
+                    <!--
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
-                     Text="{Binding TransportType, Mode=TwoWay}"/>
+                     Text="{Binding TransportType, Mode=TwoWay}"/>-->
                     <!--<Label>Distance</Label>
                     <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5, 5, 5, 0"
                      Text="{Binding Distance, Mode=TwoWay}"/>-->
