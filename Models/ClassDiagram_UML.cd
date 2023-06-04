@@ -10,7 +10,7 @@
   <Class Name="TourPlanner_4_SWENII.Models.Tour">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgASAAAACAAgAAAAAAAAAAQAAAAIAADCAAAQAAAAAAA=</HashCode>
+      <HashCode>AgASAAAACAAgAAAAAAAAAAQAAAAIAADCAAAAAAAAAAA=</HashCode>
       <FileName>Tour.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -19,6 +19,13 @@
     <TypeIdentifier>
       <HashCode>AAACAAAEAAAAAQAAAAAAAAAAAAAAAAkAAAAEAAAAAAA=</HashCode>
       <FileName>TourLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TourPlanner_4_SWENII.Models.SearchParameters">
+    <Position X="6.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>SearchParameters.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="TourPlanner_4_SWENII.Models.HelperEnums.TransportType">
@@ -33,6 +40,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAABAAAAAAAAAAAAAAAAAAEkAAA=</HashCode>
       <FileName>HelperEnums\Difficulty.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TourPlanner_4_SWENII.Models.HelperEnums.Rating">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAgAAAAAgAAAAAAAAAAAAQAAAAAAAAEAAAE=</HashCode>
+      <FileName>HelperEnums\Rating.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
