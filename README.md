@@ -70,7 +70,8 @@ changed - as by the lecturer mentioned - the <TargetFramework>net7.0-windows</Ta
 - installed NUnit package
 
 ## Description of the unique Feature: <br>
-
+Unique Feature: <br>
+In the WPF application it is possible, to use the Searchfunction for searching in Tours. But the unique feature is, that it has a second function, which could be activated by ticking on a RadioButton in the UI [to find by the Editing in Tourlogs] to search in the TourLogs.  
 
 ## Time Tracked: 
 
