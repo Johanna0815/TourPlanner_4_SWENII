@@ -418,10 +418,10 @@ namespace TourPlanner_4_SWENII.BL
 
                 foreach (Tour tour in tours)
                 {
-                    IEnumerable<TourLog> tourLogs = tour.TourLogs;
+                    //IEnumerable<TourLog> tourLogs = tour.TourLogs;
                     tourLogFound = false;
 
-                    foreach (TourLog tourLog in tourLogs)
+                    foreach (TourLog tourLog in tour.TourLogs)
                     {
                         if (!tourLogFound)
                         {
