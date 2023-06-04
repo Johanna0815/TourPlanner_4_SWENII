@@ -7,54 +7,24 @@ statistical data of accomplished tours..<br>
 
 We startet creating a WPF Application [using IDE Visual Studio 2022; .NET 7.0 Version]. As in the Repo displayed, we worked a lot with GIT by having the HEAD as a main branch and other branches like dev with some feature/branches.  
 
-
-## App architecture (layers and layer contents/functionality)
-- Uses markup-Based UI framework
-
- microsoft .NET Windows Presentation Foundation; on OperatingSystem: windows 
-- Uses MVVM for UI
-
+## App architecture (layers and layer contents/functionality) <br>
+- Uses markup-Based UI framework <br>
+ microsoft .NET Windows Presentation Foundation; on OperatingSystem: windows <br>
+- Uses MVVM for UI <br>
 Model View ViewModel [Folders: ViewModels and Views in the BaseProject]
 - Implements a layer-based architecture (UI/BL/DAL) <br>
 ## Layered Architecture (in form of Subprojects [WPF Class Library] added)
 - BL <br>
-- itext7  [included in the BL, for Creating pdf-Reports]
-<br>
+  - itext7  [included in the BL, for Creating pdf-Reports] <br>
 - DAL <br>
-- Npqsl [included in the DAL, for database access]
-- postgres image running on Docker
-- Docker compose .yml file included in the project
-- <br>
-
-
-
+  - Npqsl [included in the DAL, for database access] <br>
+  - postgres image running on Docker <b>
+  - Docker compose .yml file included in the project <br>
 - Models <br>
 - Utils <br>
 - Test <br>
 
-
-
-
-
-
-// TODO 
-
-
-
-- Uses a config file that stores at minimum the DB connection string
-- Integrates the MapQuest API
-- Integrates log4j/log4net or similar Log Libraries
-- Integrates a report-generation library
-- Implements at least 20 Unit Tests
-
-MAPQUEST Link include???? 
-
-
-
-
-
-
-## Use Case Diagram:
+## Use Case Diagram: <br>
 Link to Use Case Diagram: <br>
 https://github.com/Johanna0815/TourPlanner_4_SWENII/wiki/TourPlanner_4_SWENII
 
@@ -82,7 +52,7 @@ Entity Framework Core 6 (O/R Mapping)
 In our Project we use the Observable Design Pattern within MVVM architecture. To make the communication between the ViewModel and the View better. The design Pattern ensures for that changes in the ViewModel are reflected to the View. <br>
 Model: <br>
 the data and business logic will be represented <br>
-for example The Model Class 'Tour' provides properties that needs to be to for changes observed <br>
+for example Model provides properties that needs to be to for changes observed <br>
 
 ViewModel: <br>
 it acts as an commiter between the View and the Model. There are properties contained whose are bounded to the View. THe Observable pattern is included by using an implementation of the INotifyPropertyChanged Interface OR a base ViewModel class whcih provides the necessary Method. <br>
@@ -98,10 +68,6 @@ We added an NUnit Testproject (called TourPlanner_4_SWENII.Test); <br>
 changed - as by the lecturer mentioned - the <TargetFramework>net7.0-windows</TargetFramework> . <br>
 - installed Microsoft.NET.Test.Sdk 
 - installed NUnit package
-
-
-
-
 
 ## Description of the unique Feature: <br>
 
