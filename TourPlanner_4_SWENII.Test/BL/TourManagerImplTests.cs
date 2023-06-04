@@ -128,8 +128,15 @@ namespace TourPlanner_4_SWENII.Test.BL
             dal.Setup(x => x.GetTours()).Returns(tours);
             //tourManager.SearchProperty(tours[0], "tour", false);
 
+            SearchParameters sParams = new()
+            {
+                searchText = "Tour",
+                caseSensitive = true,
+                searchInTourLogs = false,
+            };
+
             //Act 
-            IEnumerable<Tour> receivedTours = tourManager.Search("Tour", true);
+            IEnumerable<Tour> receivedTours = tourManager.Search(sParams);
 
 
             //Assert

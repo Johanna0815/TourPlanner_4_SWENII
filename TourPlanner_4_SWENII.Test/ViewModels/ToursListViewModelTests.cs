@@ -135,9 +135,23 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
         {
             //Arrange
 
-         
 
-            ObservableCollection<Tour> expectedtours = new()
+            SearchParameters sParams1 = new()
+            {
+                searchText = "Tour",
+                caseSensitive = true,
+                searchInTourLogs = false,
+            };
+
+            SearchParameters sParams2 = new()
+            {
+                searchText = "Tour",
+                caseSensitive = true,
+                searchInTourLogs = false,
+            };
+
+
+            IEnumerable<Tour> expectedtours = new List<Tour>()
             {
                     new Tour { Name = "Tour1", Description = "Description1", From = "From1", To = "To1", Distance = 100, TransportType = 0 },
                     new Tour { Name = "Tour2", Description = "Description2", From = "From2", To = "To2", Distance = 200, TransportType = 0 },
@@ -152,18 +166,18 @@ namespace TourPlanner_4_SWENII.Test.ViewModels
 
             
             var searchingText = "tour1";
-            tourManager.Setup(x => x.Search(searchingText, false)).Returns(expectedtours);
-            tourManager.Setup(x => x.Search("Paris", false)).Returns(matchingTours2);
+            tourManager.Setup(x => x.Search(sParams1)).Returns(expectedtours);
+            tourManager.Setup(x => x.Search(sParams2)).Returns(matchingTours2);
 
 
             //Act 
 
-            tlvm.SearchFor(searchingText);
+            tlvm.SearchFor(sParams1);
             Assert.That(tlvm.Tours.Count(), Is.EqualTo(3));
 
             //Assert
 
-            tlvm.SearchFor("Paris");
+            tlvm.SearchFor(sParams2);
             Assert.That(tlvm.Tours.Count(), Is.EqualTo(2));
 
         }
