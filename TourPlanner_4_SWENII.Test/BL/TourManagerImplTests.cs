@@ -48,7 +48,7 @@ namespace TourPlanner_4_SWENII.Test.BL
                     }
                 },
                 new Tour(){ Id=2, Name="tour" },
-                new Tour(){ Id=3, Name="TOUR 3"}
+                new Tour(){ Id=3, Name="Tour 3"}
             };
         }
 
@@ -129,7 +129,7 @@ namespace TourPlanner_4_SWENII.Test.BL
             //tourManager.SearchProperty(tours[0], "tour", false);
 
             //Act 
-            IEnumerable<Tour> receivedTours = tourManager.Search("tour", true);
+            IEnumerable<Tour> receivedTours = tourManager.Search("Tour", true);
 
 
             //Assert

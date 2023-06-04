@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TourPlanner_4_SWENII.Models.Route">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAIAAAAAAAAAgAAAEAAEAAAAQAAAAAgAAAAAA=</HashCode>
+      <FileName>Route.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TourPlanner_4_SWENII.Models.Tour">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgASAAAACAAgAAAAAAAAAAQAAAAIAADCAAAQAAAAAAA=</HashCode>
+      <FileName>Tour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TourPlanner_4_SWENII.Models.TourLog">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAAQAAAAAAAAAAAAAAAAkAAAAEAAAAAAA=</HashCode>
+      <FileName>TourLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TourPlanner_4_SWENII.Models.HelperEnums.TransportType">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAAEAAAAEAAAA=</HashCode>
+      <FileName>HelperEnums\TransportType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TourPlanner_4_SWENII.Models.HelperEnums.Difficulty">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAEgAAA=</HashCode>
+      <FileName>HelperEnums\Difficulty.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
