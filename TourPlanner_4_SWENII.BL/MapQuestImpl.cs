@@ -28,13 +28,13 @@ namespace TourPlanner_4_SWENII.BL
             string apiKey = ConfigurationManager.AppSettings["MapQuestAPIKey"];
             var from = tour.From;
             var to = tour.To;
-
+            var TransportType = tour.TransportType;
            // string url = ConfigurationManager.AppSettings["MapQuestAPIURL"];
 
             // TODO 2. zeile. 
           //  url = url.Replace("{key}", key).Replace("{from}", from).Replace("{to}", to);
 
-               var url = $"https://www.mapquestapi.com/directions/v2/route?key={apiKey}&from={from}&to={to}&unit=k";
+               var url = $"https://www.mapquestapi.com/directions/v2/route?key={apiKey}&from={from}&to={to}&routeType={TransportType}&unit=k";
 
             using var client = new HttpClient();
             var response = await client.GetAsync(url);
@@ -45,7 +45,7 @@ namespace TourPlanner_4_SWENII.BL
 
             var rootNode = JsonNode.Parse(content);
             //  var rootNode = JsonDocument.Parse(content).RootElement;
-            Console.WriteLine(rootNode?.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+            // Console.WriteLine(rootNode?.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
 
 
             if (rootNode["info"]["statuscode"].ToString() != "0")
@@ -107,11 +107,7 @@ namespace TourPlanner_4_SWENII.BL
 
 
             TimeSpan estimatedTime = rootNode["route"]["formattedTime"].Deserialize<TimeSpan>(); // datemnTyp DateTime ?
-
-
-            logger.Debug($"{tour.EstimatedTime}");
-
-            Debug.Print($"{tour.EstimatedTime}");
+            
             //   Debug.Print($"hier ist die distance.{Distance}");
 
 
@@ -144,7 +140,7 @@ namespace TourPlanner_4_SWENII.BL
 
         public async Task<Stream> GetImage(Route route)
         {
-            var key = "vp9wvjCQjHGcsdhQt6LZ1vqkgyZkOT5W";
+            var key = ConfigurationManager.AppSettings["MapQuestAPIKey"];
 
             HttpClient client = new HttpClient();
 

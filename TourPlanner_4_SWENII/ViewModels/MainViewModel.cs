@@ -28,14 +28,14 @@ namespace TourPlanner_4_SWENII.ViewModels
         private IMapQuest mapQuest;
         private static ILoggerWrapper logger = LoggerFactory.GetLogger();
 
-        public MainViewModel(ITourManager tourManager, NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm, IWindowService windowService, IMapQuest mapquest) //SearchViewModel svm
+        public MainViewModel(ITourManager tManager, NavBarVM nbVM, SearchBarVM sbVM, TourInfoVM tiVM, TourLogsVM tlogVM, ToursListViewModel tlistvm, IWindowService windowService, IMapQuest mapquest) //SearchViewModel svm
         {
             navBarVM= nbVM;
             searchBarVM= sbVM;
             tourInfoVM= tiVM;
             tourLogsVM= tlogVM;
             toursListViewModel = tlistvm;
-            this.tourManager = tourManager;
+            this.tourManager = tManager;
             this.windowService = windowService;
             this.mapQuest = mapquest;
 
@@ -103,14 +103,24 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             };
 
+            navBarVM.GenerateTourLogsReport += (_, _) =>
+            {
+                var tour = toursListViewModel.SelectedItem;
+
+                tourManager.Summarize_TourLogs(tour, tour.Name + "Summarize_Report.pdf");
+
+
+
+            };
+
+            /*
             navBarVM.GetMap += (_, tour) =>
             {
                 //CallGetRouteAndGetImage(tour);
-            };
+            };*/
 
             toursListViewModel.OnGetMap += (_, tour) =>
             {
-                if(tiVM.SelectedTour.Id == tour.Id)
                 tourManager.CallGetRouteAndGetImage(tour);
             };
         }
