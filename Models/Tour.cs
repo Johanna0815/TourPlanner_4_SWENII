@@ -13,6 +13,8 @@ using TourPlanner_4_SWENII.Models.HelperEnums;
 namespace TourPlanner_4_SWENII.Models
 {
     public class Tour
+
+
     {
         //[NotMapped]
         //virtual
