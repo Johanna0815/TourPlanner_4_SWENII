@@ -398,8 +398,7 @@ namespace TourPlanner_4_SWENII.BL
              return items.Where(x => x.Name.ToLower().Contains(itemName.ToLower()));
          }*/
 
-
-        public IEnumerable<Tour> Search(string searchItem, bool caseSensitive = false)
+        /*public IEnumerable<Tour> Search(string searchItem, bool caseSensitive = false)
         {
             IEnumerable<Tour> items = GetTours();
             if (caseSensitive)
@@ -407,9 +406,104 @@ namespace TourPlanner_4_SWENII.BL
                 return items.Where(x => SearchProperty(x, searchItem, caseSensitive));
             }
             return items.Where(x => SearchProperty(x, searchItem.ToLower(), caseSensitive));
+        }*/
+        public IEnumerable<Tour> Search(SearchParameters searchParams)
+        {
+            IEnumerable<Tour> tours = GetTours();
+            //(IEnumerable<Tour>)
+            if (searchParams.searchInTourLogs)
+            {
+                List<Tour> foundTours = new List<Tour>();
+                bool tourLogFound = false; 
+
+                foreach (Tour tour in tours)
+                {
+                    IEnumerable<TourLog> tourLogs = tour.TourLogs;
+                    tourLogFound = false;
+
+                    foreach (TourLog tourLog in tourLogs)
+                    {
+                        if (!tourLogFound)
+                        {
+                            if (SearchTourLogProperties(tourLog, searchParams.searchText, searchParams.caseSensitive))
+                            {
+                                foundTours.Add(tour);
+                                tourLogFound = true;
+                            }
+                        }
+                    }
+                }
+                return foundTours;
+            }
+            else //only search on tours
+            {
+                IEnumerable<Tour> foundTours = new List<Tour>();
+                foundTours = tours.Where(x => SearchTourProperties(x, searchParams.searchText, searchParams.caseSensitive));
+                return foundTours;
+            }
         }
 
-        public bool SearchProperty(Tour tour, string searchItem, bool caseSensitive)
+        public bool SearchTourLogProperties(TourLog tourLog, string searchItem, bool caseSensitive)
+        {
+            if (caseSensitive)
+            {
+                if (tourLog.Comment.Contains(searchItem)
+                        || (tourLog.Difficulty.ToString().Contains(searchItem))
+                        || (tourLog.Rating.ToString().Contains(searchItem))
+                        || (tourLog.TotalTime.ToString().Contains(searchItem))
+                        || (tourLog.TimeNow.ToString().Contains(searchItem)))
+                {
+                    return true;
+                }
+            }
+            else // if not casesensitive;
+            {
+                searchItem = searchItem.ToLower();
+                if (tourLog.Comment.ToLower().Contains(searchItem)
+                        || (tourLog.Difficulty.ToString().ToLower().Contains(searchItem))
+                        || (tourLog.Rating.ToString().ToLower().Contains(searchItem))
+                        || (tourLog.TotalTime.ToString().ToLower().Contains(searchItem))
+                        || (tourLog.TimeNow.ToString().ToLower().Contains(searchItem)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool SearchTourProperties(Tour tour, string searchItem, bool caseSensitive)
+        {
+            if (caseSensitive)
+            {
+                if (tour.Name.Contains(searchItem)
+                        || (tour.From.Contains(searchItem))
+                        || (tour.To.Contains(searchItem))
+                        || (tour.Distance.ToString().Contains(searchItem))
+                        || (tour.EstimatedTime.Hours.ToString().Contains(searchItem)))
+                {
+                    return true;
+                }
+            }
+
+            else // if not casesensitive;
+            {
+                searchItem = searchItem.ToLower();
+                if (tour.Name.ToLower().Contains(searchItem)
+                       || (tour.From.ToLower().Contains(searchItem))
+                       || (tour.To.ToLower().Contains(searchItem))
+                       || (tour.Distance.ToString().Contains(searchItem))
+                       || (tour.EstimatedTime.Hours.ToString().Contains(searchItem)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+
+        }
+
+        /*public bool SearchProperty(Tour tour, string searchItem, bool caseSensitive)
         {
             if (caseSensitive)
             {
@@ -445,7 +539,7 @@ namespace TourPlanner_4_SWENII.BL
 
             return false;
 
-        }
+        }*/
 
 
         //return tour.Name.Contains(searchItem)

@@ -144,7 +144,7 @@ namespace TourPlanner_4_SWENII.Test.BL
         {
             //Act
 
-           var result =  tourManager.SearchProperty(tours[0], "Tour", true);
+           var result =  tourManager.SearchTourProperties(tours[0], "Tour", true);
 
             Assert.That(result, Is.True);
         }
@@ -156,7 +156,7 @@ namespace TourPlanner_4_SWENII.Test.BL
         {
             //Act
 
-            var result = tourManager.SearchProperty(tours[1], "Tour", true);
+            var result = tourManager.SearchTourProperties(tours[1], "Tour", true);
 
             Assert.That(result, Is.False);
         }

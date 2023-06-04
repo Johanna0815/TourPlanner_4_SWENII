@@ -32,7 +32,7 @@ namespace TourPlanner_4_SWENII.ViewModels
         public RelayCommand SearchCommand { get; set; }
 
         public event EventHandler<string> SearchCleared;
-        public event EventHandler<string> SearchForText;
+        public event EventHandler<SearchParameters> SearchForText;
 
         private string searchtext;
         public string SearchText
@@ -50,11 +50,42 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
+        private bool _caseSensitive = false;
+        public bool CaseSensitive
+        {
+            get => _caseSensitive;
+            set
+            {
+                if (_caseSensitive != value)
+                {
+                    _caseSensitive = value;
+                    RaisePropertyChangedEvent();
+                }
+            }
+        }
+
+        private bool _searchInTourLogs = false;
+        public bool SearchInTourLogs
+        {
+            get => _searchInTourLogs;
+            set
+            {
+                if (_searchInTourLogs != value)
+                {
+                    _searchInTourLogs = value;
+                    RaisePropertyChangedEvent();
+                }
+            }
+        }
+
         private void Search()
         {
             Debug.Print($"Searching for text {SearchText}");
-
-            SearchForText?.Invoke(this, SearchText);
+            SearchParameters searchParams = new SearchParameters();
+            searchParams.searchText = SearchText;
+            searchParams.caseSensitive = CaseSensitive;
+            searchParams.searchInTourLogs = SearchInTourLogs;
+            SearchForText?.Invoke(this, searchParams);
         }
 
         private void Clear()    //object commandParameter
