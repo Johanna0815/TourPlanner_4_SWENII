@@ -95,7 +95,6 @@ namespace TourPlanner_4_SWENII.DAL
         }
 
         public Tour UpdateTour(Tour newTour)
-        
         {
             context.Tours.Update(newTour);
             context.SaveChanges();

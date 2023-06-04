@@ -45,7 +45,7 @@ namespace TourPlanner_4_SWENII.BL
 
             var rootNode = JsonNode.Parse(content);
             //  var rootNode = JsonDocument.Parse(content).RootElement;
-            Console.WriteLine(rootNode?.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+            // Console.WriteLine(rootNode?.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
 
 
             if (rootNode["info"]["statuscode"].ToString() != "0")
@@ -107,11 +107,7 @@ namespace TourPlanner_4_SWENII.BL
 
 
             TimeSpan estimatedTime = rootNode["route"]["formattedTime"].Deserialize<TimeSpan>(); // datemnTyp DateTime ?
-
-
-            logger.Debug($"{tour.EstimatedTime}");
-
-            Debug.Print($"{tour.EstimatedTime}");
+            
             //   Debug.Print($"hier ist die distance.{Distance}");
 
 
@@ -144,7 +140,7 @@ namespace TourPlanner_4_SWENII.BL
 
         public async Task<Stream> GetImage(Route route)
         {
-            var key = "vp9wvjCQjHGcsdhQt6LZ1vqkgyZkOT5W";
+            var key = ConfigurationManager.AppSettings["MapQuestAPIKey"];
 
             HttpClient client = new HttpClient();
 
