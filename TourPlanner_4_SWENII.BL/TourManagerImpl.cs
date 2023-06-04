@@ -29,6 +29,7 @@ using System.IO;
 using iText.Kernel.Colors;
 using iText.Kernel.Font;
 using iText.IO.Image;
+using iText.StyledXmlParser.Jsoup.Nodes;
 
 namespace TourPlanner_4_SWENII.BL
 {
@@ -94,7 +95,19 @@ namespace TourPlanner_4_SWENII.BL
 
         public void GenerateReport(Tour tour, string filename)
         {
-            var writer = new PdfWriter(filename);
+            //string directorypath = "Reports/";
+            //Directory.CreateDirectory(directorypath);
+            //string  filePath = Path.Combine(directorypath, filename);
+
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string parentDirectory = Directory.GetParent(currentDirectory)?.Parent?.FullName;
+            string reportsDirectoryPath = Path.Combine(parentDirectory, "..", "..", "Reports");
+            string filePath = Path.Combine(reportsDirectoryPath, filename);
+
+            // Create the Reports directory if it doesn't exist
+            Directory.CreateDirectory(reportsDirectoryPath);
+
+            var writer = new PdfWriter(filePath);
             PdfDocument pdf = new PdfDocument(writer);
             var document = new iText.Layout.Document(pdf);
 
@@ -161,6 +174,66 @@ namespace TourPlanner_4_SWENII.BL
 
             document.Close();
         }
+
+
+
+        public void Summarize_TourLogs(Tour tour, string filename)
+        
+        {
+
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string parentDirectory = Directory.GetParent(currentDirectory)?.Parent?.FullName;
+            string reportsDirectoryPath = Path.Combine(parentDirectory, "..", "..", "Reports");
+            string filePath = Path.Combine(reportsDirectoryPath, filename);
+
+            // Create the Reports directory if it doesn't exist
+            Directory.CreateDirectory(reportsDirectoryPath);
+
+            var writer = new PdfWriter(filePath);
+            PdfDocument pdf = new PdfDocument(writer);
+            var document = new iText.Layout.Document(pdf);
+
+
+            var titleFont = PdfFontFactory.CreateFont("Helvetica-Bold");
+            var headingFont = PdfFontFactory.CreateFont("Helvetica");
+            var textFont = PdfFontFactory.CreateFont("Helvetica");
+
+            // Set styles
+            var titleStyle = new Style().SetFont(titleFont).SetFontColor(ColorConstants.LIGHT_GRAY).SetFontSize(24);
+            var headingStyle = new Style().SetFont(headingFont).SetFontColor(ColorConstants.BLACK).SetFontSize(16).SetBold();
+            var infoStyle = new Style().SetFont(textFont).SetFontColor(ColorConstants.BLUE).SetFontSize(12).SetTextAlignment(TextAlignment.CENTER);
+
+
+            if (tour != null)
+            {
+
+
+                document.SetMargins(50, 50, 50, 50);
+
+
+
+                // Add tour information and map image
+                document.Add(new Paragraph("TourLogs Report").AddStyle(titleStyle).SetTextAlignment(TextAlignment.CENTER).SetMarginBottom(20)).SetTopMargin(20);
+                document.Add(new Paragraph().Add(new Text("Tour Name: ").AddStyle(headingStyle)).Add(new Text(tour.TourLogs.First().Comment).AddStyle(infoStyle)));
+                
+
+
+            }
+            else
+            {
+                Debug.WriteLine("no tour was selected when creating a TourLogs report");
+                document.Add(new Paragraph($"No tour was selected"));
+            }
+
+
+
+
+
+            document.Close();
+        }
+
+
+
 
         public IEnumerable<TourLog> GetTourLogs(int tourId)
         {
