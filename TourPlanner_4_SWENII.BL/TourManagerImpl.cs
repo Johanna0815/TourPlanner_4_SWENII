@@ -113,13 +113,18 @@ namespace TourPlanner_4_SWENII.BL
 
                 document.SetMargins(50, 50, 50, 50);
 
-                // Define fonts
+               
 
                 // Add tour information and map image
                 document.Add(new Paragraph("Tour Report").AddStyle(titleStyle).SetTextAlignment(TextAlignment.CENTER).SetMarginBottom(20)).SetTopMargin(20);
                 document.Add(new Paragraph().Add(new Text("Tour Name: ").AddStyle(headingStyle)).Add(new Text(tour.Name).AddStyle(infoStyle)));
+                document.Add(new Paragraph().Add(new Text("From: ").AddStyle(headingStyle)).Add(new Text(tour.From).AddStyle(infoStyle)));
+                document.Add(new Paragraph().Add(new Text("To: ").AddStyle(headingStyle)).Add(new Text(tour.To).AddStyle(infoStyle)));
+                document.Add(new Paragraph().Add(new Text("TransportType: ").AddStyle(headingStyle)).Add(new Text(tour.TransportType.ToString()).AddStyle(infoStyle)));
                 document.Add(new Paragraph().Add(new Text("Distance: ").AddStyle(headingStyle)).Add(new Text(tour.Distance + " km").AddStyle(infoStyle)));
                 document.Add(new Paragraph().Add(new Text("Estimated Time: ").AddStyle(headingStyle)).Add(new Text(tour.EstimatedTime.Hours + " hours").AddStyle(infoStyle)));
+
+
 
             }
             else
