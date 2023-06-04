@@ -16,7 +16,7 @@ namespace TourPlanner_4_SWENII.ViewModels
     public class TourLogsVM : ViewModelBase
     {
         private ITourManager tourManager;
-        public event EventHandler<string> TourLogAdded;
+        //public event EventHandler<string> TourLogAdded;
         public ObservableCollection<TourLog> TourLogs { get; set; } = new();
 
         public Dictionary<Difficulty, string> DifficultyWithCaptions { get; } =

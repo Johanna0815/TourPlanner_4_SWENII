@@ -23,20 +23,20 @@ namespace TourPlanner_4_SWENII.ViewModels
     {
 
         private ITourManager tourManager;
-        public ObservableCollection<Tour> Tour { get; set; } = new ();
+        //public ObservableCollection<Tour> Tour { get; set; } = new ();
 
         public System.Windows.Controls.Image testImage { get; set; } = new();
         //string ImgSourceText = string.Empty;
 
-        private Tour _selectedTour;
+        
         //private int _tourId;
 
         public TourInfoVM(ITourManager tourManager)
         {
-            this.tourManager = tourManager;
-             
+            this.tourManager = tourManager;    
         }
 
+        private Tour _selectedTour;
         public Tour SelectedTour
         {
             get => _selectedTour;
@@ -46,29 +46,40 @@ namespace TourPlanner_4_SWENII.ViewModels
                 if (value != _selectedTour)
                 {
                     _selectedTour = value;
-
-                   
-
                     RaisePropertyChangedEvent();
-
                 }
             }
         }
 
         // Get the selected Tour 
        public void GetTour(int tour_id)
+       {
+            SelectedTour = new();
+            if(tour_id > 0)
+            {
+                var tours = tourManager.GetTours();
+
+                SelectedTour = (tours.Where(t => t.Id == tour_id).First());
+                //SelectedTour = tours.First(t => t.Id == tour_id);
+
+                LoadImage($"{SelectedTour.Name}{SelectedTour.Id}.png");
+            }
+        }
+        /*
+        public void GetTour(int tour_id)
         {
             Tour.Clear();
+            if (tour_id > 0)
+            {
+                var tours = tourManager.GetTours();
 
-            var tours  = tourManager.GetTours();
+                Tour.Add(tours.Where(t => t.Id == tour_id).First());
+                SelectedTour = tours.First(t => t.Id == tour_id);
 
-            Tour.Add(tours.Where(t => t.Id == tour_id).First());
-            SelectedTour = tours.First(t => t.Id == tour_id);
-
-            LoadImage($"{Tour[0].Name}{Tour[0].Id}.png");
-
+                LoadImage($"{Tour[0].Name}{Tour[0].Id}.png");
+            }
         }
-
+        */
         public void LoadImage(string imagePath)
         {
             try

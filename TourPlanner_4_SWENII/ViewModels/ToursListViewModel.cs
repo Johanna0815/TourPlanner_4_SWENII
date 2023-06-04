@@ -141,6 +141,10 @@ namespace TourPlanner_4_SWENII.ViewModels
                     UpdateTourCommand.RaiseCanExecuteChanged();
                     DeleteTourCommand.RaiseCanExecuteChanged();
                     FillFormCommand.RaiseCanExecuteChanged();
+                    if (currentlyEditing)
+                    {
+                        FillForm();
+                    }
                 }
             }
         }
@@ -196,7 +200,7 @@ namespace TourPlanner_4_SWENII.ViewModels
 
             FillFormCommand = new RelayCommand(
                 (O) => SelectedItem != null, //&& !String.IsNullOrEmpty(SelectedItem.Name)
-                (O) => { FillFormWith(SelectedItem); currentlyEditing = true; }
+                (O) => { FillForm(); currentlyEditing = true; }
             );
 
             EmptyFormCommand = new RelayCommand(
@@ -238,7 +242,8 @@ namespace TourPlanner_4_SWENII.ViewModels
         }
 
         public void UpdateTour()
-        {
+        {/*
+            currentlyEditing= false;
             SelectedItem.Name = newTourName;
             SelectedItem.Description = _description;
             SelectedItem.From = from;
@@ -249,11 +254,35 @@ namespace TourPlanner_4_SWENII.ViewModels
             tourManager.UpdateTour(SelectedItem);
 
             // laufen ab bevor getourte shcon fertig ist. 
-            //(SelectedItem);
             FillListBox();
             //  mapquest.GetImage()
-            SetFormEmpty();
+            SetFormEmpty();*/
 
+            try
+            {
+                currentlyEditing = false;
+                SelectedItem.Name = newTourName;
+                SelectedItem.Description = _description;
+                SelectedItem.From = from;
+                SelectedItem.To = to;
+                SelectedItem.TransportType = (Models.HelperEnums.TransportType)_transportType;
+                //SelectedItem.Distance = _distance;
+                // ----- COmment //   CallGetRouteAndGetImage();
+                tourManager.UpdateTour(SelectedItem);
+                OnGetMap?.Invoke(this, SelectedItem);
+
+                FillListBox();
+                //SetFormEmpty();
+                
+                //CallGetRouteAndGetImage(newTour);
+            }
+            catch (ArgumentException ex)
+            {
+                ILoggerWrapper logger = LoggerFactory.GetLogger();
+
+                logger.Warn(" Could not EditTour, because of invalid user inputs!!!!");
+                windowService.ShowMessageBox("Invalid User Input: Did you fill all fields correctly?");
+            }
         }
 
         /*
@@ -320,13 +349,13 @@ namespace TourPlanner_4_SWENII.ViewModels
             }
         }
 
-        private void FillFormWith(Tour selectedTour)
+        private void FillForm()
         {
-            NewTourName = selectedTour.Name;
-            Description= selectedTour.Description;
-            From = selectedTour.From;
-            To = selectedTour.To;
-            TransportType = selectedTour.TransportType;
+            NewTourName = SelectedItem.Name;
+            Description= SelectedItem.Description;
+            From = SelectedItem.From;
+            To = SelectedItem.To;
+            TransportType = SelectedItem.TransportType;
         }
 
         private void SetFormEmpty()
