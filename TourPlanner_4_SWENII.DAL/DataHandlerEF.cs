@@ -18,6 +18,8 @@ namespace TourPlanner_4_SWENII.DAL
         public DataHandlerEF()
         {
             context.Database.EnsureCreated();
+            context.Tours.Load();
+            context.TourLogs.Load();
         }
 
         public Tour AddTour(Tour newTour)
