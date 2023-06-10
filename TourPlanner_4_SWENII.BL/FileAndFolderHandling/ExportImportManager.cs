@@ -20,15 +20,28 @@ namespace TourPlanner_4_SWENII.Utils.FileAndFolderHandling
             // for pretty printing. 
             options.WriteIndented = true;
             string json = JsonSerializer.Serialize(Object, typeof(Object), options);
-            File.WriteAllText($"./{subPath}/{name}" , json);
+            File.WriteAllText($"./{subPath}/{name}", json);
         }
 
         //--------------------------- TO Deserialize again. // for the Import to the DB Button.
         public static Tour ImportTourFromFile(string path)
         {
-            string json = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<Tour>(json);
 
+            if (path == null || path == String.Empty)
+            {
+
+
+                throw new InvalidOperationException(" FileDialog was closed without choosing a file.");
+
+
+
+            }
+            else
+            {
+                string json = File.ReadAllText(path);
+                return JsonSerializer.Deserialize<Tour>(json);
+
+            }
         }
 
     }

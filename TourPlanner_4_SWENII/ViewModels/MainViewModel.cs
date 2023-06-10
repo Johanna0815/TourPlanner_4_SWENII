@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using TourPlanner_4_SWENII.BL;
 using TourPlanner_4_SWENII.logging;
 using TourPlanner_4_SWENII.Models;
@@ -57,9 +58,19 @@ namespace TourPlanner_4_SWENII.ViewModels
                     logger.Info_Notice($"Importing Tour from path {filePath}");
                 }
 
-                Tour tour = tourManager.ImportTourFrom(filePath);
-                tourManager.CallGetRouteAndGetImage(tour);
-                toursListViewModel.FillListBox();
+                try
+                {
+                    Tour tour = tourManager.ImportTourFrom(filePath);
+                    tourManager.CallGetRouteAndGetImage(tour);
+                    toursListViewModel.FillListBox();
+                }
+                catch (InvalidOperationException e)
+                {
+                   logger.Warn($"{e.Message}");
+                   
+                }
+
+                
             };
 
 
